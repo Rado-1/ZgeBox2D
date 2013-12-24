@@ -1,0 +1,32 @@
+ZGEBox2D Library - How to Compile
+=================================
+
+Note: By <homedir> is meant the directory where the ZGEBox2D sources are extracted on your computer.
+
+Before compiling the ZGEBox2D, you must copy the Box2D sources to <homedir>, e.g., <homedir>\Box2D_v2.3.0\.
+
+
+Compilation of ZGEBox2D to Windows DLL
+---------------------------------------
+
+The ZGEBox2D DLL is compiled with Microsoft Visual C++ 2010 (MSVC) or higher.
+
+1. Compile the Box2D library. In the Box2D directory use either the MSVC solution located in the \Box2D\Build\vs2012\ directory or use Make. If using MSVC 2010, the Platform Toolset property should be changed to v100. Also the C/C++ / Runtime Library property should be changed to Multi-threaded (/MT) to get rid of dependency on MSVCR100.dll. The resulting .lib file is placed in the \Box2D\Build\vs2012\bin\Release folder of the Box2D's directory.
+
+2. Open <homedir>\vs2010\ZGEBox2D.sln or ZGEBox2D.vcxproj in MSVC.
+
+3. Build the solution/project with the 'Release' configuration that results in generation of the <homedir>\lib\ZGEBox2D.dll file.
+
+
+Compilation of ZGEBox2D to Android Shared Library
+--------------------------------------------------
+
+The ZGEBox2D shared library (.so) is compiled with Android NDK which must be installed on your computer; see http://developer.android.com/tools/sdk/ndk/ for details.
+
+1. Before compilation, go to the source files of Box2D and add #include <string.h> to each file which already contains #include <memory.h>; namely: b2DynamicTree.cpp, b2ChainShape.cpp, b2BlockAllocator.cpp, b2GrowableStack.h.
+
+2. Move to the <homedir>/android/ folder.
+
+3. Run the ndk-build command of the Android NDK. The result is(are) placed to the <homedir>/android/libs/<architecture>/libZGEBox2D.so file(s).
+
+By default, the Library is compiled for the ARM architecture (ARMv7-A). To change it or add other target architectures, modify Android.mk and/or Application.mk files. See the Android NDK documentation for details.
