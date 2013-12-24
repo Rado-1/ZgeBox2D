@@ -1,0 +1,1197 @@
+<?xml version="1.0" encoding="iso-8859-1" ?>
+<ZApplication Name="App" Comment="ZGEBox2D Testbed. Created by Rado1 (c)2013" Caption="ZGEBox2D Testbed" ClearColor="0 0 0 1" ScreenMode="0" CameraPosition="0 0 22" LightPosition="5 -10 7.3" ViewportRatio="3" MouseVisible="255" NoSound="1" AndroidPackageName="com.rado1.ZGEBox2dTestbed">
+  <OnLoaded>
+    <ZExternalLibrary ModuleName="ZGEBox2D.dll" CallingConvention="1" BeforeInitExp="if(ANDROID) this.ModuleName = &quot;./libZGEBox2D.so&quot;;">
+      <Source>
+<![CDATA[/*
+  Adapter to the ZGEBox2D Library, a wrapper for the Box2D Physics Engine for Games.
+  http://box2d.org/
+
+  Download Windows DLL and Android shared library from
+  http://code.google.com/p/zgebox2d/downloads
+
+  Copyright (c) 2013 Radovan Cervenka
+*/
+
+// Constants
+
+// type of body
+const int ZB2_STATIC = 0;
+const int ZB2_KINEMATIC = 1;
+const int ZB2_DYNAMIC = 2;
+
+// state of contact point
+const int ZB2_NULL_STATE = 0;    // point does not exist
+const int ZB2_ADD_STATE = 1;     // point was added in the update
+const int ZB2_PERSIST_STATE = 2; // point persisted across the update
+const int ZB2_REMOVE_STATE = 3;  // point was removed in the update
+
+// World
+
+// init
+void zb2InitWorld(float gravityX, float gravityY) {}
+
+// destroy
+void zb2DestroyWorld() {}
+
+// allow/suppress global colision detection
+void zb2AllowCollisionDetection(int allow) {}
+
+// advance simulation
+void zb2Step(float timeStep, int velocityIterations, int positionIterations) {}
+
+// clear forces
+void zb2ClearForces() {}
+
+// allow/suppress sleeping of inactive bodies
+void zb2SetAllowSleeping(int allow) {}
+
+// set gravity
+void zb2SetGravity(float x, float y) {}
+
+// enable/disable warm starting; for testing
+void zb2SetWarmStarting(int enable) {}
+
+// count bodies
+int zb2GetBodyCount() {}
+
+void zb2DestroyAllBodies() {}
+
+// Bodies
+
+// create and return a static body without shape
+int zb2CreateEmptyBody(float x, float y, int type) {}
+
+// create and return box
+int zb2CreateBox(float x, float y, float width, float height, float angle, int type) {}
+
+// create and return circle
+int zb2CreateCircle(float x, float y, float radius, int type) {}
+
+// create and return polygon (up to 8 vertices)
+// vertices - 2D array of floats or 1D array of vec2
+int zb2CreatePolygon(float x, float y, xptr vertices, int count, float angle, int type) {}
+
+// create and return static edge
+int zb2CreateEdge(float x1, float y1, float x2, float y2) {}
+
+// create and return static chain
+// vertices - 2D array of floats or 1D array of vec2
+int zb2CreateChain(xptr vertices, int count, int isLoop) {}
+
+// compound bodies
+
+// add box to existing body
+void zb2AddBox(int body, float x, float y, float width, float height,
+  float angle) {}
+
+// add circle to existing body
+void zb2AddCircle(int body, float x, float y, float radius) {}
+
+// add polygon to existing body
+// vertices - 2D array of floats or 1D array of vec2
+void zb2AddPolygon(int body, xptr vertices, int count) {}
+
+// add edge to existing body
+void zb2AddEdge(int body, float x1, float y1, float x2, float y2) {}
+
+// add chain to existing body
+// vertices - 2D array of floats or 1D array of vec2
+void zb2AddChain(int body, xptr vertices, int count, int isLoop) {}
+
+// destroy body
+void zb2DestroyBody(int body) {}
+
+// setters
+void zb2SetPosition(int body, float x, float y) {}
+void zb2SetRotation(int body, float angle) {}
+void zb2SetTransform(int body, float x, float y, float angle) {}
+void zb2SetLinearVelocity(int body, float x, float y) {}
+void zb2SetAngularVelocity(int body, float omega) {}
+void zb2SetLinearDamping(int body, float linearDamping) {}
+void zb2SetAngularDamping(int body, float angularDamping) {}
+void zb2SetDensity(int body, float density) {}
+void zb2SetFriction(int body, float friction) {} // can be more than 1.0
+void zb2SetRestitution(int body, float restitution) {}
+void zb2SetGravityScale(int body, float gravityScale) {} // -1.0 - reverse gravity
+void zb2SetFixedRotation(int body, int hasFixedRotation) {}
+void zb2SetSleepingAllowed(int body, int isSleepingAllowed) {}
+void zb2SetBullet(int body, int isBullet) {}
+void zb2SetSensor(int body, int isSensor) {}
+void zb2SetActive(int body, int isActive) {}
+void zb2SetMass(int body, float mass) {}
+void zb2SetMassData(int body, float mass, float x, float y, float rotationalInertia) {}
+void zb2ResetMassData(int body) {}
+
+// getters
+float zb2GetPositionX(int body) {}
+float zb2GetPositionY(int body) {}
+float zb2GetAngle(int body) {}
+void zb2GetTransform(int body, ref float x, ref float y, ref float angle) {}
+float zb2GetMass(int body) {}
+int zb2IsAwake(int body) {}
+
+// Joints
+
+// create and return distance joint
+int zb2CreateDistanceJoint(int bodyA, int bodyB,
+	float anchorAx, float anchorAy, float anchorBx, float anchorBy, float length,
+	float frequency, float dampingRatio, int isCollided) {}
+
+// update distance joint
+void zb2UpdateDistanceJoint(int joint, float length,
+	float frequency, float dampingRatio) {}
+
+// create and return prismatic joint
+int zb2CreatePrismaticJoint(int bodyA, int bodyB,
+	float anchorAx, float anchorAy, float anchorBx, float anchorBy,
+	float axisAx, float axisAy, float referenceAngle,
+	int enableLimit, float lower, float upper,
+	int enableMotor, float maxMotorForce, float motorSpeed) {}
+
+// update prismatic joint
+void zb2UpdatePrismaticJoint(int joint,
+	int enableLimit, float lower, float upper,
+	int enableMotor, float maxMotorForce, float motorSpeed) {}
+
+// get curent translation of prismatic joint
+float zb2GetPrismaticTranslation(int joint) {}
+
+// get curent speed of prismatic joint
+float zb2GetPrismaticSpeed(int joint) {}
+
+// create and return revolute joint
+int zb2CreateRevoluteJoint(int bodyA, int bodyB,
+	float anchorAx, float anchorAy, float anchorBx, float anchorBy,
+	float referenceAngle, int enableLimit, float lowerAngle, float upperAngle,
+	int enableMotor, float motorSpeed, float maxMotorTorque) {}
+
+// update revolute joint
+void zb2UpdateRevoluteJoint(int joint,
+	int enableLimit, float lowerAngle, float upperAngle,
+	int enableMotor, float motorSpeed, float maxMotorTorque) {}
+
+// get current angle of revolute joint
+float zb2GetRevoluteAngle(int joint) {}
+
+// create and return weld joint
+int zb2CreateWeldJoint(int bodyA, int bodyB,
+	float anchorAx, float anchorAy, float anchorBx, float anchorBy,
+	float referenceAngle, float frequency, float dampingRatio) {}
+
+// update weld joint
+void zb2UpdateWeldJoint(int joint, float frequency, float dampingRatio) {}
+
+// create and return rope joint
+int zb2CreateRopeJoint(int bodyA, int bodyB,
+	float anchorAx, float anchorAy, float anchorBx, float anchorBy,
+	float maxLength, int isCollided) {}
+
+// update rope joint
+void zb2UpdateRopeJoint(int joint, float maxLength) {}
+
+// create and return pulley joint
+int zb2CreatePulleyJoint(int bodyA, int bodyB,
+	float anchorAx, float anchorAy, float anchorBx, float anchorBy,
+	float groundAx, float groundAy, float groundBx, float groundBy,
+	float lengthA, float lengthB, float ratio) {}
+
+// get lenght of rope at side A of pulley joint
+float zb2GetPulleyLengthA(int joint) {}
+
+// get lenght of rope at side B of pulley joint
+float zb2GetPulleyLengthB(int joint) {}
+
+// create and return gear joint
+// only revolute and/or prismatic joints can be connected
+int zb2CreateGearJoint(int joint1, int joint2, float ratio) {}
+
+// update gear joint
+void zb2UpdateGearJoint(int joint, float ratio) {}
+
+// create and return wheel joint
+int zb2CreateWheelJoint(int bodyA, int bodyB,
+	float anchorAx, float anchorAy, float anchorBx, float anchorBy,
+	float axisAx, float axisAy,
+	int enableMotor, float motorSpeed, float maxMotorTorque,
+	float frequency, float dampingRatio) {}
+
+// update wheel joint
+void zb2UpdateWheelJoint(int joint,
+	int enableMotor, float motorSpeed, float maxMotorTorque,
+	float frequency, float dampingRatio) {}
+
+// get wheel joint's spring translation
+float zb2GetWheelTranslation(int joint) {}
+
+// get wheel joint's spring translation speed
+float zb2GetWheelTranslationSpeed(int joint) {}
+
+// create and return motor joint
+int zb2CreateMotorJoint(int bodyA, int bodyB,
+	float linearOffsetX, float linearOffsetY, float angularOffset,
+	float maxForce, float maxTorque, float correctionFactor) {}
+
+// update motor joint
+void zb2UpdateMotorJoint(int joint,
+	float linearOffsetX, float linearOffsetY, float angularOffset,
+	float maxForce, float maxTorque, float correctionFactor) {}
+
+// create and return mouse joint
+int zb2CreateMouseJoint(int body, float targetX, float targetY,
+	float maxForce,	float frequency, float dampingRatio) {}
+
+// update target of mouse joint
+void zb2UpdateMouseJoint(int joint, float targetX, float targetY) {}
+
+// destroy joint
+void zb2DestroyJoint(int joint) {}
+
+// get all joints of a body
+// jointList - array of integers (1D) having sufficient size
+void zb2GetJoints(int body, xptr jointList, ref int count) {}
+
+// Custom user data
+
+// set ZGE models
+void zb2SetUserModelToBody(int body, model userModel) {}
+void zb2SetUserModelToJoint(int joint, model userModel) {}
+
+// get ZGE models
+model zb2GetUserModelFromBody(int body) {}
+model zb2GetUserModelFromJoint(int joint) {}
+
+// Queries
+
+// test containment of point in body
+int zb2TestPoint(int body, float x, float y) {}
+
+// get body at point or 0 if no body is there
+int zb2GetBodyAtPoint(float x, float y, ref int body) {}
+
+// raycast
+// returns 0 if no body found, 1 if body found
+int zb2RayCast(float x1, float y1, float x2, float y2,
+	ref int body, ref float x, ref float y, ref float normalX, ref float normalY) {}
+
+// Collisions
+
+// initialize getting of global collision points
+void zb2ResetContacts() {}
+
+// get next global collision point
+// returns:
+//    1 - next collision point was returned
+//    0 - no other collision point is available
+int zb2GetNextContact(ref int bodyA, ref int bodyB,
+  ref float posX, ref float posY,
+	ref float normX, ref float normY,
+  ref int state) {}
+
+// number of global collision points
+int zb2GetContactCount() {}
+
+// is body collided?
+int zb2IsCollided(int body) {}
+
+// number of collisions of given body
+int zb2GetBodyContactCount(int body) {}
+
+// set collision filtering flags to body
+void zb2SetBodyFilteringFlags(int body, int categoryBits, int maskBits, int groupIndex) {}]]>
+      </Source>
+    </ZExternalLibrary>
+    <ZExternalLibrary Comment="OpenGL 4.0 graphics" ModuleName="opengl32" DefinitionsFile="opengl.txt">
+      <BeforeInitExp>
+<![CDATA[if(ANDROID) {
+  if(App.GLBase==0)
+    this.ModuleName="libGLESv1_CM.so";
+  else
+    this.ModuleName="libGLESv2.so";
+}]]>
+      </BeforeInitExp>
+    </ZExternalLibrary>
+    <ZLibrary Comment="Globals">
+      <Source>
+<![CDATA[// CONSTANTS
+
+// boolean
+const int FALSE = 0;
+const int TRUE = 1;
+
+// vector axes
+const int _X = 0;
+const int _Y = 1;
+
+// pointers
+const int NONE = 0;
+
+// application-specific
+const float POSITION_RATIO = 9.0;
+
+// body shape types
+const int BOX_SHAPE = 0;
+const int CIRCLE_SHAPE = 1;
+const int HOUSE_SHAPE = 2;
+const int COMPOUND_SHAPE = 3;
+const int TUMBLER_SHAPE = 4;
+const int EDGE_SHAPE = 100;
+const int CHAIN_SHAPE = 101;
+
+// GLOBAL VARIABLES
+
+float ScreenAspectRatio;
+float PointerX, PointerY;
+int IsLMB;
+int IsRMB;
+int IsMMB;
+int MouseJoint;
+model DraggedModel;
+int[30] BodyJoints;
+vec2[20] LineBodyVerticesDef;
+
+// body construction setters
+int BodyShape;
+float BodyPositionX;
+float BodyPositionY;
+float BodyRotation;
+float BodyScaleX;
+float BodyScaleY;
+float BodyScaleZ;
+int BodyFixedRotation;
+
+// joint construction setters
+float DistJointLength;
+float DistJointFrequency;
+float DistJointDampingRatio;
+int JointIsCollided;
+
+// Utilities
+void removeBody(model body){
+    int c;
+    model m;
+
+    // remove attached visible joints
+    zb2GetJoints(body.BodyId, BodyJoints, c);
+    for(int i = 0; i < c; ++i){
+      m = zb2GetUserModelFromJoint(BodyJoints[i]);
+      if(m != null) m.IsRemoved = TRUE;
+    }
+    @RemoveModel();
+}]]>
+      </Source>
+    </ZLibrary>
+    <ZLibrary Comment="Scene functions">
+      <Source>
+<![CDATA[void createRotor(int parent, float x, float y, float length, int iteration){
+  if(iteration > 0){
+
+    // create body
+    BodyScaleX = length;
+    BodyScaleY = length / 20;
+    BodyPositionX = x;
+    BodyPositionY = y;
+
+    model m = createModel(BodyModel);
+    zb2SetBodyFilteringFlags(m.BodyId, 0, 0, iteration);
+
+    // create revolute joint
+    zb2CreateRevoluteJoint(/*bodyA*/ parent, /*bodyB*/ m.BodyId,
+  	/*anchorAx*/ x, /*anchorAy*/ 0, /*anchorBx*/ 0, /*anchorBy*/ 0,
+    /*referenceAngle*/ 0, /*enableLimit*/ FALSE, /*lowerAngle*/ 0, /*upperAngle*/ 0,
+    /*enableMotor*/ TRUE, /*motorSpeed*/ iteration * 2.0, /*maxMotorTorque*/ 10.0);
+
+    // recursion
+    createRotor(m.BodyId, length - 0.5, 0, length / 1.5, iteration - 1);
+    createRotor(m.BodyId, 0.5 - length, 0, length / 1.5, iteration - 1);
+  }
+}]]>
+      </Source>
+    </ZLibrary>
+    <ZExpression Comment="Init">
+      <Expression>
+<![CDATA[// init application variables
+ScreenAspectRatio = 1.0 * App.ViewportWidth  / App.ViewportHeight;
+MouseJoint = NONE;
+DraggedModel = null;
+
+// init simulation world
+zb2InitWorld(0.0, -10.0);
+zb2SetAllowSleeping(TRUE);
+zb2AllowCollisionDetection(TRUE);]]>
+      </Expression>
+    </ZExpression>
+    <SpawnModel Model="VisualizeCollisionModel" SpawnStyle="1"/>
+    <SetAppState State="ShapesScene"/>
+  </OnLoaded>
+  <OnClose>
+    <ZExpression Comment="Destroy simulation world">
+      <Expression>
+<![CDATA[// destroy simulation world
+zb2DestroyWorld();]]>
+      </Expression>
+    </ZExpression>
+  </OnClose>
+  <States>
+    <AppState Name="ShapesScene" CollisionsEnabled="0">
+      <OnStart>
+        <ZExpression Comment="Init">
+          <Expression>
+<![CDATA[model m;
+
+// reset spawning timer
+SpawnTimer.CurrentRelativeTime = SpawnTimer.Interval;
+
+// bowl
+BodyShape = CHAIN_SHAPE;
+LineBodyIsLoop = FALSE;
+LineBodyVerticesDef[0][_X] = -7;
+LineBodyVerticesDef[0][_Y] = -6;
+LineBodyVerticesDef[1][_X] = -5;
+LineBodyVerticesDef[1][_Y] = -8;
+LineBodyVerticesDef[2][_X] = 0;
+LineBodyVerticesDef[2][_Y] = -9;
+LineBodyVerticesDef[3][_X] = 5;
+LineBodyVerticesDef[3][_Y] = -8;
+LineBodyVerticesDef[4][_X] = 7;
+LineBodyVerticesDef[4][_Y] = -6;
+LineBodyCount = 5;
+createModel(LineBodyModel);
+
+// barriers
+LineBodyIsLoop = TRUE;
+LineBodyVerticesDef[0][_X] = -5;
+LineBodyVerticesDef[0][_Y] = 4;
+LineBodyVerticesDef[1][_X] = -1.5;
+LineBodyVerticesDef[1][_Y] = 6;
+LineBodyVerticesDef[2][_X] = -1.5;
+LineBodyVerticesDef[2][_Y] = 4;
+LineBodyCount = 3;
+createModel(LineBodyModel);
+
+LineBodyVerticesDef[0][_X] = 5;
+LineBodyVerticesDef[0][_Y] = 4;
+LineBodyVerticesDef[1][_X] = 1.5;
+LineBodyVerticesDef[1][_Y] = 6;
+LineBodyVerticesDef[2][_X] = 1.5;
+LineBodyVerticesDef[2][_Y] = 4;
+LineBodyCount = 3;
+createModel(LineBodyModel);
+
+
+BodyShape = EDGE_SHAPE;
+LineBodyVerticesDef[0][_X] = -15;
+LineBodyVerticesDef[0][_Y] = 1;
+LineBodyVerticesDef[1][_X] = -9;
+LineBodyVerticesDef[1][_Y] = -2;
+LineBodyCount = 2;
+createModel(LineBodyModel);
+
+LineBodyVerticesDef[0][_X] = 15;
+LineBodyVerticesDef[0][_Y] = 1;
+LineBodyVerticesDef[1][_X] = 9;
+LineBodyVerticesDef[1][_Y] = -2;
+createModel(LineBodyModel);
+
+// general properties of bodies
+BodyType = ZB2_DYNAMIC;
+BodyFixedRotation = FALSE;
+BodyPositionX = 0;
+BodyPositionY = 8;
+BodyScaleX = 0.5;
+BodyScaleY = 0.5;
+BodyScaleZ = 0.2;]]>
+          </Expression>
+        </ZExpression>
+      </OnStart>
+      <OnUpdate>
+        <Timer Name="SpawnTimer" Interval="1">
+          <OnTimer>
+            <ZExpression>
+              <Expression>
+<![CDATA[int id;
+BodyShape = floor(rnd()*4);
+id = createModel(BodyModel).BodyId;
+
+zb2SetLinearVelocity(id, random(0,3), random(5,3));
+zb2SetAngularVelocity(id, random(0,5));
+//zb2SetMass(id, 0.2);
+zb2SetRestitution(id, 0.5);]]>
+              </Expression>
+            </ZExpression>
+          </OnTimer>
+        </Timer>
+      </OnUpdate>
+      <OnLeave>
+        <RemoveAllModels OfType="BodyModel"/>
+      </OnLeave>
+    </AppState>
+    <AppState Name="JointsScene" CollisionsEnabled="0">
+      <OnStart>
+        <ZExpression Comment="Init">
+          <Expression>
+<![CDATA[model m1, m2, m3, m4;
+
+// Ladder
+
+BodyRotation = 0;
+BodyFixedRotation = TRUE;
+JointIsCollided = FALSE;
+DistJointFrequency = 4.0;
+DistJointDampingRatio = 0.2;
+DistJointLength = 2.0;
+
+// create 2 upper anchors
+BodyType = ZB2_STATIC;
+BodyShape = BOX_SHAPE;
+BodyScaleX = BodyScaleY = BodyScaleZ = 0.3;
+
+BodyPositionX = -9;
+BodyPositionY = 7;
+m1 = createModel(BodyModel);
+
+BodyPositionX = -7;
+m2 = createModel(BodyModel);
+
+// create rungs
+BodyType = ZB2_DYNAMIC;
+BodyShape = CIRCLE_SHAPE;
+BodyScaleX = BodyScaleY = BodyScaleZ = 0.2;
+
+for(float i = 5; i > -7; i -= 2){
+  BodyPositionY = i;
+
+  BodyPositionX = -9;
+  m3 = createModel(BodyModel);
+
+  BodyPositionX = -7;
+  m4 = createModel(BodyModel);
+
+  DistJointModelA = m1;
+  DistJointModelB = m3;
+  createModel(DistJointModel);
+
+  DistJointModelA = m3;
+  DistJointModelB = m4;
+  createModel(DistJointModel);
+
+  DistJointModelA = m2;
+  DistJointModelB = m4;
+  createModel(DistJointModel);
+
+  m1 = m3;
+  m2 = m4;
+}
+
+// Chain
+
+// anchor
+BodyType = ZB2_STATIC;
+BodyShape = BOX_SHAPE;
+BodyScaleX = BodyScaleY = BodyScaleZ = 0.3;
+
+BodyPositionX = 0;
+BodyPositionY = 7;
+m1 = createModel(BodyModel);
+
+// links
+BodyType = ZB2_DYNAMIC;
+BodyFixedRotation = FALSE;
+BodyScaleX = BodyScaleZ = 0.05;
+BodyScaleY = 0.3;
+
+for(float i = 6.4; i > -4; i -= 0.6){
+
+  BodyPositionY = i;
+  m2 = createModel(BodyModel);
+  zb2SetMass(m2.BodyId, 0.1);
+  zb2SetFriction(m2.BodyId, 0.1);
+  zb2SetDensity(m2.BodyId, 20.0);
+
+  zb2CreateRevoluteJoint(/*bodyA*/ m1.BodyId, /*bodyB*/ m2.BodyId,
+	/*anchorAx*/ 0, /*anchorAy*/ -0.3, /*anchorBx*/ 0, /*anchorBy*/ 0.3,
+  /*referenceAngle*/ 0, /*enableLimit*/ FALSE, /*lowerAngle*/ 0,
+  /*upperAngle*/ 0, /*enableMotor*/ FALSE, /*motorSpeed*/ 0, /*maxMotorTorque*/ 0);
+
+  m1 = m2;
+}
+
+// Rotor
+BodyPositionX = 5;
+BodyPositionY = 0;
+m1 = createModel(EmptyBodyModel);
+
+BodyType = ZB2_DYNAMIC;
+BodyShape = BOX_SHAPE;
+BodyRotation = 0;
+BodyScaleZ = 0.1;
+createRotor(m1.EmptyBodyId, 5, 0, 3, 4);]]>
+          </Expression>
+        </ZExpression>
+      </OnStart>
+      <OnLeave>
+        <RemoveAllModels OfType="BodyModel"/>
+      </OnLeave>
+    </AppState>
+    <AppState Name="TumblerScene" CollisionsEnabled="0">
+      <OnStart>
+        <ZExpression Comment="Init">
+          <Expression>
+<![CDATA[model m1, m2;
+
+zb2AllowCollisionDetection(FALSE);
+
+// rotating box
+BodyPositionX = 0;
+BodyPositionY = 0;
+m1 = createModel(EmptyBodyModel);
+
+BodyShape = TUMBLER_SHAPE;
+BodyType = ZB2_DYNAMIC;
+BodyFixedRotation = FALSE;
+BodyPositionX = 0;
+BodyPositionY = 0;
+BodyScaleZ = 1;
+m2 = createModel(BodyModel);
+zb2SetMass(m2.BodyId, 0.3);
+
+zb2CreateRevoluteJoint(/*bodyA*/ m1.EmptyBodyId, /*bodyB*/ m2.BodyId,
+/*anchorAx*/ 0, /*anchorAy*/ 0, /*anchorBx*/ 0, /*anchorBy*/ 0,
+/*referenceAngle*/ 0, /*enableLimit*/ FALSE, /*lowerAngle*/ 0, /*upperAngle*/ 0,
+/*enableMotor*/ TRUE, /*motorSpeed*/ 0.2, /*maxMotorTorque*/ 500.0);
+
+// properties for water particles
+BodyScaleX = 0.1;
+BodyScaleY = 0.1;
+BodyScaleZ = 0.01;
+BodyShape = CIRCLE_SHAPE;
+
+ParticleCount = 1000;
+ParticleSpawnTimer.Interval = 0.01;]]>
+          </Expression>
+        </ZExpression>
+      </OnStart>
+      <OnUpdate>
+        <Timer Name="ParticleSpawnTimer" Interval="0.01">
+          <OnTimer>
+            <ZExpression>
+              <Expression>
+<![CDATA[int id;
+id = createModel(BodyModel).BodyId;
+zb2SetMass(id, 0.01);
+zb2SetGravityScale(id, 0.2);
+zb2SetFriction(id, 0.01);
+zb2SetLinearDamping(id, 0.01);
+zb2SetAngularDamping(id, 0.01);
+zb2SetRestitution(id, 0.6);
+zb2SetLinearVelocity(id, random(0,1), random(0,1));
+
+--ParticleCount;
+if(ParticleCount <= 0) ParticleSpawnTimer.Interval = 1000;]]>
+              </Expression>
+            </ZExpression>
+          </OnTimer>
+        </Timer>
+      </OnUpdate>
+      <OnLeave>
+        <RemoveAllModels OfType="BodyModel"/>
+        <ZExpression>
+          <Expression>
+<![CDATA[zb2DestroyAllBodies();
+zb2AllowCollisionDetection(TRUE);]]>
+          </Expression>
+        </ZExpression>
+      </OnLeave>
+      <Definitions>
+        <Variable Name="ParticleCount" Type="1"/>
+      </Definitions>
+    </AppState>
+  </States>
+  <OnUpdate>
+    <ZExpression Comment="Step simulation">
+      <Expression>
+<![CDATA[// step simulation
+zb2Step(App.DeltaTime, 8, 10);
+
+// update pointer position
+PointerX = App.MousePosition.X * ScreenAspectRatio * POSITION_RATIO;
+PointerY = App.MousePosition.Y * POSITION_RATIO;
+
+// update counters
+BodyCount = zb2GetBodyCount();
+ContactPointCount = zb2GetContactCount();
+
+// reset mouse button flags
+IsLMB = IsMMB = IsRMB = FALSE;]]>
+      </Expression>
+    </ZExpression>
+    <KeyPress Name="MouseKey" Keys="{|}">
+      <OnPressed>
+        <ZExpression>
+          <Expression>
+<![CDATA[switch(MouseKey.KeyIndex){
+  case 0: IsLMB = TRUE; break;
+  case 1: IsMMB = TRUE; break;
+  case 2: IsRMB = TRUE;
+}]]>
+          </Expression>
+        </ZExpression>
+      </OnPressed>
+    </KeyPress>
+    <ZExpression Comment="Mouse press post-processing">
+      <Expression>
+<![CDATA[if(MouseJoint)
+  if(IsLMB)
+    // body is dragged by mouse
+    zb2UpdateMouseJoint(MouseJoint, PointerX, PointerY);
+  else {
+    // release dragging
+    zb2DestroyJoint(MouseJoint);
+    MouseJoint = NONE;
+    DraggedModel = null;
+  }]]>
+      </Expression>
+    </ZExpression>
+    <KeyPress Name="NumKey" Keys="123" RepeatDelay="0.5">
+      <OnPressed>
+        <ZExpression>
+          <Expression>
+<![CDATA[switch(NumKey.KeyIndex){
+  case 0: @SetAppState(State: ShapesScene); break;
+  case 1: @SetAppState(State: JointsScene); break;
+  case 2: @SetAppState(State: TumblerScene);
+}]]>
+          </Expression>
+        </ZExpression>
+      </OnPressed>
+    </KeyPress>
+  </OnUpdate>
+  <OnRender>
+    <UseMaterial Material="SmoothMaterial"/>
+    <RenderTransformGroup Scale="25 12 1" Translate="0 0 -5">
+      <Children>
+        <RenderMesh Mesh="BGMesh"/>
+      </Children>
+    </RenderTransformGroup>
+    <UseMaterial Material="DinaMaterial"/>
+    <RenderText Text="Bodies: " TextFloatRef="BodyCount Value" X="-0.98" Y="0.87" Scale="0.3" Align="1" StretchY="1.5"/>
+    <RenderText Text="Contacts: " TextFloatRef="ContactPointCount Value" X="-0.98" Y="0.76" Scale="0.3" Align="1" StretchY="1.5"/>
+    <RenderText Text="FPS: " TextFloatRef="App FpsCounter" X="-0.98" Y="0.65" Scale="0.3" Align="1" StretchY="1.5"/>
+  </OnRender>
+  <Content>
+    <Group Comment="Artwork">
+      <Children>
+        <Group Name="DinaFontGroup" Comment="Dina">
+          <Children>
+            <Font Name="DinaFont" Bitmap="DinaBitmap" FirstChar="32" CharPixelWidth="8" CharPixelHeight="16"/>
+            <Bitmap Name="DinaBitmap" Comment="Font from http://www.donationcoder.com/Software/Jibz/Dina/index.html" Width="3" Height="3" Filter="1">
+              <Producers>
+                <BitmapFromFile Transparency="1">
+                  <BitmapFile>
+<![CDATA[78DAED5DDB96E3200CE3FF7F7AF66DCF9C6930B27C011AF969A64D49A2185F844DC69048241289E42DF2F34BC0837FFF810FFEF91364846628F69EF1FFBF8F57F2F9EDF282ED038EC21F57C29EC7F1792538EC20C8E7E03F9BA48FF3F76722E9F6C7981DAE93CE0E93FEBB9493B03FCBD14E7B04D583FFB9EB6AFB8F18B7D3BC7027FE5BE29FA5A1FB02908DF97E9497CFB263F6C1C1994BF8115BC93FCD4EB5E90323AB443FCED9D88DDA58743D360E2ECD37F09F6994EBABB7E5DDEF71BE1289E48BED18EE2C246D79AB2B2E92D0544C1CFF59724A8CEF4A7E0745A6E1F11B411212D444B5FED7E16F2F88C42968EF1C8FD3B915B4460A7F9BA27B89CA530DDAD5F82FCF5884FF2DFACFADBC18A11AB838FB6709A6E81164017894FE0F3FF1D5B0049912FF544FA52CFF8B78D8A0816AB0EA9D2705D785B3F0C7EB19885BDB5EDDD1A0FF5CF07C54FC7F35FE83E2759BD75FFA53E966FBCF39C7E6F517C999CCCFB1DE3CD1950BFF2B6E53F86FC71FA94B4CF4B0C2BFCDEFBBF29DD95776F18F51D7EA4AA9F038D3F87776FD447D7E29FEAEB411BC129CD705D352BBBE6579523026BC177F6F5ABA7C5E46F15204FF41D5E75F813FC7EBC6F1B727858BF6897FEEE5AB8BEC0F8DFFA3A2DAD5A45EFD373C05E1BE677E0D9C2004FECB7B8FD81F64F014FC47C6BAFFAEF86779BCD728D1F873FA734EFCF3E6DCF304FF2BFC85BFF097ECE27F24122254131AF229C23F328984E15EFD3FFF1120FC39629F91922A90325AAE47CC4E8D132048C083B73947FAEEB3F27DD7E72033839717562C5810F8D37577DCF8DE719078FB55F87BE73B81BF8B076BC0DF360EFDF877EAFF39F6E73BF097FDCFB53FCB602631FEF1AE472CEB2E1092875E2F8BE3D31936A7971B55575C77E60B445C2AFC9B33CAB6063170AAD207B80CF217F70BEC9AD4A28024128944C2C5E79DEB716FF05674F84D34A51A5BB3CEB23C246DA7F97CFC368375B606EF57877F303C23EAEA693EA701FFEA54A2223CF6F24811FCED1D6BC1FE0B425DAFC31FD7A514FC87A7FF221DFFA2B72A80C630B2FE5B8DFF58EDBF9D62C641FC830E258BCFA7F1AFE8BF08CE0BD7DD7D37FEF66DBA0C51A26B8EECB37DF27A16DD7FC1297C965FF6E2EFB2E759C7EFC29F88FF89B848E46A5628C82565C23F8BFFE1FAFD2512894422915CE4F7BDFDE3AEF8DF3829BDBF8777FF1FEF38E075D2EB2359FCB3972F0D76DAD2F59FCD75F5F8E7C1E75B5166BC0BFF7EFD8CD7F1DE823FC2639C807F90CFF1DA557C7CD77E6E2EFC233BA2180072F66724EDAB56A4FFA07921F4DF85BF519FC0BD7758F8BBECCF0CFFACBE0C6EDFA493E31F047F504F1EF704E3F607C3FB471AE2FF94B8DD7BA90D7D6DE24B2512894422919C268A4C4E7804BB9E3BD76FEE8A6F893E77049FE538B8AA2FA740B01FD64BCF8EBC82F3B1A38FC0F815817FBC453A8EFFA8E91349E7F3D30D4BD1FB37973432DDF1B4B45717E1EFEA63F2CEC4E16F61589AE2A5CD89BC6733B8EF4A9B5376191357E5B0EB2B57EF4CF0A5E134AFBBFC3C45FF6D83F3F855CA0B6B3E870A1A8A745E7DE97F73ED7F1BFF8F3B1A6E0A14EDF75514FF2C4DB177EA8171FBD2FE2F437722EFA8E0DB7BB6BB9174E6B912894422915CEDDDD2399F6552702F383DE3B7ED4E59340297F4E13C7C967635E0EF852225E08FE3FFB86F06B26340D6456665BE41FCAB8D00B29FBC412E75E24F90BD771961702B98D97E4A0DFA8F932D7B1F41B5FD6FA0C5B8BAD3E07CEFC7DFEE53B3DFE7DE89FF5EFD1F65EB9888FF9D1DD96C7F76D9FFEDF8DF1BFFEC7A04F624F56E31140FFBBFE3FDB0CDF837E4A1D76D329F32DFFBEF2E52DAF42A424682C83F99AF58DD]]>
+                  </BitmapFile>
+                </BitmapFromFile>
+              </Producers>
+            </Bitmap>
+            <Material Name="DinaMaterial" Shading="1" Light="0" Blend="1" ZBuffer="0" Font="DinaFont"/>
+          </Children>
+        </Group> <!-- DinaFontGroup -->
+
+        <Material Name="DefaultMaterial" WireframeWidth="2" Shading="1"/>
+        <Material Name="SmoothMaterial" Light="0"/>
+        <Mesh Name="BoxMesh">
+          <Producers>
+            <MeshBox/>
+          </Producers>
+        </Mesh>
+        <Mesh Name="CircleMesh">
+          <Producers>
+            <MeshSphere Name="OrigSphere" ZSamples="6" RadialSamples="8"/>
+            <MeshExpression>
+              <Expression>
+<![CDATA[//V : current vertex
+//VarP is set to the number of Z samples;
+//VarQ is the number of circonferences wanted in the upper and lower faces
+float VarP;
+int VarQ = 1;
+float Psi;
+
+VarP = OrigSphere.ZSamples;
+if (this.V.Y != 0 || this.V.X != 0) {
+    Psi = atan2(this.V.Y,this.V.X);
+    this.V.X = cos(Psi); //*pow(1-abs(this.V.Z),2);
+    this.V.Y = sin(Psi);
+    //Normals
+    //this.N.X = cos(Psi);
+    //this.N.Y = sin(Psi);
+
+    if (VarQ == 0) {
+        this.V.Z /= 1 - 2/(VarP-1);
+        }
+    else { //VarQ != 0
+        this.V.Z /= 1 - (VarQ+1)*2/(VarP-1);
+        if (abs(this.V.Z)>1.001) {   //this is because we are using floating point precision
+                                     //it is better to avoid stuff like "Z > 1" due to truncament errors
+
+            //remember: tallest's high: (1/(1 - (VarQ+1)*2/(VarP-1));
+            this.V.X *= 1 - (abs(this.V.Z)-1)/(1/(1 - (VarQ+1)*2/(VarP-1))-1);
+            this.V.Y *= 1 - (abs(this.V.Z)-1)/(1/(1 - (VarQ+1)*2/(VarP-1))-1);
+
+            this.V.Z = this.V.Z/(abs(this.V.Z));
+
+        }
+    } //ELSE
+
+    //Normals
+    if (abs(this.V.Z) < 0.999) {
+        this.N.Z = 0; //lateral surface
+        }
+    else {
+        if (pow(this.V.X,2) + pow(this.V.Y,2) < 0.999) {
+               this.N.X = 0;  //Upper surface
+               this.N.Y = 0;
+               }
+        else {
+                 //Edges normals, you can decide what to use.
+        }
+    }  // End of normals section
+
+    //soft edges      Work In Progress
+    /*
+    if (abs(this.V.Z) > 0.7 && pow(this.V.X,2) + pow(this.V.Y,2) > 0.7) {
+        this.V.Z *= 0.9;
+        this.V.Y *= 0.9;
+        this.V.X *= 0.9;
+        }
+    // */
+
+} //OUTER IF]]>
+              </Expression>
+            </MeshExpression>
+          </Producers>
+        </Mesh>
+        <Mesh Name="HouseMesh">
+          <Producers>
+            <MeshBox Scale="0.5 0.5 1" XCount="1"/>
+            <MeshExpression>
+              <Expression>
+<![CDATA[//V : current vertex
+//N : current normal (turn off AutoNormals when modifying normals)
+//C : current color (turn on VertexColors)
+//TexCoord : current texture coordinate (turn on HasTexCoords)
+
+if(this.v.X == 0 && this.V.Y > 0) this.V.Y = 1;]]>
+              </Expression>
+            </MeshExpression>
+          </Producers>
+        </Mesh>
+        <Array Name="HousePoints" Dimensions="1" SizeDim1="5" SizeDim2="2" Persistent="255">
+          <Values>
+<![CDATA[78DA636060D8CF00C1F64834080341035C0C0062B704B8]]>
+          </Values>
+        </Array>
+        <Mesh Name="CompoundMesh">
+          <Producers>
+            <MeshLoop Count="3" Position="1 1 0">
+              <OnIteration>
+                <MeshBox/>
+              </OnIteration>
+            </MeshLoop>
+          </Producers>
+        </Mesh>
+        <Mesh Name="TumblerMesh">
+          <Producers>
+            <MeshBox/>
+            <MeshTransform Scale="6 0.3 0.3" Position="0 -6 0"/>
+            <MeshBox/>
+            <MeshTransform Scale="6 0.3 0.3" Position="0 6 0"/>
+            <MeshBox/>
+            <MeshTransform Scale="0.3 6 0.3" Position="6 0 0"/>
+            <MeshBox/>
+            <MeshTransform Scale="0.3 6 0.3" Position="-6 0 0"/>
+            <MeshCombine/>
+            <MeshCombine/>
+            <MeshCombine/>
+          </Producers>
+        </Mesh>
+        <Mesh Name="BGMesh">
+          <Producers>
+            <MeshBox Grid2DOnly="255"/>
+            <MeshExpression VertexColors="255">
+              <Expression>
+<![CDATA[this.C.B = 0 - this.V.Y/3;
+this.C.R = this.V.X/2;
+this.C.G = this.V.Y/4 - this.V.X/8;]]>
+              </Expression>
+            </MeshExpression>
+          </Producers>
+        </Mesh>
+      </Children>
+    </Group>
+    <Model Name="EmptyBodyModel" Category="1">
+      <Definitions>
+        <Variable Name="EmptyBodyId" Type="1"/>
+      </Definitions>
+      <OnSpawn>
+        <ZExpression Comment="Create body" Expression="EmptyBodyId = zb2CreateEmptyBody(BodyPositionX, BodyPositionY, ZB2_STATIC);"/>
+      </OnSpawn>
+      <OnRemove>
+        <ZExpression Comment="Destroy body" Expression="zb2DestroyBody(EmptyBodyId);"/>
+      </OnRemove>
+    </Model>
+    <Model Name="BodyModel" Category="1">
+      <Definitions>
+        <Variable Name="BodyId" Type="1"/>
+        <Variable Name="BodyType" Type="1"/>
+      </Definitions>
+      <States>
+        <ModelState Name="DynamicBodyModelState">
+          <OnUpdate>
+            <ZExpression Comment="Update Position &amp; Angle">
+              <Expression>
+<![CDATA[// update transformation
+zb2GetTransform(BodyId,
+  CurrentModel.Position.X,
+  CurrentModel.Position.Y,
+  CurrentModel.Rotation.Z
+);
+
+// remove model if out of the scene
+if(CurrentModel.Position.Y < -12) removeBody(CurrentModel);
+
+// collisions
+//BodyColor.Color.R = 1 - zb2IsCollided(BodyId);
+
+// awake?
+//BodyColor.Color.B = 1 - zb2IsAwake(BodyId)*0.5;]]>
+              </Expression>
+            </ZExpression>
+          </OnUpdate>
+        </ModelState>
+      </States>
+      <OnRender>
+        <UseMaterial Material="DefaultMaterial"/>
+        <RenderSetColor Name="BodyColor" Color="1 1 1 1"/>
+        <RenderMesh Name="BodyMesh" Mesh="BoxMesh"/>
+      </OnRender>
+      <OnUpdate>
+        <ZExpression Comment="Select, drag, delete">
+          <Expression>
+<![CDATA[// under pointer?
+// pointer over?
+if(zb2TestPoint(BodyId, PointerX, PointerY)){
+
+  // set mouse joint for the current body if dragged
+  if(IsLMB && !MouseJoint){
+    MouseJoint = zb2CreateMouseJoint(BodyId, PointerX, PointerY,
+                    1000.0 * zb2GetMass(BodyId), 5.0, 0.7);
+    DraggedModel = CurrentModel;
+  }
+
+  // remove body?
+  if(IsRMB) removeBody(CurrentModel);
+
+  // set color
+  BodyColor.Color.R = 0;
+} else
+  BodyColor.Color.R = (CurrentModel != DraggedModel);]]>
+          </Expression>
+        </ZExpression>
+      </OnUpdate>
+      <OnSpawn>
+        <ZExpression Comment="Create body">
+          <Expression>
+<![CDATA[switch(BodyShape){
+
+  case BOX_SHAPE:
+    BodyId = zb2CreateBox(BodyPositionX, BodyPositionY,
+              BodyScaleX, BodyScaleY,
+              BodyRotation, BodyType);
+    BodyMesh.Mesh = BoxMesh;
+    CurrentModel.Scale.X = BodyScaleX;
+    CurrentModel.Scale.Y = BodyScaleY;
+    break;
+
+  case CIRCLE_SHAPE:
+    BodyId = zb2CreateCircle(BodyPositionX, BodyPositionY,
+          BodyScaleX, BodyType);
+    BodyMesh.Mesh = CircleMesh;
+    CurrentModel.Scale.X = BodyScaleX;
+    CurrentModel.Scale.Y = BodyScaleX;
+    break;
+
+  case HOUSE_SHAPE:
+    BodyId = zb2CreatePolygon(BodyPositionX, BodyPositionY,
+          HousePoints, 5, BodyRotation, BodyType);
+    BodyMesh.Mesh = HouseMesh;
+    CurrentModel.Scale.X = 1.0;
+    CurrentModel.Scale.Y = 1.0;
+    break;
+
+  case COMPOUND_SHAPE:
+    BodyId = zb2CreateEmptyBody(BodyPositionX, BodyPositionY, ZB2_DYNAMIC);
+    zb2AddBox(BodyId, 0, 0, BodyScaleX, BodyScaleY, 0);
+    zb2AddBox(BodyId, BodyScaleX, BodyScaleY, BodyScaleX, BodyScaleY, 0);
+    zb2AddBox(BodyId, BodyScaleX*2, BodyScaleY*2, BodyScaleX, BodyScaleY, 0);
+    BodyMesh.Mesh = CompoundMesh;
+    CurrentModel.Scale.X = BodyScaleX;
+    CurrentModel.Scale.Y = BodyScaleY;
+    break;
+
+  case TUMBLER_SHAPE:
+    BodyId = zb2CreateEmptyBody(BodyPositionX, BodyPositionY, ZB2_DYNAMIC);
+    zb2AddBox(BodyId, -6, 0, 0.3, 6, 0);
+    zb2AddBox(BodyId, 6, 0, 0.3, 6, 0);
+    zb2AddBox(BodyId, 0, 6, 6, 0.3, 0);
+    zb2AddBox(BodyId, 0, -6, 6, 0.3, 0);
+    BodyMesh.Mesh = TumblerMesh;
+    CurrentModel.Scale.X = 1.0;
+    CurrentModel.Scale.Y = 1.0;
+}
+
+// set model scale
+CurrentModel.Scale.Z = BodyScaleZ;
+
+if(BodyType == ZB2_STATIC){
+  CurrentModel.Position.X = BodyPositionX;
+  CurrentModel.Position.Y = BodyPositionY;
+  CurrentModel.Rotation.Z = BodyRotation;
+} else {
+  zb2SetFixedRotation(BodyId, BodyFixedRotation);
+  @SetModelState(State: DynamicBodyModelState);
+}]]>
+          </Expression>
+        </ZExpression>
+      </OnSpawn>
+      <OnRemove>
+        <ZExpression Comment="Destroy body" Expression="zb2DestroyBody(BodyId);"/>
+      </OnRemove>
+    </Model>
+    <Model Name="LineBodyModel" Comment="Static body based on lines" Category="1">
+      <Definitions>
+        <Variable Name="LineBodyId" Type="1"/>
+        <Array Name="LineBodyVertices" Type="6" SizeDim1="10"/>
+        <Variable Name="LineBodyCount" Type="1"/>
+        <Variable Name="LineBodyIsLoop" Type="1"/>
+      </Definitions>
+      <OnRender>
+        <UseMaterial Material="DefaultMaterial"/>
+        <ZExpression>
+          <Expression>
+<![CDATA[glBegin(3);
+glVertex2f(LineBodyVertices[0][_X], LineBodyVertices[0][_Y]);
+
+for(int i = 1; i < LineBodyCount; ++i){
+  glVertex2f(LineBodyVertices[i][_X], LineBodyVertices[i][_Y]);
+}
+
+if(LineBodyIsLoop)
+  glVertex2f(LineBodyVertices[0][_X], LineBodyVertices[0][_Y]);
+
+glEnd();]]>
+          </Expression>
+        </ZExpression>
+      </OnRender>
+      <OnSpawn>
+        <ZExpression Comment="Create body">
+          <Expression>
+<![CDATA[// copy vertices to local array
+LineBodyVertices.SizeDim1 = LineBodyCount;
+for(int i = 0; i < LineBodyCount; ++i)
+  LineBodyVertices[i] = LineBodyVerticesDef[i];
+
+switch(BodyShape){
+  case EDGE_SHAPE:
+    LineBodyId = zb2CreateEdge(LineBodyVertices[0][_X], LineBodyVertices[0][_Y],
+              LineBodyVertices[1][_X], LineBodyVertices[1][_Y]);
+    break;
+
+  case CHAIN_SHAPE:
+    LineBodyId = zb2CreateChain(LineBodyVertices, LineBodyCount, LineBodyIsLoop);
+}]]>
+          </Expression>
+        </ZExpression>
+      </OnSpawn>
+      <OnRemove>
+        <ZExpression Comment="Destroy body" Expression="zb2DestroyBody(LineBodyId);"/>
+      </OnRemove>
+    </Model>
+    <Model Name="DistJointModel" Category="1">
+      <Definitions>
+        <Variable Name="JointId" Type="1"/>
+        <Variable Name="DistJointModelA" Type="3"/>
+        <Variable Name="DistJointModelB" Type="3"/>
+        <Variable Name="IsRemoved" Type="1"/>
+      </Definitions>
+      <OnRender>
+        <UseMaterial Material="DefaultMaterial"/>
+        <RenderSetColor Color="0.502 1 0.502 1"/>
+        <ZExpression>
+          <Expression>
+<![CDATA[glBegin(2);
+  glVertex2f(DistJointModelA.Position.X, DistJointModelA.Position.Y);
+  glVertex2f(DistJointModelB.Position.X, DistJointModelB.Position.Y);
+glEnd();]]>
+          </Expression>
+        </ZExpression>
+      </OnRender>
+      <OnUpdate>
+        <ZExpression Expression="if(IsRemoved) @RemoveModel();"/>
+      </OnUpdate>
+      <OnSpawn>
+        <ZExpression>
+          <Expression>
+<![CDATA[int j = zb2CreateDistanceJoint(DistJointModelA.BodyId, DistJointModelB.BodyId,
+  0, 0, 0, 0, DistJointLength, DistJointFrequency,
+  DistJointDampingRatio, JointIsCollided);
+
+zb2SetUserModelToJoint(j, CurrentModel);
+
+isRemoved = FALSE;]]>
+          </Expression>
+        </ZExpression>
+      </OnSpawn>
+      <OnRemove>
+        <ZExpression Comment="Destroy joint">
+          <Expression>
+<![CDATA[// in the current application joint is destroyed
+// only together with body => it is not necessary to
+// destroy it explicitly
+
+//zb2DestroyJoint(JointId);]]>
+          </Expression>
+        </ZExpression>
+      </OnRemove>
+    </Model>
+    <Model Name="VisualizeCollisionModel">
+      <Definitions>
+        <RenderTransformGroup Name="ContactTransform" Scale="0.1 0.1 0.4" Translate="9.9472 -1.5012 0" Rotate="0 0 0.125">
+          <Children>
+            <RenderMesh Mesh="BoxMesh"/>
+          </Children>
+        </RenderTransformGroup>
+      </Definitions>
+      <OnRender>
+        <UseMaterial Material="DefaultMaterial"/>
+        <RenderSetColor Color="1 0 0 1"/>
+        <ZExpression Comment="Render contact points">
+          <Expression>
+<![CDATA[int a, b, s;
+float x, y, nx, ny;
+
+zb2ResetContacts();
+
+for(; zb2GetNextContact(a, b, x, y, nx, ny, s);)
+  if(s == ZB2_ADD_STATE || s == ZB2_PERSIST_STATE){
+    ContactTransform.Translate.X = x;
+    ContactTransform.Translate.Y = y;
+    @CallComponent(Component: ContactTransform);
+  }]]>
+          </Expression>
+        </ZExpression>
+      </OnRender>
+    </Model>
+    <Variable Name="BodyCount"/>
+    <Variable Name="ContactPointCount"/>
+  </Content>
+</ZApplication>
