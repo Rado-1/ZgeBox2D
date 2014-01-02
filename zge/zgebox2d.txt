@@ -1,11 +1,14 @@
 /*
-  Adapter to the ZGEBox2D Library, a wrapper for the Box2D Physics Engine for Games.
+  Adapter to the ZGEBox2D Library, a wrapper for the Box2D Physics Engine.
   http://box2d.org/
 
   Download Windows DLL and Android shared library from
-  http://code.google.com/p/zgebox2d/downloads
+  http://googledrive.com/host/0BxwfQ8la88oueHUzRDlDTUhNU00/
 
-  Copyright (c) 2013 Radovan Cervenka
+  Project home
+  http://code.google.com/p/zgebox2d
+
+  Copyright (c) 2013-2014 Radovan Cervenka
 */
 
 // Constants
@@ -97,6 +100,14 @@ void zb2AddChain(int body, xptr vertices, int count, int isLoop) {}
 // destroy body
 void zb2DestroyBody(int body) {}
 
+// getters
+float zb2GetPositionX(int body) {}
+float zb2GetPositionY(int body) {}
+float zb2GetAngle(int body) {}
+void zb2GetTransform(int body, ref float x, ref float y, ref float angle) {}
+float zb2GetMass(int body) {}
+int zb2IsAwake(int body) {}
+
 // setters
 void zb2SetPosition(int body, float x, float y) {}
 void zb2SetRotation(int body, float angle) {}
@@ -118,18 +129,21 @@ void zb2SetMass(int body, float mass) {}
 void zb2SetMassData(int body, float mass, float x, float y, float rotationalInertia) {}
 void zb2ResetMassData(int body) {}
 
-// getters
-float zb2GetPositionX(int body) {}
-float zb2GetPositionY(int body) {}
-float zb2GetAngle(int body) {}
-void zb2GetTransform(int body, ref float x, ref float y, ref float angle) {}
-float zb2GetMass(int body) {}
-int zb2IsAwake(int body) {}
+// changing shapes
+void zb2ChangeCircleRadius(int body, float radius) {}
+void zb2ChangeEdge(int body, float x1, float y1, float x2, float y2) {}
 
 // Joints
 
 // create and return distance joint
+// local coordinates used
 int zb2CreateDistanceJoint(int bodyA, int bodyB,
+	float anchorAx, float anchorAy, float anchorBx, float anchorBy, float length,
+	float frequency, float dampingRatio, int isCollided) {}
+
+// create and return distance joint
+// world coordinates used
+int zb2CreateDistanceJointWorld(int bodyA, int bodyB,
 	float anchorAx, float anchorAy, float anchorBx, float anchorBy, float length,
 	float frequency, float dampingRatio, int isCollided) {}
 
@@ -138,11 +152,20 @@ void zb2UpdateDistanceJoint(int joint, float length,
 	float frequency, float dampingRatio) {}
 
 // create and return prismatic joint
+// local coordinates used
 int zb2CreatePrismaticJoint(int bodyA, int bodyB,
 	float anchorAx, float anchorAy, float anchorBx, float anchorBy,
 	float axisAx, float axisAy, float referenceAngle,
 	int enableLimit, float lower, float upper,
-	int enableMotor, float maxMotorForce, float motorSpeed) {}
+	int enableMotor, float maxMotorForce, float motorSpeed, int isCollided) {}
+
+// create and return prismatic joint
+// world coordinates used
+int zb2CreatePrismaticJointWorld(int bodyA, int bodyB,
+	float anchorX, float anchorY, float axisX, float axisY,
+	int enableLimit, float lower, float upper,
+	int enableMotor, float maxMotorForce, float motorSpeed, int isCollided) {}
+
 
 // update prismatic joint
 void zb2UpdatePrismaticJoint(int joint,
@@ -156,10 +179,17 @@ float zb2GetPrismaticTranslation(int joint) {}
 float zb2GetPrismaticSpeed(int joint) {}
 
 // create and return revolute joint
+// local coordinates used
 int zb2CreateRevoluteJoint(int bodyA, int bodyB,
 	float anchorAx, float anchorAy, float anchorBx, float anchorBy,
 	float referenceAngle, int enableLimit, float lowerAngle, float upperAngle,
-	int enableMotor, float motorSpeed, float maxMotorTorque) {}
+	int enableMotor, float motorSpeed, float maxMotorTorque, int isCollided) {}
+
+// create and return revolute joint
+// world coordinates used
+int zb2CreateRevoluteJointWorld(int bodyA, int bodyB,
+	float anchorX, float anchorY, int enableLimit, float lowerAngle, float upperAngle,
+	int enableMotor, float motorSpeed, float maxMotorTorque, int isCollided) {}
 
 // update revolute joint
 void zb2UpdateRevoluteJoint(int joint,
@@ -170,14 +200,22 @@ void zb2UpdateRevoluteJoint(int joint,
 float zb2GetRevoluteAngle(int joint) {}
 
 // create and return weld joint
+// local coordinates used
 int zb2CreateWeldJoint(int bodyA, int bodyB,
 	float anchorAx, float anchorAy, float anchorBx, float anchorBy,
-	float referenceAngle, float frequency, float dampingRatio) {}
+	float referenceAngle, float frequency, float dampingRatio, int isCollided) {}
+
+// create and return weld joint
+// world coordinates used
+int zb2CreateWeldJointWorld(int bodyA, int bodyB,
+	float anchorX, float anchorY, float frequency, float dampingRatio,
+	int isCollided) {}
 
 // update weld joint
 void zb2UpdateWeldJoint(int joint, float frequency, float dampingRatio) {}
 
 // create and return rope joint
+// local coordinates used
 int zb2CreateRopeJoint(int bodyA, int bodyB,
 	float anchorAx, float anchorAy, float anchorBx, float anchorBy,
 	float maxLength, int isCollided) {}
@@ -186,10 +224,18 @@ int zb2CreateRopeJoint(int bodyA, int bodyB,
 void zb2UpdateRopeJoint(int joint, float maxLength) {}
 
 // create and return pulley joint
+// local coordinates used
 int zb2CreatePulleyJoint(int bodyA, int bodyB,
 	float anchorAx, float anchorAy, float anchorBx, float anchorBy,
 	float groundAx, float groundAy, float groundBx, float groundBy,
-	float lengthA, float lengthB, float ratio) {}
+	float lengthA, float lengthB, float ratio, int isCollided) {}
+
+// create and return pulley joint
+// world coordinates used
+int zb2CreatePulleyJointWorld(int bodyA, int bodyB,
+	float anchorAx, float anchorAy, float anchorBx, float anchorBy,
+	float groundAx, float groundAy, float groundBx, float groundBy,
+	float ratio, int isCollided) {}
 
 // get lenght of rope at side A of pulley joint
 float zb2GetPulleyLengthA(int joint) {}
@@ -199,17 +245,26 @@ float zb2GetPulleyLengthB(int joint) {}
 
 // create and return gear joint
 // only revolute and/or prismatic joints can be connected
-int zb2CreateGearJoint(int joint1, int joint2, float ratio) {}
+int zb2CreateGearJoint(int joint1, int joint2, float ratio, int isCollided) {}
 
 // update gear joint
 void zb2UpdateGearJoint(int joint, float ratio) {}
 
 // create and return wheel joint
+// local coordinates used
 int zb2CreateWheelJoint(int bodyA, int bodyB,
 	float anchorAx, float anchorAy, float anchorBx, float anchorBy,
 	float axisAx, float axisAy,
 	int enableMotor, float motorSpeed, float maxMotorTorque,
-	float frequency, float dampingRatio) {}
+	float frequency, float dampingRatio, int isCollided) {}
+
+// create and return wheel joint
+// world coordinates used
+int zb2CreateWheelJointWorld(int bodyA, int bodyB,
+	float anchorX, float anchorY,float axisX, float axisY,
+	int enableMotor, float motorSpeed, float maxMotorTorque,
+	float frequency, float dampingRatio, int isCollided) {}
+
 
 // update wheel joint
 void zb2UpdateWheelJoint(int joint,
@@ -223,9 +278,15 @@ float zb2GetWheelTranslation(int joint) {}
 float zb2GetWheelTranslationSpeed(int joint) {}
 
 // create and return motor joint
+// local coordinates used
 int zb2CreateMotorJoint(int bodyA, int bodyB,
 	float linearOffsetX, float linearOffsetY, float angularOffset,
-	float maxForce, float maxTorque, float correctionFactor) {}
+	float maxForce, float maxTorque, float correctionFactor, int isCollided) {}
+
+// create and return motor joint
+// world coordinates used
+int zb2CreateMotorJointWorld(int bodyA, int bodyB,
+	float maxForce, float maxTorque, float correctionFactor, int isCollided) {}
 
 // update motor joint
 void zb2UpdateMotorJoint(int joint,
@@ -233,6 +294,7 @@ void zb2UpdateMotorJoint(int joint,
 	float maxForce, float maxTorque, float correctionFactor) {}
 
 // create and return mouse joint
+// world coordinates used
 int zb2CreateMouseJoint(int body, float targetX, float targetY,
 	float maxForce,	float frequency, float dampingRatio) {}
 
@@ -265,9 +327,9 @@ int zb2TestPoint(int body, float x, float y) {}
 int zb2GetBodyAtPoint(float x, float y, ref int body) {}
 
 // raycast
-// returns 0 if no body found, 1 if body found
+// returns id of found body or 0 if no body found
 int zb2RayCast(float x1, float y1, float x2, float y2,
-	ref int body, ref float x, ref float y, ref float normalX, ref float normalY) {}
+	ref float x, ref float y, ref float normalX, ref float normalY) {}
 
 // Collisions
 
