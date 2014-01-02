@@ -1,0 +1,26 @@
+= Version History =
+
+== v0.91 (2014-01-02) ==
+
+Added:
+ * Changing of shapes of existing bodies; circle radius and edge points.
+ * Creation of joints with world coordinates.
+ * Settings of collision filtering flags; function zb2SetBodyFilteringFlags().
+
+Changed:
+ * Simplified signature of zb2RayCast() function.
+ * Each function checks previous initialization of world.
+ * Updated ZGEBox2D Testbed application:
+   * added scene 4 - raycasting test,
+   * GUI changed; added buttons, and
+   * works also on Android.
+
+== v0.9 (2013-12-24) ==
+
+Initial version with basic functionality of:
+ * setting and changing the world,
+ * creating bodies
+ * getting and setting body properties
+ * creating joints
+ * collision detection,
+ * geometric queries and ray casting.
