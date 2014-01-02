@@ -18,5 +18,5 @@ written by Ville Krumlinde http://www.emix8.org
 http://www.zgameeditor.org
 
 ZGEBox2D
-Copyright (c) 2013 Radovan Cervenka
+Copyright (c) 2013-2014 Radovan Cervenka
 http://code.google.com/p/zgebox2d

@@ -1,16 +1,19 @@
 <?xml version="1.0" encoding="iso-8859-1" ?>
-<ZApplication Name="App" Comment="ZGEBox2D Testbed. Created by Rado1 (c)2013" Caption="ZGEBox2D Testbed" ClearColor="0 0 0 1" ScreenMode="0" CameraPosition="0 0 22" LightPosition="5 -10 7.3" ViewportRatio="3" MouseVisible="255" NoSound="1" AndroidPackageName="com.rado1.ZGEBox2dTestbed">
+<ZApplication Name="App" Comment="ZGEBox2D Testbed, v0.91. Created by Radovan Cervenka" Caption="ZGEBox2D Testbed" ClearColor="0 0 0 1" ScreenMode="0" CameraPosition="0 0 22" LightPosition="5 -10 7.3" ViewportRatio="3" MouseVisible="255" NoSound="1" AndroidPackageName="com.rado1.ZGEBox2dTestbed" AndroidVersionName="0.91">
   <OnLoaded>
     <ZExternalLibrary ModuleName="ZGEBox2D.dll" CallingConvention="1" BeforeInitExp="if(ANDROID) this.ModuleName = &quot;./libZGEBox2D.so&quot;;">
       <Source>
 <![CDATA[/*
-  Adapter to the ZGEBox2D Library, a wrapper for the Box2D Physics Engine for Games.
+  Adapter to the ZGEBox2D Library, a wrapper for the Box2D Physics Engine.
   http://box2d.org/
 
   Download Windows DLL and Android shared library from
-  http://code.google.com/p/zgebox2d/downloads
+  http://googledrive.com/host/0BxwfQ8la88oueHUzRDlDTUhNU00/
 
-  Copyright (c) 2013 Radovan Cervenka
+  Project home
+  http://code.google.com/p/zgebox2d
+
+  Copyright (c) 2013-2014 Radovan Cervenka
 */
 
 // Constants
@@ -102,6 +105,14 @@ void zb2AddChain(int body, xptr vertices, int count, int isLoop) {}
 // destroy body
 void zb2DestroyBody(int body) {}
 
+// getters
+float zb2GetPositionX(int body) {}
+float zb2GetPositionY(int body) {}
+float zb2GetAngle(int body) {}
+void zb2GetTransform(int body, ref float x, ref float y, ref float angle) {}
+float zb2GetMass(int body) {}
+int zb2IsAwake(int body) {}
+
 // setters
 void zb2SetPosition(int body, float x, float y) {}
 void zb2SetRotation(int body, float angle) {}
@@ -123,18 +134,21 @@ void zb2SetMass(int body, float mass) {}
 void zb2SetMassData(int body, float mass, float x, float y, float rotationalInertia) {}
 void zb2ResetMassData(int body) {}
 
-// getters
-float zb2GetPositionX(int body) {}
-float zb2GetPositionY(int body) {}
-float zb2GetAngle(int body) {}
-void zb2GetTransform(int body, ref float x, ref float y, ref float angle) {}
-float zb2GetMass(int body) {}
-int zb2IsAwake(int body) {}
+// changing shapes
+void zb2ChangeCircleRadius(int body, float radius) {}
+void zb2ChangeEdge(int body, float x1, float y1, float x2, float y2) {}
 
 // Joints
 
 // create and return distance joint
+// local coordinates used
 int zb2CreateDistanceJoint(int bodyA, int bodyB,
+	float anchorAx, float anchorAy, float anchorBx, float anchorBy, float length,
+	float frequency, float dampingRatio, int isCollided) {}
+
+// create and return distance joint
+// world coordinates used
+int zb2CreateDistanceJointWorld(int bodyA, int bodyB,
 	float anchorAx, float anchorAy, float anchorBx, float anchorBy, float length,
 	float frequency, float dampingRatio, int isCollided) {}
 
@@ -143,11 +157,20 @@ void zb2UpdateDistanceJoint(int joint, float length,
 	float frequency, float dampingRatio) {}
 
 // create and return prismatic joint
+// local coordinates used
 int zb2CreatePrismaticJoint(int bodyA, int bodyB,
 	float anchorAx, float anchorAy, float anchorBx, float anchorBy,
 	float axisAx, float axisAy, float referenceAngle,
 	int enableLimit, float lower, float upper,
-	int enableMotor, float maxMotorForce, float motorSpeed) {}
+	int enableMotor, float maxMotorForce, float motorSpeed, int isCollided) {}
+
+// create and return prismatic joint
+// world coordinates used
+int zb2CreatePrismaticJointWorld(int bodyA, int bodyB,
+	float anchorX, float anchorY, float axisX, float axisY,
+	int enableLimit, float lower, float upper,
+	int enableMotor, float maxMotorForce, float motorSpeed, int isCollided) {}
+
 
 // update prismatic joint
 void zb2UpdatePrismaticJoint(int joint,
@@ -161,10 +184,17 @@ float zb2GetPrismaticTranslation(int joint) {}
 float zb2GetPrismaticSpeed(int joint) {}
 
 // create and return revolute joint
+// local coordinates used
 int zb2CreateRevoluteJoint(int bodyA, int bodyB,
 	float anchorAx, float anchorAy, float anchorBx, float anchorBy,
 	float referenceAngle, int enableLimit, float lowerAngle, float upperAngle,
-	int enableMotor, float motorSpeed, float maxMotorTorque) {}
+	int enableMotor, float motorSpeed, float maxMotorTorque, int isCollided) {}
+
+// create and return revolute joint
+// world coordinates used
+int zb2CreateRevoluteJointWorld(int bodyA, int bodyB,
+	float anchorX, float anchorY, int enableLimit, float lowerAngle, float upperAngle,
+	int enableMotor, float motorSpeed, float maxMotorTorque, int isCollided) {}
 
 // update revolute joint
 void zb2UpdateRevoluteJoint(int joint,
@@ -175,14 +205,22 @@ void zb2UpdateRevoluteJoint(int joint,
 float zb2GetRevoluteAngle(int joint) {}
 
 // create and return weld joint
+// local coordinates used
 int zb2CreateWeldJoint(int bodyA, int bodyB,
 	float anchorAx, float anchorAy, float anchorBx, float anchorBy,
-	float referenceAngle, float frequency, float dampingRatio) {}
+	float referenceAngle, float frequency, float dampingRatio, int isCollided) {}
+
+// create and return weld joint
+// world coordinates used
+int zb2CreateWeldJointWorld(int bodyA, int bodyB,
+	float anchorX, float anchorY, float frequency, float dampingRatio,
+	int isCollided) {}
 
 // update weld joint
 void zb2UpdateWeldJoint(int joint, float frequency, float dampingRatio) {}
 
 // create and return rope joint
+// local coordinates used
 int zb2CreateRopeJoint(int bodyA, int bodyB,
 	float anchorAx, float anchorAy, float anchorBx, float anchorBy,
 	float maxLength, int isCollided) {}
@@ -191,10 +229,18 @@ int zb2CreateRopeJoint(int bodyA, int bodyB,
 void zb2UpdateRopeJoint(int joint, float maxLength) {}
 
 // create and return pulley joint
+// local coordinates used
 int zb2CreatePulleyJoint(int bodyA, int bodyB,
 	float anchorAx, float anchorAy, float anchorBx, float anchorBy,
 	float groundAx, float groundAy, float groundBx, float groundBy,
-	float lengthA, float lengthB, float ratio) {}
+	float lengthA, float lengthB, float ratio, int isCollided) {}
+
+// create and return pulley joint
+// world coordinates used
+int zb2CreatePulleyJointWorld(int bodyA, int bodyB,
+	float anchorAx, float anchorAy, float anchorBx, float anchorBy,
+	float groundAx, float groundAy, float groundBx, float groundBy,
+	float ratio, int isCollided) {}
 
 // get lenght of rope at side A of pulley joint
 float zb2GetPulleyLengthA(int joint) {}
@@ -204,17 +250,26 @@ float zb2GetPulleyLengthB(int joint) {}
 
 // create and return gear joint
 // only revolute and/or prismatic joints can be connected
-int zb2CreateGearJoint(int joint1, int joint2, float ratio) {}
+int zb2CreateGearJoint(int joint1, int joint2, float ratio, int isCollided) {}
 
 // update gear joint
 void zb2UpdateGearJoint(int joint, float ratio) {}
 
 // create and return wheel joint
+// local coordinates used
 int zb2CreateWheelJoint(int bodyA, int bodyB,
 	float anchorAx, float anchorAy, float anchorBx, float anchorBy,
 	float axisAx, float axisAy,
 	int enableMotor, float motorSpeed, float maxMotorTorque,
-	float frequency, float dampingRatio) {}
+	float frequency, float dampingRatio, int isCollided) {}
+
+// create and return wheel joint
+// world coordinates used
+int zb2CreateWheelJointWorld(int bodyA, int bodyB,
+	float anchorX, float anchorY,float axisX, float axisY,
+	int enableMotor, float motorSpeed, float maxMotorTorque,
+	float frequency, float dampingRatio, int isCollided) {}
+
 
 // update wheel joint
 void zb2UpdateWheelJoint(int joint,
@@ -228,9 +283,15 @@ float zb2GetWheelTranslation(int joint) {}
 float zb2GetWheelTranslationSpeed(int joint) {}
 
 // create and return motor joint
+// local coordinates used
 int zb2CreateMotorJoint(int bodyA, int bodyB,
 	float linearOffsetX, float linearOffsetY, float angularOffset,
-	float maxForce, float maxTorque, float correctionFactor) {}
+	float maxForce, float maxTorque, float correctionFactor, int isCollided) {}
+
+// create and return motor joint
+// world coordinates used
+int zb2CreateMotorJointWorld(int bodyA, int bodyB,
+	float maxForce, float maxTorque, float correctionFactor, int isCollided) {}
 
 // update motor joint
 void zb2UpdateMotorJoint(int joint,
@@ -238,6 +299,7 @@ void zb2UpdateMotorJoint(int joint,
 	float maxForce, float maxTorque, float correctionFactor) {}
 
 // create and return mouse joint
+// world coordinates used
 int zb2CreateMouseJoint(int body, float targetX, float targetY,
 	float maxForce,	float frequency, float dampingRatio) {}
 
@@ -270,9 +332,9 @@ int zb2TestPoint(int body, float x, float y) {}
 int zb2GetBodyAtPoint(float x, float y, ref int body) {}
 
 // raycast
-// returns 0 if no body found, 1 if body found
+// returns id of found body or 0 if no body found
 int zb2RayCast(float x1, float y1, float x2, float y2,
-	ref int body, ref float x, ref float y, ref float normalX, ref float normalY) {}
+	ref float x, ref float y, ref float normalX, ref float normalY) {}
 
 // Collisions
 
@@ -301,16 +363,6 @@ int zb2GetBodyContactCount(int body) {}
 void zb2SetBodyFilteringFlags(int body, int categoryBits, int maskBits, int groupIndex) {}]]>
       </Source>
     </ZExternalLibrary>
-    <ZExternalLibrary Comment="OpenGL 4.0 graphics" ModuleName="opengl32" DefinitionsFile="opengl.txt">
-      <BeforeInitExp>
-<![CDATA[if(ANDROID) {
-  if(App.GLBase==0)
-    this.ModuleName="libGLESv1_CM.so";
-  else
-    this.ModuleName="libGLESv2.so";
-}]]>
-      </BeforeInitExp>
-    </ZExternalLibrary>
     <ZLibrary Comment="Globals">
       <Source>
 <![CDATA[// CONSTANTS
@@ -322,6 +374,9 @@ const int TRUE = 1;
 // vector axes
 const int _X = 0;
 const int _Y = 1;
+
+// goniometric
+const float PI2 = PI * 2;
 
 // pointers
 const int NONE = 0;
@@ -338,17 +393,21 @@ const int TUMBLER_SHAPE = 4;
 const int EDGE_SHAPE = 100;
 const int CHAIN_SHAPE = 101;
 
+// joint types
+const int DISTANCE_JOINT = 0;
+const int ROPE_JOINT = 1;
+
+
 // GLOBAL VARIABLES
 
 float ScreenAspectRatio;
 float PointerX, PointerY;
-int IsLMB;
-int IsRMB;
-int IsMMB;
-int MouseJoint;
+int IsMoveMode;
+int IsTouched;
+int PointerJoint;
 model DraggedModel;
 int[30] BodyJoints;
-vec2[20] LineBodyVerticesDef;
+vec2[30] LineBodyVerticesDef;
 
 // body construction setters
 int BodyShape;
@@ -361,12 +420,18 @@ float BodyScaleZ;
 int BodyFixedRotation;
 
 // joint construction setters
-float DistJointLength;
-float DistJointFrequency;
-float DistJointDampingRatio;
+int JointType;
+float JointLength;
+float JointFrequency;
+float JointDampingRatio;
 int JointIsCollided;
 
-// Utilities
+// auxiliary variables for unused reference parameters of function calls
+float UNUSED_F;
+int UNUSET_I;
+
+// FUNCTIONS
+
 void removeBody(model body){
     int c;
     model m;
@@ -378,32 +443,87 @@ void removeBody(model body){
       if(m != null) m.IsRemoved = TRUE;
     }
     @RemoveModel();
-}]]>
-      </Source>
-    </ZLibrary>
-    <ZLibrary Comment="Scene functions">
-      <Source>
-<![CDATA[void createRotor(int parent, float x, float y, float length, int iteration){
-  if(iteration > 0){
+}
 
-    // create body
-    BodyScaleX = length;
-    BodyScaleY = length / 20;
-    BodyPositionX = x;
-    BodyPositionY = y;
+// to be used in OnRender section
+void drawLine(float x1, float y1, float x2, float y2){
+  float x = x2 - x1, y = y2 - y1;
+  LineTransform.Translate.X = (x1 + x2) / 2;
+  LineTransform.Translate.Y = (y1 + y2) / 2;
+  LineTransform.Scale.X = sqrt(x*x + y*y);
+  LineTransform.Rotate.Z = atan2(y, x) / PI2;
+  @CallComponent(Component: LineTransform);
+}
 
-    model m = createModel(BodyModel);
-    zb2SetBodyFilteringFlags(m.BodyId, 0, 0, iteration);
+void enableMoveButton(int enable){
+  if(enable){
+    MoveColor.Color.R = 0.7;
+    MoveColor.Color.G =
+    MoveColor.Color.B = 0;
+  } else {
+    MoveColor.Color.R = 0;
+    MoveColor.Color.G = 0.25;
+    MoveColor.Color.B = 0.5;
+  }
+}
 
-    // create revolute joint
-    zb2CreateRevoluteJoint(/*bodyA*/ parent, /*bodyB*/ m.BodyId,
-  	/*anchorAx*/ x, /*anchorAy*/ 0, /*anchorBx*/ 0, /*anchorBy*/ 0,
-    /*referenceAngle*/ 0, /*enableLimit*/ FALSE, /*lowerAngle*/ 0, /*upperAngle*/ 0,
-    /*enableMotor*/ TRUE, /*motorSpeed*/ iteration * 2.0, /*maxMotorTorque*/ 10.0);
+void enableDeleteButton(int enable){
+  if(enable){
+    DeleteColor.Color.R = 0.7;
+    DeleteColor.Color.G =
+    DeleteColor.Color.B = 0;
+  } else {
+    DeleteColor.Color.R = 0;
+    DeleteColor.Color.G = 0.25;
+    DeleteColor.Color.B = 0.5;
+  }
+}
 
-    // recursion
-    createRotor(m.BodyId, length - 0.5, 0, length / 1.5, iteration - 1);
-    createRotor(m.BodyId, 0.5 - length, 0, length / 1.5, iteration - 1);
+void enableScene1Button(int enable){
+  if(enable){
+    Scene1Color.Color.R = 0.7;
+    Scene1Color.Color.G =
+    Scene1Color.Color.B = 0;
+  } else {
+    Scene1Color.Color.R = 0;
+    Scene1Color.Color.G = 0.25;
+    Scene1Color.Color.B = 0.5;
+  }
+}
+
+void enableScene2Button(int enable){
+  if(enable){
+    Scene2Color.Color.R = 0.7;
+    Scene2Color.Color.G =
+    Scene2Color.Color.B = 0;
+  } else {
+    Scene2Color.Color.R = 0;
+    Scene2Color.Color.G = 0.25;
+    Scene2Color.Color.B = 0.5;
+  }
+}
+
+void enableScene3Button(int enable){
+  if(enable){
+    Scene3Color.Color.R = 0.7;
+    Scene3Color.Color.G =
+    Scene3Color.Color.B = 0;
+  } else {
+    Scene3Color.Color.R = 0;
+    Scene3Color.Color.G = 0.25;
+    Scene3Color.Color.B = 0.5;
+  }
+}
+
+void enableScene4Button(int enable){
+  if(enable){
+    Scene4Color.Color.R = 0.7;
+    Scene4Color.Color.G =
+    Scene4Color.Color.B = 0;
+  } else {
+    Scene4Color.Color.R = 0;
+    Scene4Color.Color.G = 0.25;
+    Scene4Color.Color.B = 0.5;
   }
 }]]>
       </Source>
@@ -411,8 +531,15 @@ void removeBody(model body){
     <ZExpression Comment="Init">
       <Expression>
 <![CDATA[// init application variables
-ScreenAspectRatio = 1.0 * App.ViewportWidth  / App.ViewportHeight;
-MouseJoint = NONE;
+ScreenAspectRatio = 1.0 * App.ViewportWidth / App.ViewportHeight;
+IsMoveMode = TRUE;
+enableMoveButton(TRUE);
+enableDeleteButton(FALSE);
+enableScene1Button(TRUE);
+enableScene2Button(FALSE);
+enableScene3Button(FALSE);
+enableScene4Button(FALSE);
+PointerJoint = NONE;
 DraggedModel = null;
 
 // init simulation world
@@ -536,10 +663,13 @@ zb2SetRestitution(id, 0.5);]]>
 
 BodyRotation = 0;
 BodyFixedRotation = TRUE;
+JointType = DISTANCE_JOINT;
 JointIsCollided = FALSE;
-DistJointFrequency = 4.0;
-DistJointDampingRatio = 0.2;
-DistJointLength = 2.0;
+JointFrequency = 4.0;
+JointDampingRatio = 0.2;
+JointLength = 2.0;
+JointAnchorAx = JointAnchorAy = 0;
+JointAnchorBx = JointAnchorBy = 0;
 
 // create 2 upper anchors
 BodyType = ZB2_STATIC;
@@ -567,17 +697,17 @@ for(float i = 5; i > -7; i -= 2){
   BodyPositionX = -7;
   m4 = createModel(BodyModel);
 
-  DistJointModelA = m1;
-  DistJointModelB = m3;
-  createModel(DistJointModel);
+  JointModelA = m1;
+  JointModelB = m3;
+  createModel(JointModel);
 
-  DistJointModelA = m3;
-  DistJointModelB = m4;
-  createModel(DistJointModel);
+  JointModelA = m3;
+  JointModelB = m4;
+  createModel(JointModel);
 
-  DistJointModelA = m2;
-  DistJointModelB = m4;
-  createModel(DistJointModel);
+  JointModelA = m2;
+  JointModelB = m4;
+  createModel(JointModel);
 
   m1 = m3;
   m2 = m4;
@@ -600,32 +730,62 @@ BodyFixedRotation = FALSE;
 BodyScaleX = BodyScaleZ = 0.05;
 BodyScaleY = 0.3;
 
-for(float i = 6.4; i > -4; i -= 0.6){
+for(float i = 6.3; i > -4; i -= 0.6){
 
   BodyPositionY = i;
   m2 = createModel(BodyModel);
-  zb2SetMass(m2.BodyId, 0.1);
-  zb2SetFriction(m2.BodyId, 0.1);
-  zb2SetDensity(m2.BodyId, 20.0);
+  zb2SetMass(m2.BodyId, 0.01);
 
-  zb2CreateRevoluteJoint(/*bodyA*/ m1.BodyId, /*bodyB*/ m2.BodyId,
-	/*anchorAx*/ 0, /*anchorAy*/ -0.3, /*anchorBx*/ 0, /*anchorBy*/ 0.3,
-  /*referenceAngle*/ 0, /*enableLimit*/ FALSE, /*lowerAngle*/ 0,
-  /*upperAngle*/ 0, /*enableMotor*/ FALSE, /*motorSpeed*/ 0, /*maxMotorTorque*/ 0);
+  zb2CreateRevoluteJointWorld(m1.BodyId, m2.BodyId, 0, i + 0.3, FALSE, 0, 0,
+    FALSE, 0, 0, FALSE);
 
   m1 = m2;
 }
 
 // Rotor
-BodyPositionX = 5;
-BodyPositionY = 0;
+
+// rotation middle
+BodyPositionX = 8;
+BodyPositionY = 2;
 m1 = createModel(EmptyBodyModel);
 
+// arm
 BodyType = ZB2_DYNAMIC;
 BodyShape = BOX_SHAPE;
+BodyScaleX = 4;
+BodyScaleY = 0.2;
 BodyRotation = 0;
-BodyScaleZ = 0.1;
-createRotor(m1.EmptyBodyId, 5, 0, 3, 4);]]>
+BodyScaleZ = 0.3;
+m2 = createModel(BodyModel);
+
+zb2CreateRevoluteJointWorld(m1.EmptyBodyId, m2.BodyId, 8, 2, FALSE, 0, 0,
+    TRUE, 0.5, 100, TRUE);
+
+// sinkers
+BodyShape = CIRCLE_SHAPE;
+BodyScaleX = 0.8;
+BodyPositionX = 4;
+BodyPositionY = -4;
+m1 = createModel(BodyModel);
+zb2SetMass(m1.BodyId, 0.1);
+
+JointType = ROPE_JOINT;
+JointModelA = m2;
+JointModelB = m1;
+JointAnchorAx = -4;
+JointAnchorAy = 0;
+JointAnchorBx = JointAnchorBy = 0;
+JointLength = 6;
+JointIsCollided = TRUE;
+createModel(JointModel);
+
+BodyPositionX = 12;
+m1 = createModel(BodyModel);
+zb2SetMass(m1.BodyId, 0.1);
+
+JointAnchorAx = 4;
+JointModelB = m1;
+createModel(JointModel);]]>
           </Expression>
         </ZExpression>
       </OnStart>
@@ -649,45 +809,42 @@ m1 = createModel(EmptyBodyModel);
 BodyShape = TUMBLER_SHAPE;
 BodyType = ZB2_DYNAMIC;
 BodyFixedRotation = FALSE;
-BodyPositionX = 0;
-BodyPositionY = 0;
 BodyScaleZ = 1;
 m2 = createModel(BodyModel);
 zb2SetMass(m2.BodyId, 0.3);
 
-zb2CreateRevoluteJoint(/*bodyA*/ m1.EmptyBodyId, /*bodyB*/ m2.BodyId,
-/*anchorAx*/ 0, /*anchorAy*/ 0, /*anchorBx*/ 0, /*anchorBy*/ 0,
-/*referenceAngle*/ 0, /*enableLimit*/ FALSE, /*lowerAngle*/ 0, /*upperAngle*/ 0,
-/*enableMotor*/ TRUE, /*motorSpeed*/ 0.2, /*maxMotorTorque*/ 500.0);
+zb2CreateRevoluteJoint(m1.EmptyBodyId, m2.BodyId,
+0, 0, 0, 0, 0,
+FALSE, 0, 0,
+TRUE, 0.2, 500,
+FALSE);
 
 // properties for water particles
-BodyScaleX = 0.1;
-BodyScaleY = 0.1;
+BodyType = ZB2_DYNAMIC;
+BodyScaleX = 0.2;
 BodyScaleZ = 0.01;
 BodyShape = CIRCLE_SHAPE;
 
-ParticleCount = 1000;
-ParticleSpawnTimer.Interval = 0.01;]]>
+ParticleCount = 300;
+ParticleSpawnTimer.Interval = 0.1;]]>
           </Expression>
         </ZExpression>
       </OnStart>
       <OnUpdate>
-        <Timer Name="ParticleSpawnTimer" Interval="0.01">
+        <Timer Name="ParticleSpawnTimer" Interval="0.1">
           <OnTimer>
             <ZExpression>
               <Expression>
-<![CDATA[int id;
-id = createModel(BodyModel).BodyId;
+<![CDATA[int id = createModel(BodyModel).BodyId;
 zb2SetMass(id, 0.01);
-zb2SetGravityScale(id, 0.2);
 zb2SetFriction(id, 0.01);
 zb2SetLinearDamping(id, 0.01);
 zb2SetAngularDamping(id, 0.01);
 zb2SetRestitution(id, 0.6);
-zb2SetLinearVelocity(id, random(0,1), random(0,1));
+zb2SetLinearVelocity(id, random(0,3), random(0,3));
 
 --ParticleCount;
-if(ParticleCount <= 0) ParticleSpawnTimer.Interval = 1000;]]>
+if(ParticleCount <= 0) ParticleSpawnTimer.Interval = 0;]]>
               </Expression>
             </ZExpression>
           </OnTimer>
@@ -706,12 +863,97 @@ zb2AllowCollisionDetection(TRUE);]]>
         <Variable Name="ParticleCount" Type="1"/>
       </Definitions>
     </AppState>
+    <AppState Name="RaycastScene" CollisionsEnabled="0">
+      <OnStart>
+        <ZExpression Comment="Init">
+          <Expression>
+<![CDATA[zb2AllowCollisionDetection(FALSE);
+
+// environment
+BodyShape = CHAIN_SHAPE;
+LineBodyIsLoop = TRUE;
+LineBodyVerticesDef[0][_X] = -16;
+LineBodyVerticesDef[0][_Y] = -9;
+LineBodyVerticesDef[1][_X] = -16;
+LineBodyVerticesDef[1][_Y] = 9;
+LineBodyVerticesDef[2][_X] = 16;
+LineBodyVerticesDef[2][_Y] = 9;
+LineBodyVerticesDef[3][_X] = 16;
+LineBodyVerticesDef[3][_Y] = -9;
+LineBodyCount = 4;
+createModel(LineBodyModel);
+
+// random bodies
+BodyType = ZB2_DYNAMIC;
+BodyFixedRotation = FALSE;
+BodyScaleX = 0.5;
+BodyScaleY = 0.5;
+BodyScaleZ = 0.2;
+
+int id;
+for(int i = 0; i < 30; ++i){
+  BodyPositionX = random(0, 14);
+  BodyPositionY = random(0, 7);
+  BodyShape = floor(rnd()*4);
+  id = createModel(BodyModel).BodyId;
+
+  zb2SetGravityScale(id, 0);
+  zb2SetLinearVelocity(id, random(0,5), random(0,5));
+  zb2SetAngularVelocity(id, random(0,5));
+  //zb2SetMass(id, 1);
+  zb2SetRestitution(id, 1);
+  zb2SetLinearDamping(id, 0);
+  zb2SetAngularDamping(id, 0);
+  zb2SetDensity(id, 10);
+}]]>
+          </Expression>
+        </ZExpression>
+      </OnStart>
+      <OnUpdate>
+        <ZExpression Comment="Raycast">
+          <Expression>
+<![CDATA[float x = cos(App.Time * 0.5) * 20, y = sin(App.Time * 0.5) * 20;
+
+zb2RayCast(0, 0, x, y, RaycastPointX, RaycastPointY, UNUSED_F, UNUSED_F);
+
+RaycastTransform.Translate.X = RaycastPointX;
+RaycastTransform.Translate.Y = RaycastPointY;]]>
+          </Expression>
+        </ZExpression>
+      </OnUpdate>
+      <OnLeave>
+        <RemoveAllModels OfType="BodyModel"/>
+        <ZExpression>
+          <Expression>
+<![CDATA[zb2DestroyAllBodies();
+zb2AllowCollisionDetection(TRUE);]]>
+          </Expression>
+        </ZExpression>
+      </OnLeave>
+      <OnRender>
+        <UseMaterial Material="DefaultMaterial"/>
+        <RenderSetColor Color="1 1 0 1"/>
+        <ZExpression Expression="drawLine(0, 0, RaycastPointX, RaycastPointY);"/>
+        <RenderSetColor Color="1 0 0 1"/>
+        <RenderTransformGroup Name="RaycastTransform" Scale="0.1 0.1 0.25" Translate="-4.3555 9 0" Rotate="0 0 0.125">
+          <Children>
+            <RenderMesh Mesh="BoxMesh"/>
+          </Children>
+        </RenderTransformGroup>
+      </OnRender>
+      <Definitions>
+        <Variable Name="RaycastPointX"/>
+        <Variable Name="RaycastPointY"/>
+      </Definitions>
+    </AppState>
   </States>
   <OnUpdate>
     <ZExpression Comment="Step simulation">
       <Expression>
 <![CDATA[// step simulation
-zb2Step(App.DeltaTime, 8, 10);
+float s = App.FpsCounter/3;
+zb2Step(App.DeltaTime, s, s);
+//zb2Step(App.DeltaTime, 3, 8); // Box2D default; can cause shaking of joints
 
 // update pointer position
 PointerX = App.MousePosition.X * ScreenAspectRatio * POSITION_RATIO;
@@ -721,50 +963,78 @@ PointerY = App.MousePosition.Y * POSITION_RATIO;
 BodyCount = zb2GetBodyCount();
 ContactPointCount = zb2GetContactCount();
 
-// reset mouse button flags
-IsLMB = IsMMB = IsRMB = FALSE;]]>
+// reset mouse pointer/touchinglags flag
+IsTouched = FALSE;]]>
       </Expression>
     </ZExpression>
-    <KeyPress Name="MouseKey" Keys="{|}">
-      <OnPressed>
-        <ZExpression>
-          <Expression>
-<![CDATA[switch(MouseKey.KeyIndex){
-  case 0: IsLMB = TRUE; break;
-  case 1: IsMMB = TRUE; break;
-  case 2: IsRMB = TRUE;
-}]]>
-          </Expression>
-        </ZExpression>
-      </OnPressed>
-    </KeyPress>
-    <ZExpression Comment="Mouse press post-processing">
+    <Condition Comment="Android?" Expression="return ANDROID;">
+      <OnTrue>
+        <ZExpression Comment="Touched?" Expression="IsTouched = touchGetCount() == 1;"/>
+      </OnTrue>
+      <OnFalse>
+        <KeyPress Name="MouseKey" Comment="LMB?" Keys="{">
+          <OnPressed>
+            <ZExpression Expression="IsTouched = TRUE;"/>
+          </OnPressed>
+        </KeyPress>
+      </OnFalse>
+    </Condition>
+    <ZExpression Comment="Touching post-processing">
       <Expression>
-<![CDATA[if(MouseJoint)
-  if(IsLMB)
+<![CDATA[// touching of buttons
+if(IsTouched && !PointerJoint){
+  float x = App.MousePosition.X, y = App.MousePosition.Y;
+
+  if(y >= 0.82 && y <= 0.96){
+    if(x >= -0.22 && x <= -0.14){ // move button pressed
+      IsMoveMode = TRUE;
+      enableMoveButton(TRUE);
+      enableDeleteButton(FALSE);
+    } else if (x >= -0.12 && x <= -0.04){ // delete button pressed
+      IsMoveMode = FALSE;
+      enableMoveButton(FALSE);
+      enableDeleteButton(TRUE);
+    } else if (x >= -0.02 && x <= 0.05){ // scene 1 button pressed
+      enableScene1Button(TRUE);
+      enableScene2Button(FALSE);
+      enableScene3Button(FALSE);
+      enableScene4Button(FALSE);
+      @SetAppState(State: ShapesScene);
+    } else if (x >= 0.07 && x <= 0.15){ // scene 2 button pressed
+      enableScene1Button(FALSE);
+      enableScene2Button(TRUE);
+      enableScene3Button(FALSE);
+      enableScene4Button(FALSE);
+      @SetAppState(State: JointsScene);
+    } else if (x >= 0.17 && x <= 0.25){ // scene 3 button pressed
+      enableScene1Button(FALSE);
+      enableScene2Button(FALSE);
+      enableScene3Button(TRUE);
+      enableScene4Button(FALSE);
+      @SetAppState(State: TumblerScene);
+    } else if (x >= 0.27 && x <= 0.35){ // scene 4 button pressed
+      enableScene1Button(FALSE);
+      enableScene2Button(FALSE);
+      enableScene3Button(FALSE);
+      enableScene4Button(TRUE);
+      @SetAppState(State: RaycastScene);
+    }
+  }
+}
+
+// handle pointer joint for moving objects
+if(PointerJoint)
+  if(IsTouched && IsMoveMode)
     // body is dragged by mouse
-    zb2UpdateMouseJoint(MouseJoint, PointerX, PointerY);
+    zb2UpdateMouseJoint(PointerJoint, PointerX, PointerY);
   else {
     // release dragging
-    zb2DestroyJoint(MouseJoint);
-    MouseJoint = NONE;
+    zb2DestroyJoint(PointerJoint);
+    PointerJoint = NONE;
     DraggedModel = null;
   }]]>
       </Expression>
     </ZExpression>
-    <KeyPress Name="NumKey" Keys="123" RepeatDelay="0.5">
-      <OnPressed>
-        <ZExpression>
-          <Expression>
-<![CDATA[switch(NumKey.KeyIndex){
-  case 0: @SetAppState(State: ShapesScene); break;
-  case 1: @SetAppState(State: JointsScene); break;
-  case 2: @SetAppState(State: TumblerScene);
-}]]>
-          </Expression>
-        </ZExpression>
-      </OnPressed>
-    </KeyPress>
   </OnUpdate>
   <OnRender>
     <UseMaterial Material="SmoothMaterial"/>
@@ -773,42 +1043,62 @@ IsLMB = IsMMB = IsRMB = FALSE;]]>
         <RenderMesh Mesh="BGMesh"/>
       </Children>
     </RenderTransformGroup>
-    <UseMaterial Material="DinaMaterial"/>
-    <RenderText Text="Bodies: " TextFloatRef="BodyCount Value" X="-0.98" Y="0.87" Scale="0.3" Align="1" StretchY="1.5"/>
-    <RenderText Text="Contacts: " TextFloatRef="ContactPointCount Value" X="-0.98" Y="0.76" Scale="0.3" Align="1" StretchY="1.5"/>
-    <RenderText Text="FPS: " TextFloatRef="App FpsCounter" X="-0.98" Y="0.65" Scale="0.3" Align="1" StretchY="1.5"/>
+    <UseMaterial Material="FontMaterial"/>
+    <RenderSetColor Name="MoveColor" Color="0.7 0 0 1"/>
+    <RenderText Text="\" X="-0.225" Y="0.895" Scale="0.8" Align="1"/>
+    <RenderSetColor Name="DeleteColor" Color="0 0.25 0.5 1"/>
+    <RenderText Text="\" X="-0.125" Y="0.895" Scale="0.8" Align="1"/>
+    <RenderSetColor Name="Scene1Color" Color="0 0.25 0.5 1"/>
+    <RenderText Text="\" X="-0.025" Y="0.895" Scale="0.8" Align="1"/>
+    <RenderSetColor Name="Scene2Color" Color="0 0.25 0.5 1"/>
+    <RenderText Text="\" X="0.075" Y="0.895" Scale="0.8" Align="1"/>
+    <RenderSetColor Name="Scene3Color" Color="0 0.25 0.5 1"/>
+    <RenderText Text="\" X="0.175" Y="0.895" Scale="0.8" Align="1"/>
+    <RenderSetColor Name="Scene4Color" Color="0.7 0 0 1"/>
+    <RenderText Text="\" X="0.275" Y="0.895" Scale="0.8" Align="1"/>
+    <RenderSetColor Color="1 1 1 1"/>
+    <RenderText Text="Bodies: " TextFloatRef="BodyCount Value" X="-0.98" Y="0.9" Scale="0.5" Align="1" StretchY="1.3"/>
+    <RenderText Text="Contacts: " TextFloatRef="ContactPointCount Value" X="-0.98" Y="0.8" Scale="0.5" Align="1" StretchY="1.3"/>
+    <RenderText Text="FPS: " TextFloatRef="App FpsCounter" X="-0.98" Y="0.7" Scale="0.5" Align="1" StretchY="1.3"/>
+    <RenderText Text="` ~" X="-0.21" Y="0.89" Scale="0.5" Align="1" StretchY="1.5"/>
+    <RenderText Text="1 2 3 4" X="-0.005" Y="0.885" Scale="0.5" Align="1" StretchY="1.5"/>
   </OnRender>
   <Content>
     <Group Comment="Artwork">
       <Children>
-        <Group Name="DinaFontGroup" Comment="Dina">
+        <Group Comment="Materials">
           <Children>
-            <Font Name="DinaFont" Bitmap="DinaBitmap" FirstChar="32" CharPixelWidth="8" CharPixelHeight="16"/>
-            <Bitmap Name="DinaBitmap" Comment="Font from http://www.donationcoder.com/Software/Jibz/Dina/index.html" Width="3" Height="3" Filter="1">
+            <Material Name="DefaultMaterial" WireframeWidth="2" Shading="1"/>
+            <Material Name="SmoothMaterial" Light="0"/>
+          </Children>
+        </Group>
+        <Group Comment="Fonts">
+          <Children>
+            <Bitmap Name="DroidBitmap" Width="5" Height="3">
               <Producers>
-                <BitmapFromFile Transparency="1">
+                <BitmapFromFile Comment="Imported from DroidFontSmall.bmp" Transparency="1">
                   <BitmapFile>
-<![CDATA[78DAED5DDB96E3200CE3FF7F7AF66DCF9C6930B27C011AF969A64D49A2185F844DC69048241289E42DF2F34BC0837FFF810FFEF91364846628F69EF1FFBF8F57F2F9EDF282ED038EC21F57C29EC7F1792538EC20C8E7E03F9BA48FF3F76722E9F6C7981DAE93CE0E93FEBB9493B03FCBD14E7B04D583FFB9EB6AFB8F18B7D3BC7027FE5BE29FA5A1FB02908DF97E9497CFB263F6C1C1994BF8115BC93FCD4EB5E90323AB443FCED9D88DDA58743D360E2ECD37F09F6994EBABB7E5DDEF71BE1289E48BED18EE2C246D79AB2B2E92D0544C1CFF59724A8CEF4A7E0745A6E1F11B411212D444B5FED7E16F2F88C42968EF1C8FD3B915B4460A7F9BA27B89CA530DDAD5F82FCF5884FF2DFACFADBC18A11AB838FB6709A6E81164017894FE0F3FF1D5B0049912FF544FA52CFF8B78D8A0816AB0EA9D2705D785B3F0C7EB19885BDB5EDDD1A0FF5CF07C54FC7F35FE83E2759BD75FFA53E966FBCF39C7E6F517C999CCCFB1DE3CD1950BFF2B6E53F86FC71FA94B4CF4B0C2BFCDEFBBF29DD95776F18F51D7EA4AA9F038D3F87776FD447D7E29FEAEB411BC129CD705D352BBBE6579523026BC177F6F5ABA7C5E46F15204FF41D5E75F813FC7EBC6F1B727858BF6897FEEE5AB8BEC0F8DFFA3A2DAD5A45EFD373C05E1BE677E0D9C2004FECB7B8FD81F64F014FC47C6BAFFAEF86779BCD728D1F873FA734EFCF3E6DCF304FF2BFC85BFF097ECE27F24122254131AF229C23F328984E15EFD3FFF1120FC39629F91922A90325AAE47CC4E8D132048C083B73947FAEEB3F27DD7E72033839717562C5810F8D37577DCF8DE719078FB55F87BE73B81BF8B076BC0DF360EFDF877EAFF39F6E73BF097FDCFB53FCB602631FEF1AE472CEB2E1092875E2F8BE3D31936A7971B55575C77E60B445C2AFC9B33CAB6063170AAD207B80CF217F70BEC9AD4A28024128944C2C5E79DEB716FF05674F84D34A51A5BB3CEB23C246DA7F97CFC368375B606EF57877F303C23EAEA693EA701FFEA54A2223CF6F24811FCED1D6BC1FE0B425DAFC31FD7A514FC87A7FF221DFFA2B72A80C630B2FE5B8DFF58EDBF9D62C641FC830E258BCFA7F1AFE8BF08CE0BD7DD7D37FEF66DBA0C51A26B8EECB37DF27A16DD7FC1297C965FF6E2EFB2E759C7EFC29F88FF89B848E46A5628C82565C23F8BFFE1FAFD2512894422915CE4F7BDFDE3AEF8DF3829BDBF8777FF1FEF38E075D2EB2359FCB3972F0D76DAD2F59FCD75F5F8E7C1E75B5166BC0BFF7EFD8CD7F1DE823FC2639C807F90CFF1DA557C7CD77E6E2EFC233BA2180072F66724EDAB56A4FFA07921F4DF85BF519FC0BD7758F8BBECCF0CFFACBE0C6EDFA493E31F047F504F1EF704E3F607C3FB471AE2FF94B8DD7BA90D7D6DE24B2512894422919C268A4C4E7804BB9E3BD76FEE8A6F893E77049FE538B8AA2FA740B01FD64BCF8EBC82F3B1A38FC0F815817FBC453A8EFFA8E91349E7F3D30D4BD1FB37973432DDF1B4B45717E1EFEA63F2CEC4E16F61589AE2A5CD89BC6733B8EF4A9B5376191357E5B0EB2B57EF4CF0A5E134AFBBFC3C45FF6D83F3F855CA0B6B3E870A1A8A745E7DE97F73ED7F1BFF8F3B1A6E0A14EDF75514FF2C4DB177EA8171FBD2FE2F437722EFA8E0DB7BB6BB9174E6B912894422915CEDDDD2399F6552702F383DE3B7ED4E59340297F4E13C7C967635E0EF852225E08FE3FFB86F06B26340D6456665BE41FCAB8D00B29FBC412E75E24F90BD771961702B98D97E4A0DFA8F932D7B1F41B5FD6FA0C5B8BAD3E07CEFC7DFEE53B3DFE7DE89FF5EFD1F65EB9888FF9D1DD96C7F76D9FFEDF8DF1BFFEC7A04F624F56E31140FFBBFE3FDB0CDF837E4A1D76D329F32DFFBEF2E52DAF42A424682C83F99AF58DD]]>
+<![CDATA[78DAED5D3D8E5D370F1D375F61B8CC12BCB859428A54AE6705DE800B57993E75DAB42E5D05EE5205360C381F31073960245D8AA2EEEF7B3C85F1E6F9DDAB3FEA88A228F2E121914824128944229148241289442291D8169F3E7DFAEBAFBFFEF9179F3F7F7E7E7ECE6ED901E8F0DF7EFB6DF537CB3BF1F2ECE41B03A7AA7CF8E38F3F6E630AE4B01E3E0405BE7CF9923D93FC9F38F96CBDFA3C4D293D1C1F3E7C787C7CACA9630B5E4A24FF2756C1FBF7EFBF7EFD2A432CFBF7C32BF3FCFCFCF9F367D4676BFE97DF4B4169A6D80EB2AFC40633BB22F93F715A3C3D3D6194E5C35175F8E5975F40FBC40EFC4F48D152819484648FE4FF1CC13B84A8C1C76E01A468F0F0870F1FC2532066B538CFF627F93F91FC9FD81FEFDFBFC7406B13EE856478464A6F46C88D3EF4B491BF31B069C72ED55FB666F82FC35161A6F275B9C537DD864CF6BCFEF1972F5F7824E79C0EF83DCE5FA48BA0CFC8BFF2D93F9DA5938B671F5EECB19ECA4F4E5EA979E13CE66F7BD104790FCD08F242A752A7BB5DFBC30C492F345878BE8DB26EA1F4B2DB0D6518C6D525C305CD294EDF1ED6C4DFEDFF3890FC7F21FE1761FBFC2F381D7044421CC2FF9064DB4561A6F227E17F567BD43103BF14D2282CA87EC3E6D3D353F359E9D51DF87F893D86ACB254124629A8D9ED52342971A815E846E7B24BD928589A4BC9EFBFFFDEAD7953428CFFB2172FFF695D2D30F7C6FFFFFBDFFF7EFEF967F937F0BF27E4FFD5AD0AABF03F2459846DBBEDE419F81F0658D00E5532CFC2A7F9537EC9233C52BAA7EBF84BFDB8BC8D737C535111CE91C54B537DC0298506647D88D93DD06C7AA9C126EC6CBBD6D86510A196DBBC5D0CBAF473C1BAF227C4DED6B86495692AF9DC1A389721F9197E8F422981DD5DDB8A27A797E37F21F65F7FFD559E927F6B92B7FF37F9DF59222459302A63D7E27FAAD9055FD131C33E14A3E6B9A412DB1E6EB436D49DBC0FFFDB7D3234E24EE2D54CDBA459BD9BF0BF477A12D5766AD1A05CAC5C051BCB97581DBA1BB762889764C980741A4AC407FF367FC525E072FC2FBA3D25A42079923F20BF4CFE0F9448490EB8045C8BFFC100C646DE5683F1FEE66F3C6A24B5D02523F321FCBF96F130FC144D221EEB993E3CC5E7AE160D9E97CE474BF97B88BD7C8971E9EAF0ECA85F5E10E807ACF2522E1FF71F1B7109983C38BEAEFE5F2C014BDF27FF3B4B048F79CE7C6F86FFA13D367557A864B60DC728DDF338A67FB374E708AECBFF38C51E1DFDD5F9DF2FBDA82D17592C1C5DCB15CE17A4142C1FEC7F0C997C59AC0B5DFDE1AF178CBA3292C0B5C230B48D4285676E10CF5F4098E1FF70E935D5BF79F3E628F2BF19FE87243B4DDFB7C1FF977E7C45FE8723900E21B5B5B8AE32658A5DAAD39712EF87DD468B3A18586F043C0DD1FE4B010B1809BF580E9CC00A189BADF4C09F5941261D7878C8386A6A2896803FFFFCF328F2BF19FEA7EE372A84C9FFD7E57FE1CC2278A0F314F270FEC7E94921AB2034FBD805E61DE89CE47CBD16402F752E825C378794FFC272D55CCEB65B02B4BE3719836EDE81532AA02530BC041C45FE37C3FF2293F3E74AD7E27FC302730FF61F1EF4484DA41A314BF251FC0FD228E80BDD6EABE23ACA0D6D3E852DC8A905F104DF73DC6F58AE8C2F3DC08AE67F507BDB0EDD55599DFFF5C599C0ABDEBC79A3357FF92CDF3CEC0EC363FC5AFCFF30ED5A7008FF877B7E95F3DFA6063579FEEB3C039D8C2119B05A9F84FF794A554829BF5F3229D3E5529B8C84B75128756FF48C4D8CDACB8B0B81C7948D3AD4470CCD4DC1902165489997C6A299F3FBFDF0E3607EA946C0D5E46CFA7F73F431C7876C8347F13F87804BC03EFE3FE41F4E287EE3E4FF70CF53012E68E45AFE9F314FADB0C1E10CFC6F183D6C2604E1EB7559FB7C9278B1FEDAA6B0E2A2049DFF9DD3B32999CD4DCD764B0057A2B00CCCF03F675F60BD3BA1FD1F5757744FC642319FC1FF3FEC021AE07FB2B73E80C0374B5EE22BF63C4FA0EAFB5FDD0D354B979790C3F7BFFF05B292DE939A632AC189A56BC9E765D5E20A98BCCA3FEE87F0BF61E7B74367E0E5BA5CDC0293176A42AE7FE6D12E9C977F51F9E6CB9B871AA3EAF4D01270D1FBBF27F4FFE1797A2092804CBA2284C2D088F07160E806E5920CC4968000FF1746543A667BCCAADC47877B5E08531F3F05E23F344B771AD0EAE8BB433110A83EC18E5DA06BD86996EE69FE7C089A19FEEFDE5033E416BCADFF8B5A87EEAE7A9BA0C1C39DDAFAD465E0AED2DB9D74771EFFE7B4FEFFA0297D9CED8FA65547511B1A91A5206C933210580202FCFFA05CD138E34868B647B46E66ACE7D981E1F86F0FFF3DC61A3D53AB9FF5CF2CFD1BD1F97510366985C7991CA5EB503C3204F2A06DC796FE91B29A017C76E0FFEED18C71AC83FED1ADA3906B350316BCA61EBE143BCE3965662A9FFCFF70B5FBBF97C08AF5CFD463F706ACB939E2F739F733FE4FF27FF2FF3D03F6931CF1E4FF7DF8FFE152F13F93FF13B78DA1DBB289B3217C037792FFFD5176EF8A3F93FF1357949F1CF18B22F3FF9E8DF4E0FE377A0D5F0387A7FE5852C9FF89C4DDE2F1F111514FF5CDE84DF91FF9A1A4D0A3B25E9E96FF79F368E66D7072DB3A84AFDECACD38AF2612894B535F76C2BAFABF3F19D019F4FF49E7D5442291FC9F482412894422914824128944E26C5BFE30B20313894422F93F91482412C9FF8944229148FE4F2436C2F3F3B38E908C20DE67BE8C00EFFA1CB844F27F22118611ED9CF0FBCCEF0386939D4CD297480CF1F93EFCBFFF02F17910291E370366E7A9AF563D3D3D310DC479EE2E91FC8B0C4D8944F2FF3E9B97A197BF7DFB36C5E9E4726EDCAB35F2721EB25B99CCEE9D48F8E7855FEDD9C8FE138E067C06BC7AF5EADDBB773F7EFC907FE5730AD509814415469853C6DE39436D11C3E7EBD7AFB711222991FC7FABFCFFFAF5EB8F1F3FB281F259BE49B93A1B90B80D91AEEBC49DC8BB1DD3FF57311C491D7406C36EEA5B67E978A1D128E4FB66C8389D0430B0F4C4BA025908D976F91028BD99C8CF0639A79007291ADF1B895CD1638689D899443ED6752B5A3092FF67F0D34F3F49CD4562BF7DFBF6FDFB77F9573ECB37F2BDF194B00D679C4EFA8929D0ED7F4CE799ACA30FFF1ABD75124F79EDA74F9F3C89004056B1A4A59CAD3A5DA9142D2F190A7A16A09AA54CD91A81C06BF3FC4FEE6AA6020F97CE3965BCC4EE8DD1AC1081AE30DA3E74EA81C4A94316333E522C19AC92C1DE5C239A7DCBE324FF944CFEBFB4831046DC50180A45B49676A7FD8152577BB3F8A70CE533203352CF66D16C97D3B8D1849D787A9E7597F85FEA2F6CE02F7D45FE67BF616FF2F402F9407DD81ED3A5D24950B60A0AE7222140B6BD287DA84F46BB422A492D429E42DBE503BFF4BF478FA6937529874517715DB037834B0746ACCC90480C3DA257F62713C9FF67E37FDA1928A5F2412BC3CEFE97F7E839EB9F32146F117B1A4360039151E8AA4F2C48978EAC259EFAD3B28DF98EE6CB07A120DDA28D58770B279FC97782699B6BB72745DA52E9F32708A8D890EBE96857C8A0375719EA424E630EDEC31C04435A343AAAE876673A0CFCA6280EF3CBBF78C5BAAE6B804AFBFFA6661F27FFD7BF5CEA706A5C9EFEAFA58B1E23F694E1CCF22C55C6845D222BBBFEDC59CF3B34C65817955CF7507586FFA9FC372D2DEC2E63596C96CED7CEAC7481291923B1E602072677F21B697FC8898B670DDA8C83AE932F51375B5430407A32727EED603A6BAE3EC9FF5BE3F5EBD775772DF1BFFCB2380EC6A8D5578D9C3D605C08F24C192827612F4763C2D2A6D42D7D95DB4C317EC3848DAD7D5BF03FED51F6CB8D8B69CDD2BBC7BE27E17FA375DD9EA9359F5F5EE0543040D422CF247C5D2EAE5D7BCC5FF8191F0FABE50129E25A13B35B26FF07F0EAD5AB8F1F3FD6336B89FFE597F27BED144A9E2C348421FE6F8E1744D7DE7862F50913E0D2E2E5ACFF2A1ACB24EBD6BE2E7E8F91D5F9DF584F9D6B7A5D3A07628616628B488C4CECC36BE71ACA7AA2DADDABDCA07D746CFD382BD0950D92B0EC14B8ED0AF47C4C8A50C9515B53F27F18EFDEBD934A7EFBF6ED8FFFE2EFBFFF96EFE5DFE27BF9A57C2F4F2D5110EF1A0FD97FC25366D22CB04AE9ABDCB98B3584FE4EECF6F96B56CD56C80B3D75EB7A09D28CEFEC071E3ECE6CB2E80DBBE921E65AFC5F10BE470BE2FBA108615BFAF802761D7EE0690B343A4EE18072C54524B071983C08B81CFFA3BD86790D7BFC2DA237BC7DFBF6C78F1FF2F2EFDFBF3BDB8B5FCA53C5ED60FA5DD7BE34C9FF1BF13FE6A93E79076186A76DB7515D8FACAE79C769205AC591157347BB048FF6C9FEFC4FE6643FD30464F7003A1645E354EBF905D4F94123CE6594B338A68A6B8530B07798D9565F8EFF69B8B37B63A38B93ABE8FF333D3069FF99E4BA49FB8FB1371FDD0086CFCBEA1DFDE426BAAE895090D389B1DB8A6EB718734DE6887316E02E897E56466A87AB10F3FCCF357D54C841B91006AAFDDC087878A6B94C074208A2209113BC24B0159D3908B8A2FDC7389AC17BB60BE4386FFF5F85FF9BB2ED3FFF0D739D61AFA65B69B774E3F878A3FB92FA915A6C26233F2CD584AF352AB996FEAF8B10FA12DDD5EF0FCC1FF3365FF8E0607FFE6F2A247E45882DFD4B41EF239C33455F5E8ECD2974029A33EA3B34A3C35C91FFF5D94DA1C64C9E867830E9FF636B32DDCADF86FF67CD304BCAF98AFCBFB4FB280E10579C410C3A6A3FBBA2FDBF96077BA0290F52C4E439F8FEFCCFF3D63AA047D709B39043AEB3BABB9C8C44EE8580C57C78B0E9980942183B08B8E8F92FBABAD8DE42BD9C17E32E66FCFF1FFECD4222C2C9FA9357BBF646CED6F0FD2FEEF48BFB5FF2D9A3FB2DDDFF721AF049689C9B52341E1F5AB803FCCF79AAE9827901B63813E9FAC46EE1FF53BCDC2613EE0757B197EECCFFC676D2BEBCC653F27A29D1562F8F2B295F25F2CC1853FECEC41869DE989146C33C7B63FC5F3B7263253D2A7EAFFFFEEF83F242090470A092DF0CC2E0DCB91BF11FBA0B5033910AB447E708369BEF6FFBCCD9318B960FBC2ECA6F9CE18FFC33A86BBDE92E1031FF7FFF9C5A37F1CDCEFC6F6C78EDC79D163FCF15806205C79FCE53E342F99FB4E4E817FACF6EAEEBFF596C019CF735CEC0FF0F0B01D03C6A03C7B78EFF3674A9B68EFFE627C066E839DA769C762416ED6FBBF6D80CFB0E493D8D97AC7B73A7BBAFD9E8FEAF9E119BFA831DC8FFEC9CA6E468B57CC98CD91D6B7D466C0F1F0788E57A8868C96233B305E0F2E1DC835C97FFF516603B9FCFAE212810FF73CF29B61B76BEC1719E7EE89EFFDA5A8111FFC77303AB6BFFB7755114B1D6C4D993FF9DA6B3E60FF0F26EABB58FA8D17BC5F83A8F930CA71DB63D6694EBF6CC6DF03FFA1F2B5DF338601FEC1CFF3FF9FFFCFC2F335A071AB555411DFF137138872270D6F7BF7408CDEEE3B4DAE1308871237118A48F699A0C5680EB9D330A6598FFA9661BCA399B56D3020E0EBAC2632F1386A6ED51E06D96B65D58ED989F94288F59EFD2FC0FB5DF79E37B3BEC99FF2BF9FF9CFC3F1342DF8881DF7D7CBE743B2742D7796966D687F9DFE076CF1AA15D2EBB8B6393FFED20CF8C0BB754BD6E98383B52E2EAF1FFAF9BFF97DBE7C379609FFCBFC9FF7A77BF6E24B715F97F3485569D036BE83C68B2F46632204446325E7220FF3BA3832E99809C267AE398B8EB5B85A2978C6F1ED72CC33497FC5FC8C90E3E9F2741F27FA1B5D2D501F15B1E1289C441BBDDB5A2BB2492FFBBA8DD5057892C9D482492FF93FF4FCEFFB5CD24F93F9148FE4F24128944F27F229148241289442291482412894422914824128944229148241289C49DE0EB0BB21F128944E2DE80880481F40789442291B83490C0222FD08DE2F1F111E9FC74E8A45822A14422913804FB5FDFBE01E8347C9FFF05C3E89DF0927E2291D8024F4F4FA2F515013C9D19D9F8542074A70662E2C502A133A2F21D2AAEB17EC38E692946F78717341FB44383124676E387E57BB8FEC8B1BAAAA3FB973A5079375AACB3FECE9BC2ABACB0450019B442C4C09EB693494BBB6DEF26EC904A52EB409D87E6ACDD75DD9C5393C17E3561D621DC3D6F68F60F3BA4DB7C19DC58A4E52E158423F0371F0CD0F8CC2D7B0EC71D9A8002FDC654EF4349578BA5D653ABA5C8C6DD69E8113CA9BCD63D568902EDE4E4C3F95FFAA70E20E96FFB0CFFD75B45D038E0597D9A793A9CA2E8C957DECDD934CFFFEC2B2DA831FEE7ABBA3D3F9369A5FB4E614E0E81F00375AA6E326EBDFA6079F2248EDC88FFBB890B6F0FCC64ED7F04B419CB366EE7262E846A493369CE62A98F3649D9D593376BE395CEFE26AFB5D347EAD291724EA8836FF3C8ED52AAB86ECEB855F89FD951A5CEF212163A99323B60441D6D888C8BAEB0700BE9C23973BBF96A6DCD333C7045CFB0ABB5B4C4F85FAFE35D9D8D6C5F675A0CE872F6767E29C1B77F4D195A9566EC3F1BD9C4364DC92D2F8F31702D18F2AAEE325D0812E556EAC05D335EC2BC844B12D53501D9C61F9B379CA99F3901032CBAF420AAED49C83249E0938FA3EDF5F6CD43E0C7F2BF4D179EF72CFD1232DC4D1B3D2933FA4FF0B65EB602FC8FB67327D5D5D99A7B76D42446560651735CC246E98B6AE34E556A15BBCD5AABC0A8B90F544F2D5A24100286D501A9C997F614B67AEFD920D8D390FCD655806764BE593A666277337520FFB3EDF5E317E5FF875E3AE96E89B4FC7475E055F81F7B0DD116506DCE8200FF33FBB3FD2C957F9BA8035B00C3C8C34267AC047EBDF40CD0FB29F9B0E969F29E65D5734DAF05DC0B80F621D2187DDB802F725BEFA0BBC2DC9D865D22E20F627B5EA3747BA29D81FF8DEEBD2EFFFB8BAE4BA4E56766FB30C4FFA8ADFC8BB1A0A88CF23F6A2E93CE48D5DA1DF4623E8EB60B7BDEA6CD13FF15B68140953A8F3DC7CFC64E9D7C9588F17AAF115B05208DFE61D2152B0E028AB35DC3084353C9126CEB8D3D0DF1724309EF6E106648002BE04CFD37A54D4355BE4FFE775A7E56E47FC827CE2F34C58DF23F8652265D97FFBBFB23674AF126FF34151E8E888709A51F4808321CE85EE8969B9AD08F62FE15F97F7E15A0B9DE5F6D0E4A61C629E4D078ED922B82D381C763FF3734871983A7D3FAE43F410E5720767CDC6C3B9EE259EACDF33F65C36FF95991FF3104B472505486F81F720E1DA6CBFF5D819FD1883897D1AB9A8B3C44D4741F953E39FF118066FE7937DA7968EFA9A15500E2E174B832F89F563BAD54D8851606A221EF50C3FFC743BFA30E664E12F0B3E81281CF6B0E7E02D4ECE17FBC59734FC34FC2FF6CC26805E6F91FBC4DF9048104F81FBD8D9A74F9BFAB11798CAE4EFD93FCE39164D65C4F46B894F82F351C05E7A5959DA1A7B37FE1206D7A8EC0A827D48EA0BA5C7D52B0C493055163C9E832B3417D9E0B419B9A5FFC5694F0A66F9EFF9B06F0C9BB0F0107ECA3F85FFB4C3A2D3F6BF13F341C5231EC1E38E5F4F33F152DA85E4EFE37AA3D1F00A1B0E83A2F52196704A3FC3FE9FF1978FC66F47F4894D325526BF5284E779A96525BFFE75169BD7DE81EFA4FDEFF3D89FE3FC9FF31DA5CA5ED57E77F5CF108F800CCF33F188F73532F077EFE477BB50FF6B1FA3FDDDEA45DD29FF8D3B3B082E4EDEB78A3923929D8F766FF2FDAD2B5054180316B2078DAA9584B69D7A258988030173C46C8E634943AF0E4D75E02305E9BDAFFED561C78FEBB5DDB2F77FE3B64F65C8BFFE920A7CDF8180E3FFFE3259C744EFEDFC8FE8FCE2F261DC4ACDB5186FD84AF3D39FF87578193F8FF2CD98296C60E2C4DD2C6328D2BFCD4A9A45650E66D9EC1B3D4139CC61F7B1A6214ECED27F7AA5BD0AFE770F970FF9FF0B1DA2DF13F45DDBF044CF23F2645C169ACB993FF3101B5801DE8FFC319D73CC8EB8A99714C0C72F057697FFB8FBD0A5CD7FFDF3E79870CEBFF95A2C9FCB4C014CBC4D25AC37941E38F7FE96C4E438FF96532DC9F513A67A2DDF003F97FBBBB0F57F4FF1C0D3530C9FF28AE504E40CE4E1D9ED7EDEB8B00DDB3B62DFCFF9774F86E95F4BAD32CD7B9833821AE7EFFB73B9B204E36C561F8BAA6782A0F4E856115FEA7961E53838DD239EE76C30FE47FAEB3B12380DBF3FF1F520626F95F3BED1495EF36817A452DB75DB275DEFF8D3109A652C1E1340B7854CDFA671C94C30F55275781EDDEBF5DE487EEFD29847D30E27F16F782BB3357D40030A75303E9DA7FBAC4CEE91688F8BA543A971EA7D9F3A8F83FAC67CD06CEA3F35BE2FF0715CC7CD3F80F22E1CDC0892067C6B5EEEA7BF5C079946D23FE8F73CAD8E2246FD607797EC31A3D0F195286A37995CBBF57045D08100C103DAF2FE2D9420E9D410F3A09A41BBDADA98E4E5EC341E587A2BAE973135CA264000ADB9E561401932C6D71FE283493F13FC38F3F28E73AFD1244310DEF5CAECBFF0FCB31F156E47F4AC8D26B6D7F391DAE79C9EA685440C7FFA4B46B1BF28C3249F36F7187CBF32C4F610A845DD412E1211BEA7C91A822FF17DF39E453ADCF0E8678C38806EF7C0F7DCC9AAEA481D287F62F93F1FF67DC06E8A437DA8463E3FF6FC7FF94C38D2E6EEBFB294BCAB9C7FE6307AFB6EBB045FC7F3D047AFA0F7551918A6834A74F2206844F2FB25F4121F4BFA4C8FF1B183BDAFABA61936D028CA51EC6C5554D86DD24744BD7D577CEFF35EF365C8FDD4CE4EA1DF27F6DCAFF3A98ED76FCDF5C5E750C04FB0D4DABAC93FF6BA65D25FF57229148241289442291482412894422914824128944229148241289442291482412894422914824128944229148241289D382713CFC377019442876EBFF0C0867CD48241289BB25FFDB58029AF1181389C41D6226B3DEA51148A547307EEC151B8E60A78120D2894422F9FF06000E0CC70F7F984B3F772C02418F1389C4D2541A0A1DBC8AE25A689E76168615F9BF693A6012736895B655E4F9F95907D195DF337C2243026E1D469B05CDC40FE74B9003E242984C2539092914023C54BA91746FA8E1E178BFC594F10BCF64CA6C994DD26A1DF214A1A7FD81670DD1EDFEB22E3D16B1567EAF53570C05F0C483E754B42663C0C6800ED11DC8749C9EC7114259470F060F7BC61492A3D56646A0FDE305B6615C0B928694EE8964BB16D652DDBB29AACF094EFF434C40CCBF30643DE399CBE46085D32E1CC5FFC653E113283FFFAF92B142478A0E547E32D5E33EC2BC67DD90014497886D885325981CD3620B50E4D5856ED924169A1D98378DF99BB4546C1DD99B09DCE7B55F4AE6B50E8239FD67CC5F3BF33F1F8C8D1A65AF10D4D89E6268CA93FD74BE367FEE3369B5BC41E60B654C3E3059616CBEF8F99FA5B314295D3AD3AFAA315D913C8597C8DBA080F92B8FE0FF27CCAE85E4833B277C87E8EA4241444E49C698CA2390288C2325AADB16643F2475D4A6A7A5A98D41AF39879AFF3EB69475ADDF6B6503BC1FC4EC3F24D2D8AEAD29DB61491855F9FCB97A87D498AE03C3D272C3B50F7F066A4525CAD6399929B5FE5933037B57D1CAB42F5CBEF5B8E39BD8D4E08358A93D3AA1D6F9EB1964270CAD475CA778DB8148D735271E659CBCC3035C72CE280950C096BA71D4961ED8F23357EF8A0CD67542FBC78798F4E2C8CF7E162B6C9352C0367E2392533BBD6DE824A43A0329A58B7F06F87F28231B05CFAFFF37199E931A5BBC1D3C2AD7DD4B620EEE6F483984FFC3A9DBD742EC14D8D83860E28C9E83C44CBE9E5CBDEBEE6437E57FCFEE09DDDB1C2F6351368A3B9BC735E86BB755E91F37C2FABFB38731A7A4E150033CF6FFA6FC6B43E28C81F7288BCD51BE9407163A236CF3B6A30009182C04991F25C0F091DFBA4B4077C2E207F564F46B7A93926F28EDA375A029E954F716D18AFD7725932E4035FFCB8343F7A1B805D00FDA764EAEF85C2CB86DC1EFF7B99794FC7F5DFE8F2909F3F9DFD7E2FF42E159A52BEC098BDF14C76AABF0BFE70AA471C21ED0E78FDA6B77F97FD22D39DCF9B50B5060710CBBC341BB9072FDFEFFF485909FF13385739F2D5EF2FFA51138053E15FF7BCE6DBB9C436F8DEE8495C955CFA979FEA7D9D66E85E1E815B0BCB1D0F33882CE1CBCCED34EED02E4A735A979E1971B10C8FA269A670BAF1D3EF75F3A0FB7FFCB18E9564B8778AEC3AC6BF4BB2E6807F01FA49E8AFFC9C9B15D8C56D59C931DBA59ED2EE26C7571C4A37DB6BBC7D9E47F9920FA25649ED13E8C9DD7DC1EFF4FBA00D12997B2E4994DB59E8FE933CAE1143F30E7CECEF3C7FAFFF016123BDC79F09DFC5FF4A17F053F1BFF3F0C9EB535F7E9436B07E8BABE68EF7C307CFB0CB22D8DD5B74D67743FD6FC248EA038EEDC93FFE75D8028F3E07067FD9BF77C69FC1F1A0E5DF9FDCF74E8FCBCA21DC6EF40C86E84F087EF36DE73009FD153E013F2FFC3844323EF4FF9ADB5D87170973ACAFF52905E08FCD127F44A2D028FE500CC13BEE973AABB60909F00FFE341B6A2F873520FB407B7E84067FD97EEF9FA6BAE272FA70F7782815DC068D1850161C5FBBF43CB9F36C9622C02B15CEE3C80DBD029F079FC7FEA09153E08A66A3DB469C2EFFDFC3F192A7CD4C97F8BD57F07FE0F1C49170B47601D09BB0015D2EB2CD7F0F31FDA02D4B177C236BDF0E2BB960928FC1ECE8BB031F3CEF97F88588C9B4A4E5392C8B6FC9212BE0AFF4F7A0E8C5A90B8F114456B94FFC3CE123CE958D75C8386CC44C05B97FF038358C8A4E7325DF30DB50B507763556C3C9DE51AF77CB1223BF5F07A33BE561F06AC88ABC4FF74BE04F34EF0DB0BB41554FE1CBD4B75E7FCCF4D9C67DB6858FC9C3BC1C251F90CFC1F781CFD208BA69FFF31C5669CE5B630D784B5EEF3F07F113A321049B28EF9E674012A2232914211CB28A0FF73943DABFC8AFC3F137E733EFE3F9AECD7DE7974BE4A4CC50CE0EF3F055E8A42E3F73716DAA7ED3A7064D3F4EFF2DBF09BCB1397A458A739E527BCC52E4869F533BEE6BD86A38430CC5D7C30F01EECADB401B0760AEA965E63695765DFF3C5287BE404EFC1D931EA8CA10C9841C29D3FAF99C4DC3E31DF65C8A0EAA33FE146351A927AE7C00B27C4901D983A4F1DFFD3AFDC16B3C6D9FF34D4E0A6CCC37FFDE8BAACC8130AF9251611FDF8A8660E2B100F73FD423B13FA83CB8DB4428712ED3EFEB48C932405085310D589E69F7EFB43D103FE3E11711229D2C7FAA0A6251D5EDF5B69DEF34513BA63CAF714089CFF063AAD5993514322A863349CE3E30B8A9714F337C31B069440A762D974411C5DFDB5E3B47FFD5D52B73CA50B612E3961C676BEDAF6E8379D4DBA1C170EE7CEC7CFEFF35CBB730FEDDF59FF58736AFD277021CBBF64D8F77CFD5B00BC8752DD4D19E6ECC39925C0BF395D2BF97BCC792951B38A9F06B9CF0AB8D06B0128DCE99DDA9A9679E8F3432A875E4426F37FB1139C4AE62AF42B0C59A712BB3AFFDF00EE36FFFBB19889669F48241289EBE2A2B923138944229148241289442291383FFE0F90F6D969]]>
                   </BitmapFile>
                 </BitmapFromFile>
               </Producers>
             </Bitmap>
-            <Material Name="DinaMaterial" Shading="1" Light="0" Blend="1" ZBuffer="0" Font="DinaFont"/>
+            <Font Name="DroidFont" Bitmap="DroidBitmap" FirstChar="32" CharPixelWidth="21" CharPixelHeight="32"/>
+            <Material Name="FontMaterial" Shading="1" Light="0" Blend="1" ZBuffer="0" Font="DroidFont"/>
           </Children>
-        </Group> <!-- DinaFontGroup -->
-
-        <Material Name="DefaultMaterial" WireframeWidth="2" Shading="1"/>
-        <Material Name="SmoothMaterial" Light="0"/>
-        <Mesh Name="BoxMesh">
-          <Producers>
-            <MeshBox/>
-          </Producers>
-        </Mesh>
-        <Mesh Name="CircleMesh">
-          <Producers>
-            <MeshSphere Name="OrigSphere" ZSamples="6" RadialSamples="8"/>
-            <MeshExpression>
-              <Expression>
+        </Group>
+        <Group Comment="Meshes">
+          <Children>
+            <Mesh Name="BoxMesh">
+              <Producers>
+                <MeshBox/>
+              </Producers>
+            </Mesh>
+            <Mesh Name="CircleMesh">
+              <Producers>
+                <MeshSphere Name="OrigSphere" ZSamples="6" RadialSamples="8"/>
+                <MeshExpression>
+                  <Expression>
 <![CDATA[//V : current vertex
 //VarP is set to the number of Z samples;
 //VarQ is the number of circonferences wanted in the upper and lower faces
@@ -866,66 +1156,68 @@ if (this.V.Y != 0 || this.V.X != 0) {
     // */
 
 } //OUTER IF]]>
-              </Expression>
-            </MeshExpression>
-          </Producers>
-        </Mesh>
-        <Mesh Name="HouseMesh">
-          <Producers>
-            <MeshBox Scale="0.5 0.5 1" XCount="1"/>
-            <MeshExpression>
-              <Expression>
+                  </Expression>
+                </MeshExpression>
+              </Producers>
+            </Mesh>
+            <Mesh Name="HouseMesh">
+              <Producers>
+                <MeshBox Scale="0.5 0.5 1" XCount="1"/>
+                <MeshExpression>
+                  <Expression>
 <![CDATA[//V : current vertex
 //N : current normal (turn off AutoNormals when modifying normals)
 //C : current color (turn on VertexColors)
 //TexCoord : current texture coordinate (turn on HasTexCoords)
 
 if(this.v.X == 0 && this.V.Y > 0) this.V.Y = 1;]]>
-              </Expression>
-            </MeshExpression>
-          </Producers>
-        </Mesh>
-        <Array Name="HousePoints" Dimensions="1" SizeDim1="5" SizeDim2="2" Persistent="255">
-          <Values>
+                  </Expression>
+                </MeshExpression>
+              </Producers>
+            </Mesh>
+            <Array Name="HousePoints" Dimensions="1" SizeDim1="5" SizeDim2="2" Persistent="255">
+              <Values>
 <![CDATA[78DA636060D8CF00C1F64834080341035C0C0062B704B8]]>
-          </Values>
-        </Array>
-        <Mesh Name="CompoundMesh">
-          <Producers>
-            <MeshLoop Count="3" Position="1 1 0">
-              <OnIteration>
+              </Values>
+            </Array>
+            <Mesh Name="CompoundMesh">
+              <Producers>
+                <MeshLoop Count="3" Position="1 1 0">
+                  <OnIteration>
+                    <MeshBox/>
+                  </OnIteration>
+                </MeshLoop>
+              </Producers>
+            </Mesh>
+            <Mesh Name="TumblerMesh">
+              <Producers>
                 <MeshBox/>
-              </OnIteration>
-            </MeshLoop>
-          </Producers>
-        </Mesh>
-        <Mesh Name="TumblerMesh">
-          <Producers>
-            <MeshBox/>
-            <MeshTransform Scale="6 0.3 0.3" Position="0 -6 0"/>
-            <MeshBox/>
-            <MeshTransform Scale="6 0.3 0.3" Position="0 6 0"/>
-            <MeshBox/>
-            <MeshTransform Scale="0.3 6 0.3" Position="6 0 0"/>
-            <MeshBox/>
-            <MeshTransform Scale="0.3 6 0.3" Position="-6 0 0"/>
-            <MeshCombine/>
-            <MeshCombine/>
-            <MeshCombine/>
-          </Producers>
-        </Mesh>
-        <Mesh Name="BGMesh">
-          <Producers>
-            <MeshBox Grid2DOnly="255"/>
-            <MeshExpression VertexColors="255">
-              <Expression>
-<![CDATA[this.C.B = 0 - this.V.Y/3;
-this.C.R = this.V.X/2;
-this.C.G = this.V.Y/4 - this.V.X/8;]]>
-              </Expression>
-            </MeshExpression>
-          </Producers>
-        </Mesh>
+                <MeshTransform Scale="6 0.3 0.3" Position="0 -6 0"/>
+                <MeshBox/>
+                <MeshTransform Scale="6 0.3 0.3" Position="0 6 0"/>
+                <MeshBox/>
+                <MeshTransform Scale="0.3 6 0.3" Position="6 0 0"/>
+                <MeshBox/>
+                <MeshTransform Scale="0.3 6 0.3" Position="-6 0 0"/>
+                <MeshCombine/>
+                <MeshCombine/>
+                <MeshCombine/>
+              </Producers>
+            </Mesh>
+            <Mesh Name="BGMesh">
+              <Producers>
+                <MeshBox Grid2DOnly="255"/>
+                <MeshExpression VertexColors="255">
+                  <Expression>
+<![CDATA[this.C.R = 0.0;
+this.C.G = (this.V.Y)/6 + 0.2;
+this.C.B = (this.V.Y)/5 + 0.5;]]>
+                  </Expression>
+                </MeshExpression>
+              </Producers>
+            </Mesh>
+          </Children>
+        </Group>
       </Children>
     </Group>
     <Model Name="EmptyBodyModel" Category="1">
@@ -982,14 +1274,14 @@ if(CurrentModel.Position.Y < -12) removeBody(CurrentModel);
 if(zb2TestPoint(BodyId, PointerX, PointerY)){
 
   // set mouse joint for the current body if dragged
-  if(IsLMB && !MouseJoint){
-    MouseJoint = zb2CreateMouseJoint(BodyId, PointerX, PointerY,
+  if(IsMoveMode && IsTouched && !PointerJoint){
+    PointerJoint = zb2CreateMouseJoint(BodyId, PointerX, PointerY,
                     1000.0 * zb2GetMass(BodyId), 5.0, 0.7);
     DraggedModel = CurrentModel;
   }
 
   // remove body?
-  if(IsRMB) removeBody(CurrentModel);
+  if(!IsMoveMode && IsTouched) removeBody(CurrentModel);
 
   // set color
   BodyColor.Color.R = 0;
@@ -1029,7 +1321,7 @@ if(zb2TestPoint(BodyId, PointerX, PointerY)){
     break;
 
   case COMPOUND_SHAPE:
-    BodyId = zb2CreateEmptyBody(BodyPositionX, BodyPositionY, ZB2_DYNAMIC);
+    BodyId = zb2CreateEmptyBody(BodyPositionX, BodyPositionY, BodyType);
     zb2AddBox(BodyId, 0, 0, BodyScaleX, BodyScaleY, 0);
     zb2AddBox(BodyId, BodyScaleX, BodyScaleY, BodyScaleX, BodyScaleY, 0);
     zb2AddBox(BodyId, BodyScaleX*2, BodyScaleY*2, BodyScaleX, BodyScaleY, 0);
@@ -1039,7 +1331,7 @@ if(zb2TestPoint(BodyId, PointerX, PointerY)){
     break;
 
   case TUMBLER_SHAPE:
-    BodyId = zb2CreateEmptyBody(BodyPositionX, BodyPositionY, ZB2_DYNAMIC);
+    BodyId = zb2CreateEmptyBody(BodyPositionX, BodyPositionY, BodyType);
     zb2AddBox(BodyId, -6, 0, 0.3, 6, 0);
     zb2AddBox(BodyId, 6, 0, 0.3, 6, 0);
     zb2AddBox(BodyId, 0, 6, 6, 0.3, 0);
@@ -1078,17 +1370,21 @@ if(BodyType == ZB2_STATIC){
         <UseMaterial Material="DefaultMaterial"/>
         <ZExpression>
           <Expression>
-<![CDATA[glBegin(3);
-glVertex2f(LineBodyVertices[0][_X], LineBodyVertices[0][_Y]);
+<![CDATA[float x1, x2, y1, y2;
+
+x1 = LineBodyVertices[0][_X];
+y1 = LineBodyVertices[0][_Y];
 
 for(int i = 1; i < LineBodyCount; ++i){
-  glVertex2f(LineBodyVertices[i][_X], LineBodyVertices[i][_Y]);
+  x2 = LineBodyVertices[i][_X];
+  y2 = LineBodyVertices[i][_Y];
+  drawLine(x1, y1, x2, y2);
+  x1 = x2;
+  y1 = y2;
 }
 
 if(LineBodyIsLoop)
-  glVertex2f(LineBodyVertices[0][_X], LineBodyVertices[0][_Y]);
-
-glEnd();]]>
+  drawLine(x1, y1, LineBodyVertices[0][_X], LineBodyVertices[0][_Y]);]]>
           </Expression>
         </ZExpression>
       </OnRender>
@@ -1116,11 +1412,15 @@ switch(BodyShape){
         <ZExpression Comment="Destroy body" Expression="zb2DestroyBody(LineBodyId);"/>
       </OnRemove>
     </Model>
-    <Model Name="DistJointModel" Category="1">
+    <Model Name="JointModel" Category="1">
       <Definitions>
         <Variable Name="JointId" Type="1"/>
-        <Variable Name="DistJointModelA" Type="3"/>
-        <Variable Name="DistJointModelB" Type="3"/>
+        <Variable Name="JointModelA" Type="3"/>
+        <Variable Name="JointModelB" Type="3"/>
+        <Variable Name="JointAnchorAx"/>
+        <Variable Name="JointAnchorAy"/>
+        <Variable Name="JointAnchorBx"/>
+        <Variable Name="JointAnchorBy"/>
         <Variable Name="IsRemoved" Type="1"/>
       </Definitions>
       <OnRender>
@@ -1128,10 +1428,20 @@ switch(BodyShape){
         <RenderSetColor Color="0.502 1 0.502 1"/>
         <ZExpression>
           <Expression>
-<![CDATA[glBegin(2);
-  glVertex2f(DistJointModelA.Position.X, DistJointModelA.Position.Y);
-  glVertex2f(DistJointModelB.Position.X, DistJointModelB.Position.Y);
-glEnd();]]>
+<![CDATA[float
+  a = JointModelA.Rotation.Z*PI2,
+  b = JointModelB.Rotation.Z*PI2,
+  sa = sin(a),
+  ca = cos(a),
+  sb = sin(b),
+  cb = cos(b);
+
+drawLine(
+  JointModelA.Position.X + JointAnchorAx * ca - JointAnchorAy * sa,
+  JointModelA.Position.Y + JointAnchorAx * sa + JointAnchorAy * ca,
+  JointModelB.Position.X + JointAnchorBx * cb - JointAnchorBy * sb,
+  JointModelB.Position.Y + JointAnchorBx * sb + JointAnchorBy * cb
+);]]>
           </Expression>
         </ZExpression>
       </OnRender>
@@ -1141,9 +1451,21 @@ glEnd();]]>
       <OnSpawn>
         <ZExpression>
           <Expression>
-<![CDATA[int j = zb2CreateDistanceJoint(DistJointModelA.BodyId, DistJointModelB.BodyId,
-  0, 0, 0, 0, DistJointLength, DistJointFrequency,
-  DistJointDampingRatio, JointIsCollided);
+<![CDATA[int j;
+
+switch(JointType){
+
+  case DISTANCE_JOINT:
+    j = zb2CreateDistanceJoint(JointModelA.BodyId, JointModelB.BodyId,
+        JointAnchorAx, JointAnchorAy, JointAnchorBx, JointAnchorBy,
+        JointLength, JointFrequency, JointDampingRatio, JointIsCollided);
+    break;
+
+  case ROPE_JOINT:
+    j = zb2CreateRopeJoint(JointModelA.BodyId, JointModelB.BodyId,
+        JointAnchorAx, JointAnchorAy, JointAnchorBx, JointAnchorBy,
+        JointLength, JointIsCollided);
+}
 
 zb2SetUserModelToJoint(j, CurrentModel);
 
@@ -1164,24 +1486,17 @@ isRemoved = FALSE;]]>
       </OnRemove>
     </Model>
     <Model Name="VisualizeCollisionModel">
-      <Definitions>
-        <RenderTransformGroup Name="ContactTransform" Scale="0.1 0.1 0.4" Translate="9.9472 -1.5012 0" Rotate="0 0 0.125">
-          <Children>
-            <RenderMesh Mesh="BoxMesh"/>
-          </Children>
-        </RenderTransformGroup>
-      </Definitions>
       <OnRender>
         <UseMaterial Material="DefaultMaterial"/>
         <RenderSetColor Color="1 0 0 1"/>
         <ZExpression Comment="Render contact points">
           <Expression>
-<![CDATA[int a, b, s;
-float x, y, nx, ny;
+<![CDATA[int s;
+float x, y;
 
 zb2ResetContacts();
 
-for(; zb2GetNextContact(a, b, x, y, nx, ny, s);)
+for(; zb2GetNextContact(UNUSET_I, UNUSET_I, x, y, UNUSED_F, UNUSED_F, s);)
   if(s == ZB2_ADD_STATE || s == ZB2_PERSIST_STATE){
     ContactTransform.Translate.X = x;
     ContactTransform.Translate.Y = y;
@@ -1193,5 +1508,19 @@ for(; zb2GetNextContact(a, b, x, y, nx, ny, s);)
     </Model>
     <Variable Name="BodyCount"/>
     <Variable Name="ContactPointCount"/>
+    <Group Comment="Repeated model parts">
+      <Children>
+        <RenderTransformGroup Name="LineTransform" Comment="Component for drawing lines" Scale="9.9985 0.05 1" Translate="-2.1778 4.5 0" Rotate="0 0 0.3217">
+          <Children>
+            <RenderSprite/>
+          </Children>
+        </RenderTransformGroup>
+        <RenderTransformGroup Name="ContactTransform" Scale="0.1 0.1 0.4" Translate="-1.5 6.0026 0" Rotate="0 0 0.125">
+          <Children>
+            <RenderMesh Mesh="BoxMesh"/>
+          </Children>
+        </RenderTransformGroup>
+      </Children>
+    </Group>
   </Content>
 </ZApplication>
