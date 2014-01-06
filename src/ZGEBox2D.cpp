@@ -102,7 +102,7 @@ public:
 	void PreSolve(b2Contact* contact, const b2Manifold* oldManifold) {
 		const b2Manifold* manifold = contact->GetManifold();
 
-		if (manifold->pointCount == 0) {
+		if(manifold->pointCount == 0) {
 			return;
 		}
 
@@ -127,6 +127,10 @@ public:
 			//cp->separation = worldManifold.separations[i];
 			++m_pointCount;
 		}
+
+		// disable contact if at one fixture is a sensor
+		if(contact->GetFixtureA()->GetUserData() || contact->GetFixtureA()->GetUserData())
+			contact->SetEnabled(false);
 	}
 
 	ContactPoint m_points[MAX_CONTACT_POINTS];
@@ -310,7 +314,7 @@ export b2Body* zb2CreateEdge(float x1, float y1, float x2, float y2) {
 	b2EdgeShape edge;
 	edge.Set(b2Vec2(x1, y1), b2Vec2(x2, y2));
 
-	body->CreateFixture(&edge, 1.0f);
+	body->CreateFixture(&edge, 0.0f);
 
 	return body;
 }
@@ -325,7 +329,7 @@ export b2Body* zb2CreateChain(b2Vec2* vertices, int count, bool isLoop) {
 	if(isLoop) chain.CreateLoop(vertices, count);
 	else chain.CreateChain(vertices, count);
 
-	body->CreateFixture(&chain, 1.0f);
+	body->CreateFixture(&chain, 0.0f);
 
 	return body;
 }
@@ -365,7 +369,7 @@ export void zb2AddEdge(b2Body* body, float x1, float y1, float x2, float y2) {
 	b2EdgeShape edge;
 	edge.Set(b2Vec2(x1, y1), b2Vec2(x2, y2));
 
-	body->CreateFixture(&edge, 1.0f);
+	body->CreateFixture(&edge, 0.0f);
 }
 
 export void zb2AddChain(b2Body* body, b2Vec2* vertices, int count, bool isLoop) {
@@ -375,7 +379,7 @@ export void zb2AddChain(b2Body* body, b2Vec2* vertices, int count, bool isLoop) 
 	if(isLoop) chain.CreateLoop(vertices, count);
 	else chain.CreateChain(vertices, count);
 
-	body->CreateFixture(&chain, 1.0f);
+	body->CreateFixture(&chain, 0.0f);
 }
 
 export void zb2DestroyBody(b2Body* body) {
@@ -461,6 +465,7 @@ export void zb2SetDensity(b2Body* body, float density) {
 
 	b2Fixture* fixture = body->GetFixtureList();
 	for(; fixture; fixture->SetDensity(density), fixture = fixture->GetNext());
+	body->ResetMassData();
 }
 
 export void zb2SetFriction(b2Body* body, float friction) {
@@ -500,8 +505,10 @@ export void zb2SetBullet(b2Body* body, bool isBullet) {
 export void zb2SetSensor(b2Body* body, bool isSensor) {
 	CHECK_INIT_VOID
 
+	// do not use SetSensor(), because then the collisions points
+	// would not be returned; user data is used instead
 	b2Fixture* fixture = body->GetFixtureList();
-	for(; fixture; fixture->SetSensor(isSensor), fixture = fixture->GetNext());
+	for(; fixture; fixture->SetUserData(&isSensor), fixture = fixture->GetNext());
 }
 
 export void zb2SetActive(b2Body* body, bool isActive) {
@@ -542,6 +549,7 @@ export void zb2ResetMassData(b2Body* body) {
 export void zb2ChangeCircleRadius(b2Body* body, float radius) {
 	CHECK_INIT_VOID
 	body->GetFixtureList()->GetShape()->m_radius = radius;
+	body->ResetMassData();
 }
 
 export void zb2ChangeEdge(b2Body* body, float x1, float y1, float x2, float y2) {
