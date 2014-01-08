@@ -4,13 +4,13 @@ include $(CLEAR_VARS)
 
 LOCAL_MODULE := ZGEBox2D
 
-MY_BOX2D_PATH := Box2D_v2.3.0/Box2D
+MY_BOX2D_PATH := Box2D/Box2D
 LOCAL_C_INCLUDES := $(LOCAL_PATH)/$(MY_BOX2D_PATH)
 LOCAL_CPPFLAGS += -fexceptions -frtti
 LOCAL_LDLIBS := -L$(SYSROOT)/usr/lib -ldl -lm -lstdc++
 
 # uncomment for ARMv7-A
-LOCAL_CFLAGS := -march=armv7-a -mfloat-abi=softfp
+#LOCAL_CFLAGS := -march=armv7-a -mfloat-abi=softfp
 
 TARGET_PLATFORM := android-8
 
