@@ -23,7 +23,7 @@ misrepresented as being the original software.
 
 /// The main file used to compile Windows DLL and Android shared library
 
-#pragma unmanaged
+//#pragma unmanaged
 
 // Includes
 
@@ -279,7 +279,7 @@ export b2Body* zb2CreateCircle(float x, float y, float radius, int type) {
 	b2Body* body = g_World->CreateBody(&bodyDef);
 
 	b2CircleShape circle;
-	circle.m_radius = radius; 
+	circle.m_radius = radius;
 
 	body->CreateFixture(&circle, 1.0f);
 
@@ -350,13 +350,13 @@ export void zb2AddCircle(b2Body* body, float x, float y, float radius) {
 	b2CircleShape circle;
 	circle.m_radius = radius;
 	circle.m_p = b2Vec2(x, y);
-	
+
 	body->CreateFixture(&circle, 1.0f);
 }
 
 export void zb2AddPolygon(b2Body* body, b2Vec2* vertices, int count) {
 	CHECK_INIT_VOID
-	
+
 	b2PolygonShape polygon;
 	polygon.Set(vertices, count);
 
@@ -365,7 +365,7 @@ export void zb2AddPolygon(b2Body* body, b2Vec2* vertices, int count) {
 
 export void zb2AddEdge(b2Body* body, float x1, float y1, float x2, float y2) {
 	CHECK_INIT_VOID
-	
+
 	b2EdgeShape edge;
 	edge.Set(b2Vec2(x1, y1), b2Vec2(x2, y2));
 
@@ -374,7 +374,7 @@ export void zb2AddEdge(b2Body* body, float x1, float y1, float x2, float y2) {
 
 export void zb2AddChain(b2Body* body, b2Vec2* vertices, int count, bool isLoop) {
 	CHECK_INIT_VOID
-	
+
 	b2ChainShape chain;
 	if(isLoop) chain.CreateLoop(vertices, count);
 	else chain.CreateChain(vertices, count);
@@ -564,7 +564,7 @@ export b2Joint* zb2CreateDistanceJoint(b2Body* bodyA, b2Body* bodyB,
 	float frequency, float dampingRatio, bool isCollided) {
 
 	CHECK_INIT
-	
+
 	b2DistanceJointDef jointDef;
 	jointDef.bodyA = bodyA;
 	jointDef.bodyB = bodyB;
@@ -628,7 +628,7 @@ export b2Joint* zb2CreatePrismaticJoint(b2Body* bodyA, b2Body* bodyB,
 }
 
 export b2Joint* zb2CreatePrismaticJointWorld(b2Body* bodyA, b2Body* bodyB,
-	float anchorX, float anchorY, float axisX, float axisY, 
+	float anchorX, float anchorY, float axisX, float axisY,
 	bool enableLimit, float lower, float upper,
 	bool enableMotor, float maxMotorForce, float motorSpeed, bool isCollided) {
 
@@ -700,7 +700,7 @@ export b2Joint* zb2CreateRevoluteJointWorld(b2Body* bodyA, b2Body* bodyB,
 	CHECK_INIT
 
 	b2RevoluteJointDef jointDef;
-	jointDef.Initialize(bodyA, bodyB, b2Vec2(anchorX, anchorY)); 
+	jointDef.Initialize(bodyA, bodyB, b2Vec2(anchorX, anchorY));
 	jointDef.enableLimit = enableLimit;
 	jointDef.lowerAngle = angleToRadians(lowerAngle);
 	jointDef.upperAngle = angleToRadians(upperAngle);
@@ -781,7 +781,7 @@ export b2Joint* zb2CreateRopeJoint(b2Body* bodyA, b2Body* bodyB,
 	jointDef.localAnchorA = b2Vec2(anchorAx, anchorAy);
 	jointDef.localAnchorB = b2Vec2(anchorBx, anchorBy);
 	jointDef.maxLength = maxLength;
-	jointDef.collideConnected = isCollided;	
+	jointDef.collideConnected = isCollided;
 
 	return g_World->CreateJoint(&jointDef);
 }
@@ -859,7 +859,7 @@ export void zb2UpdateGearJoint(b2GearJoint* joint, float ratio) {
 }
 
 export b2Joint* zb2CreateWheelJoint(b2Body* bodyA, b2Body* bodyB,
-	float anchorAx, float anchorAy, float anchorBx, float anchorBy,	
+	float anchorAx, float anchorAy, float anchorBx, float anchorBy,
 	float axisAx, float axisAy,
 	bool enableMotor, float motorSpeed, float maxMotorTorque,
 	float frequency, float dampingRatio, bool isCollided) {
@@ -967,7 +967,7 @@ export void zb2UpdateMotorJoint(b2MotorJoint* joint,
 	joint->SetAngularOffset(angularOffset);
 	joint->SetMaxForce(maxForce);
 	joint->SetMaxTorque(maxTorque);
-	joint->SetCorrectionFactor(correctionFactor); 
+	joint->SetCorrectionFactor(correctionFactor);
 }
 
 export b2Joint* zb2CreateMouseJoint(b2Body* body, float targetX, float targetY,
@@ -1007,7 +1007,7 @@ export void zb2DestroyJoint(b2Joint* joint) {
 }
 
 export void zb2GetJoints(b2Body* body, b2Joint** jointList, int &count) {
-	
+
 	CHECK_INIT_VOID
 
 	int i = 0;
@@ -1047,7 +1047,7 @@ export int zb2TestPoint(b2Body* body, float x, float y) {
 
 	bool result = false;
 	b2Vec2 point(x, y);
-	b2Fixture* fixture = body->GetFixtureList(); 
+	b2Fixture* fixture = body->GetFixtureList();
 
 	// iterate through fixtures until point is inside
 	for(; fixture && !result; result = fixture->TestPoint(point), fixture = fixture->GetNext());
@@ -1059,7 +1059,7 @@ export int zb2GetBodyAtPoint(float x, float y, b2Body* &body) {
 	CHECK_INIT
 
 	b2Vec2 point(x, y);
-	
+
 	// make a small box
 	b2AABB aabb;
 	const b2Vec2 d(0.001f, 0.001f);
@@ -1093,7 +1093,7 @@ export b2Body* zb2RayCast(float x1, float y1, float x2, float y2,
 		normalX = g_RayCastCallback.m_normal.x;
 		normalY = g_RayCastCallback.m_normal.y;
 	}
-	
+
 	return g_RayCastCallback.m_body;
 }
 
@@ -1107,7 +1107,7 @@ export void zb2ResetContacts() {
 // return 0 - no other contact; 1 - next contact returned
 export int zb2GetNextContact(b2Body* &bodyA, b2Body* &bodyB, float &posX, float &posY,
 	float &normX, float &normY, int &state) {
-	
+
 	CHECK_INIT
 	if(g_CurrentContactPoint >= g_ContactListener.m_pointCount)
 		return FALSE;
