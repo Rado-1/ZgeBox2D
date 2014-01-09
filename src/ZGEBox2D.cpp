@@ -23,7 +23,6 @@ misrepresented as being the original software.
 
 /// The main file used to compile Windows DLL and Android shared library
 
-//#pragma unmanaged
 
 // Includes
 
@@ -129,7 +128,7 @@ public:
 		}
 
 		// disable contact if at one fixture is a sensor
-		if(contact->GetFixtureA()->GetUserData() || contact->GetFixtureA()->GetUserData())
+		if(contact->GetFixtureA()->GetUserData() || contact->GetFixtureB()->GetUserData())
 			contact->SetEnabled(false);
 	}
 
