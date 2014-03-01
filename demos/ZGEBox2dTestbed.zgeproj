@@ -134,6 +134,13 @@ void zb2SetMass(int body, float mass) {}
 void zb2SetMassData(int body, float mass, float x, float y, float rotationalInertia) {}
 void zb2ResetMassData(int body) {}
 
+// apply forces
+void zb2ApplyForce(int body, float forceX, float forceY, float pointX, float pointY, int wake) {}
+void zb2ApplyForceToCenter(int body, float forceX, float forceY, int wake) {}
+void zb2ApplyTorque(int body, float torque, int wake) {}
+void zb2ApplyLinearImpulse(int body, float impulseX, float impulseY, float pointX, float pointY, int wake) {}
+void zb2ApplyAngularImpulse(int body, float impulse, int wake) {}
+
 // changing shapes
 void zb2ChangeCircleRadius(int body, float radius) {}
 void zb2ChangeEdge(int body, float x1, float y1, float x2, float y2) {}
@@ -1050,11 +1057,11 @@ if(PointerJoint)
     <RenderText Text="\" X="-0.125" Y="0.895" Scale="0.8" Align="1"/>
     <RenderSetColor Name="Scene1Color" Color="0 0.25 0.5 1"/>
     <RenderText Text="\" X="-0.025" Y="0.895" Scale="0.8" Align="1"/>
-    <RenderSetColor Name="Scene2Color" Color="0 0.25 0.5 1"/>
+    <RenderSetColor Name="Scene2Color" Color="0.7 0 0 1"/>
     <RenderText Text="\" X="0.075" Y="0.895" Scale="0.8" Align="1"/>
     <RenderSetColor Name="Scene3Color" Color="0 0.25 0.5 1"/>
     <RenderText Text="\" X="0.175" Y="0.895" Scale="0.8" Align="1"/>
-    <RenderSetColor Name="Scene4Color" Color="0.7 0 0 1"/>
+    <RenderSetColor Name="Scene4Color" Color="0 0.25 0.5 1"/>
     <RenderText Text="\" X="0.275" Y="0.895" Scale="0.8" Align="1"/>
     <RenderSetColor Color="1 1 1 1"/>
     <RenderText Text="Bodies: " TextFloatRef="BodyCount Value" X="-0.98" Y="0.9" Scale="0.5" Align="1" StretchY="1.3"/>
@@ -1510,12 +1517,12 @@ for(; zb2GetNextContact(UNUSET_I, UNUSET_I, x, y, UNUSED_F, UNUSED_F, s);)
     <Variable Name="ContactPointCount"/>
     <Group Comment="Repeated model parts">
       <Children>
-        <RenderTransformGroup Name="LineTransform" Comment="Component for drawing lines" Scale="9.9985 0.05 1" Translate="-2.1778 4.5 0" Rotate="0 0 0.3217">
+        <RenderTransformGroup Name="LineTransform" Comment="Component for drawing lines" Scale="5.9998 0.05 1" Translate="6.8848 2.3111 0" Rotate="0 0 0.0551">
           <Children>
             <RenderSprite/>
           </Children>
         </RenderTransformGroup>
-        <RenderTransformGroup Name="ContactTransform" Scale="0.1 0.1 0.4" Translate="-1.5 6.0026 0" Rotate="0 0 0.125">
+        <RenderTransformGroup Name="ContactTransform" Scale="0.1 0.1 0.4" Translate="9.8543 2.5212 0" Rotate="0 0 0.125">
           <Children>
             <RenderMesh Mesh="BoxMesh"/>
           </Children>
