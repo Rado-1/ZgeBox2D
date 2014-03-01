@@ -543,6 +543,37 @@ export void zb2ResetMassData(b2Body* body) {
 	body->ResetMassData();
 }
 
+// apply forces
+
+export void zb2ApplyForce(b2Body* body, float forceX, float forceY,
+	float pointX, float pointY, bool wake) {
+
+	CHECK_INIT_VOID
+	body->ApplyForce(b2Vec2(forceX, forceY), b2Vec2(pointX, pointY), wake);
+}
+
+export void zb2ApplyForceToCenter(b2Body* body, float forceX, float forceY, bool wake) {
+	CHECK_INIT_VOID
+	body->ApplyForceToCenter(b2Vec2(forceX, forceY), wake);
+}
+
+export void zb2ApplyTorque(b2Body* body, float torque, bool wake) {
+	CHECK_INIT_VOID
+	body->ApplyTorque(torque, wake);
+}
+
+export void zb2ApplyLinearImpulse(b2Body* body, float impulseX, float impulseY,
+	float pointX, float pointY, bool wake) {
+
+	CHECK_INIT_VOID
+	body->ApplyLinearImpulse(b2Vec2(impulseX, impulseY), b2Vec2(pointX, pointY), wake);
+}
+
+export void zb2ApplyAngularImpulse(b2Body* body, float impulse, bool wake) {
+	CHECK_INIT_VOID
+	body->ApplyAngularImpulse(impulse, wake);
+}
+
 // changing shapes
 
 export void zb2ChangeCircleRadius(b2Body* body, float radius) {
