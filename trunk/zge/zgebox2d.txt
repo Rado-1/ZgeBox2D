@@ -1,8 +1,8 @@
 ZZDC<?xml version="1.0" encoding="iso-8859-1" ?>
-<ZExternalLibrary Comment="Box2D physics library" ModuleName="ZgeBox2D.dll" CallingConvention="1" BeforeInitExp="if(ANDROID) this.ModuleName = &quot;./libZGEBox2D.so&quot;;">
+<ZExternalLibrary Comment="Box2D physics library" ModuleName="ZgeBox2D" CallingConvention="1" BeforeInitExp="if(ANDROID) this.ModuleName = &quot;./libZgeBox2D.so&quot;;">
   <Source>
 <![CDATA[/*
-  Adapter to the ZGEBox2D Library, a wrapper for the Box2D Physics Engine.
+  Adapter to the ZgeBox2D Library, a wrapper for the Box2D Physics Engine.
   http://box2d.org/
 
   Download Windows DLL and Android shared library from
