@@ -19,14 +19,14 @@
     </ProjectConfiguration>
   </ItemGroup>
   <ItemGroup>
-    <ClCompile Include="..\src\ZGEBox2D.cpp" />
+    <ClCompile Include="..\src\ZgeBox2D.cpp" />
   </ItemGroup>
   <PropertyGroup Label="Globals">
     <ProjectGuid>{0ACE98C4-3350-45B4-8A49-199EBC80F3A2}</ProjectGuid>
     <TargetFrameworkVersion>v4.0</TargetFrameworkVersion>
     <Keyword>ManagedCProj</Keyword>
-    <RootNamespace>ZGEBox2D</RootNamespace>
-    <ProjectName>ZGEBox2D</ProjectName>
+    <RootNamespace>ZgeBox2D</RootNamespace>
+    <ProjectName>ZgeBox2D</ProjectName>
   </PropertyGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.Default.props" />
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'" Label="Configuration">

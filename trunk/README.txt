@@ -1,4 +1,4 @@
-ZGEBox2D
+ZgeBox2D
 ========
 
 An adaption of the Box2D Physics Engine for the ZGameEditor.
@@ -17,6 +17,6 @@ ZGameEditor
 written by Ville Krumlinde http://www.emix8.org
 http://www.zgameeditor.org
 
-ZGEBox2D
+ZgeBox2D
 Copyright (c) 2013-2014 Radovan Cervenka
 http://code.google.com/p/zgebox2d

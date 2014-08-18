@@ -1,27 +1,27 @@
-ZGEBox2D Library - How to Compile
+ZgeBox2D Library - How to Compile
 =================================
 
-Note: By <homedir> is meant the directory where the ZGEBox2D sources are extracted on your computer.
+Note: By <homedir> is meant the directory where the ZgeBox2D sources are extracted on your computer.
 
-Before compiling the ZGEBox2D, you must extract the Box2D sources to <homedir>\Box2D directory (it further contains Box2D and Contributions subdirectories).
+Before compiling the ZgeBox2D, you must extract the Box2D sources to <homedir>\Box2D directory (it further contains Box2D and Contributions subdirectories).
 
 
-Compilation of ZGEBox2D to Windows DLL with MSVC
+Compilation of ZgeBox2D to Windows DLL with MSVC
 ------------------------------------------------
 
-The ZGEBox2D DLL can be compiled with Microsoft Visual C++ 2010 (MSVC) or higher.
+The ZgeBox2D DLL can be compiled with Microsoft Visual C++ 2010 (MSVC) or higher.
 
 1. Compile the Box2D library: In the Box2D directory use either the MSVC solution file \Box2D\Build\vs2012\Box2D.sln or use Make. If using MSVC 2010 for building, the Platform Toolset property should be changed to v100. Also the C/C++ / Runtime Library property should be changed to Multi-threaded (/MT) to get rid of dependency on MSVCR100.dll. The result is placed to the \Box2D\Build\vs2012\bin\Release\Box2D.lib file.
 
-2. Open <homedir>\vs2010\ZGEBox2D.sln or ZGEBox2D.vcxproj in MSVC.
+2. Open <homedir>\vs2010\ZgeBox2D.sln or ZgeBox2D.vcxproj in MSVC.
 
-3. Build the solution/project resulting in <homedir>\lib\ZGEBox2D.dll file.
+3. Build the solution/project resulting in <homedir>\lib\ZgeBox2D.dll file.
 
 
-Compilation of ZGEBox2D to Windows DLL with Code::Blocks
+Compilation of ZgeBox2D to Windows DLL with Code::Blocks
 --------------------------------------------------------
 
-The ZGEBox2D DLL can also be compiled with Code::Blocks, which results in smaller, better optimized, library.
+The ZgeBox2D DLL can also be compiled with Code::Blocks, which results in smaller, better optimized, library.
 
 1. Compile the Box2D library. The simplest way is to import the MSVC solution file <homedir>\Box2D\Box2D\Build\vs2012\Box2D.sln to Code::Blocks and run the building process. If want more optimized result, use the following options:
  - Compiler Flags: -ffunction-sections -fdata-sections -s -Os (or -O3)
@@ -29,15 +29,15 @@ The ZGEBox2D DLL can also be compiled with Code::Blocks, which results in smalle
 
 The resulting library is placed to \Box2D\Build\vs2012\libBox2D.a file.
 
-2. Open <homedir>\cb\ZGEBox2D.cbp project file in Code::Blocks.
+2. Open <homedir>\cb\ZgeBox2D.cbp project file in Code::Blocks.
 
-3. Build the solution/project resulting in <homedir>\lib\ZGEBox2D.dll file.
+3. Build the solution/project resulting in <homedir>\lib\ZgeBox2D.dll file.
 
 
-Compilation of ZGEBox2D to Android Shared Library
+Compilation of ZgeBox2D to Android Shared Library
 --------------------------------------------------
 
-The ZGEBox2D shared library (.so) is compiled with Android NDK which must be installed on your computer; see http://developer.android.com/tools/sdk/ndk/ for details.
+The ZgeBox2D shared library (.so) is compiled with Android NDK which must be installed on your computer; see http://developer.android.com/tools/sdk/ndk/ for details.
 
 1. Before compilation, go to the source files of Box2D and add #include <string.h> to each file which already contains #include <memory.h>; namely: b2DynamicTree.cpp, b2ChainShape.cpp, b2BlockAllocator.cpp, b2GrowableStack.h.
 
