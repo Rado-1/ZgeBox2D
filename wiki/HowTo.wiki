@@ -1,15 +1,15 @@
-#summary How to use ZGEBox2D library in ZGameEditor project
+#summary How to use ZgeBox2D library in ZGameEditor project
 
 = Usage in ZGameEditor project =
 
   # Create ZGE project or use existing one.
-  # Include _ZExternalLibrary_ component for ZGEBox2D library to the _!OnLoaded_ section of _ZApplication_.
+  # Include _ZExternalLibrary_ component for ZgeBox2D library to the _!OnLoaded_ section of _ZApplication_.
   # Initialize the simulation world with `zb2InitWorld()`. This call is usually placed to the _!OnLoaded_ section of _ZApplication_ or _!OnStart_ section of _!AppState_ component.
   # Regularly step the simulation with `zb2Step()` function. To achieve real-time simulation, the first parameter is usually set to `App.DeltaTime`. This is usually placed to _!OnUpdate_ section of _ZApplication_ or _!AppState_ components.
-  # Create 2D bodies, change their properties or request their simulation properties (position, rotation, contact points) in your code as needed. Usually, a body is represented by a model instance. In this case, creation of body is done in the _!OnSpawn_ section, updating position, rotation and querying in the _!OnUpdate_ section, and destroying 2D body in the _!OnRemove_ section of the _Model_ or _ModelState_.
+  # Create 2D bodies, change their properties or request their simulation properties (position, rotation, contact points) in your code as needed. Usually, a body is represented by a model instance. In this case, creation of body is done in the _!OnSpawn_ section, updating position, rotation and querying in the _!OnUpdate_ section, and destroying 2D body in the _!OnRemove_ section of the _Model_ or _!ModelState_.
   # On application exit, sestroy the simulation world with `zb2DestroyWorld()` function. This call is usually placed to _!OnClose_ section of _ZApplication_ component or _!OnLeave_ section of _!AppState_.
 
-For examples of usage, see the ZGEBox2D Testbed application at the [http://googledrive.com/host/0BxwfQ8la88oueHUzRDlDTUhNU00/ download page].
+For examples of usage, see the ZgeBox2D Testbed application at the [http://googledrive.com/host/0BxwfQ8la88oueHUzRDlDTUhNU00/ download page].
 
 = Compiling Android application =
 
@@ -20,4 +20,4 @@ For examples of usage, see the ZGEBox2D Testbed application at the [http://googl
 
 _Note 1: The 1st and 2nd steps are required only when the application is built the first time. After that, a single compilation produces correct APK._
 
-_Note 2: Use the step 2 also in the case when updating to a newer version of the ZGEBox2D library._
+_Note 2: Use the step 2 also in the case when updating to a newer version of the ZgeBox2D library._
