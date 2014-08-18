@@ -1,5 +1,8 @@
-/*
-  Adapter to the ZgeBox2D Library, a wrapper for the Box2D Physics Engine.
+ZZDC<?xml version="1.0" encoding="iso-8859-1" ?>
+<ZExternalLibrary Comment="Box2D physics library" ModuleName="ZgeBox2D.dll" CallingConvention="1" BeforeInitExp="if(ANDROID) this.ModuleName = &quot;./libZGEBox2D.so&quot;;">
+  <Source>
+<![CDATA[/*
+  Adapter to the ZGEBox2D Library, a wrapper for the Box2D Physics Engine.
   http://box2d.org/
 
   Download Windows DLL and Android shared library from
@@ -362,4 +365,6 @@ int zb2IsCollided(int body) {}
 int zb2GetBodyContactCount(int body) {}
 
 // set collision filtering flags to body
-void zb2SetBodyFilteringFlags(int body, int categoryBits, int maskBits, int groupIndex) {}
+void zb2SetBodyFilteringFlags(int body, int categoryBits, int maskBits, int groupIndex) {}]]>
+  </Source>
+</ZExternalLibrary>
