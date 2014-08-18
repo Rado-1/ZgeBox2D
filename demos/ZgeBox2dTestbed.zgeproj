@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="iso-8859-1" ?>
-<ZApplication Name="App" Comment="ZGEBox2D Testbed, v0.91. Created by Radovan Cervenka" Caption="ZGEBox2D Testbed" ClearColor="0 0 0 1" ScreenMode="0" CameraPosition="0 0 22" LightPosition="5 -10 7.3" ViewportRatio="3" MouseVisible="255" NoSound="1" AndroidPackageName="com.rado1.ZGEBox2dTestbed" AndroidVersionName="0.91">
+<ZApplication Name="App" Comment="ZgeBox2D Testbed, v0.91. Created by Radovan Cervenka" Caption="ZgeBox2D Testbed" ClearColor="0 0 0 1" ScreenMode="0" CameraPosition="0 0 22" LightPosition="5 -10 7.3" ViewportRatio="3" MouseVisible="255" NoSound="1" AndroidPackageName="com.rado1.ZgeBox2dTestbed" AndroidVersionName="0.91">
   <OnLoaded>
-    <ZExternalLibrary ModuleName="ZGEBox2D.dll" CallingConvention="1" BeforeInitExp="if(ANDROID) this.ModuleName = &quot;./libZGEBox2D.so&quot;;">
+    <ZExternalLibrary ModuleName="ZgeBox2D.dll" CallingConvention="1" BeforeInitExp="if(ANDROID) this.ModuleName = &quot;./libZGEBox2D.so&quot;;">
       <Source>
 <![CDATA[/*
   Adapter to the ZGEBox2D Library, a wrapper for the Box2D Physics Engine.
@@ -942,7 +942,7 @@ zb2AllowCollisionDetection(TRUE);]]>
         <RenderSetColor Color="1 1 0 1"/>
         <ZExpression Expression="drawLine(0, 0, RaycastPointX, RaycastPointY);"/>
         <RenderSetColor Color="1 0 0 1"/>
-        <RenderTransformGroup Name="RaycastTransform" Scale="0.1 0.1 0.25" Translate="-4.3555 9 0" Rotate="0 0 0.125">
+        <RenderTransformGroup Name="RaycastTransform" Scale="0.1 0.1 0.25" Translate="0.6914 1.0176 0" Rotate="0 0 0.125">
           <Children>
             <RenderMesh Mesh="BoxMesh"/>
           </Children>
@@ -1055,18 +1055,18 @@ if(PointerJoint)
     <RenderText Text="\" X="-0.225" Y="0.895" Scale="0.8" Align="1"/>
     <RenderSetColor Name="DeleteColor" Color="0 0.25 0.5 1"/>
     <RenderText Text="\" X="-0.125" Y="0.895" Scale="0.8" Align="1"/>
-    <RenderSetColor Name="Scene1Color" Color="0 0.25 0.5 1"/>
+    <RenderSetColor Name="Scene1Color" Color="0.7 0 0 1"/>
     <RenderText Text="\" X="-0.025" Y="0.895" Scale="0.8" Align="1"/>
-    <RenderSetColor Name="Scene2Color" Color="0.7 0 0 1"/>
+    <RenderSetColor Name="Scene2Color" Color="0 0.25 0.5 1"/>
     <RenderText Text="\" X="0.075" Y="0.895" Scale="0.8" Align="1"/>
     <RenderSetColor Name="Scene3Color" Color="0 0.25 0.5 1"/>
     <RenderText Text="\" X="0.175" Y="0.895" Scale="0.8" Align="1"/>
     <RenderSetColor Name="Scene4Color" Color="0 0.25 0.5 1"/>
     <RenderText Text="\" X="0.275" Y="0.895" Scale="0.8" Align="1"/>
     <RenderSetColor Color="1 1 1 1"/>
-    <RenderText Text="Bodies: " TextFloatRef="BodyCount Value" X="-0.98" Y="0.9" Scale="0.5" Align="1" StretchY="1.3"/>
-    <RenderText Text="Contacts: " TextFloatRef="ContactPointCount Value" X="-0.98" Y="0.8" Scale="0.5" Align="1" StretchY="1.3"/>
-    <RenderText Text="FPS: " TextFloatRef="App FpsCounter" X="-0.98" Y="0.7" Scale="0.5" Align="1" StretchY="1.3"/>
+    <RenderText Text="Bodies: " TextFloatRef="BodyCount" X="-0.98" Y="0.9" Scale="0.5" Align="1" StretchY="1.3"/>
+    <RenderText Text="Contacts: " TextFloatRef="ContactPointCount" X="-0.98" Y="0.8" Scale="0.5" Align="1" StretchY="1.3"/>
+    <RenderText Text="FPS: " TextFloatRef="App.FpsCounter" X="-0.98" Y="0.7" Scale="0.5" Align="1" StretchY="1.3"/>
     <RenderText Text="` ~" X="-0.21" Y="0.89" Scale="0.5" Align="1" StretchY="1.5"/>
     <RenderText Text="1 2 3 4" X="-0.005" Y="0.885" Scale="0.5" Align="1" StretchY="1.5"/>
   </OnRender>
@@ -1517,12 +1517,12 @@ for(; zb2GetNextContact(UNUSET_I, UNUSET_I, x, y, UNUSED_F, UNUSED_F, s);)
     <Variable Name="ContactPointCount"/>
     <Group Comment="Repeated model parts">
       <Children>
-        <RenderTransformGroup Name="LineTransform" Comment="Component for drawing lines" Scale="5.9998 0.05 1" Translate="6.8848 2.3111 0" Rotate="0 0 0.0551">
+        <RenderTransformGroup Name="LineTransform" Comment="Component for drawing lines" Scale="6.7082 0.05 1" Translate="12 -0.5 0" Rotate="0 0 0.0738">
           <Children>
             <RenderSprite/>
           </Children>
         </RenderTransformGroup>
-        <RenderTransformGroup Name="ContactTransform" Scale="0.1 0.1 0.4" Translate="9.8543 2.5212 0" Rotate="0 0 0.125">
+        <RenderTransformGroup Name="ContactTransform" Scale="0.1 0.1 0.4" Translate="-4.223 -8.1529 0" Rotate="0 0 0.125">
           <Children>
             <RenderMesh Mesh="BoxMesh"/>
           </Children>

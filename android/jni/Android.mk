@@ -2,7 +2,7 @@ LOCAL_PATH := $(call my-dir)/../..
 
 include $(CLEAR_VARS)
 
-LOCAL_MODULE := ZGEBox2D
+LOCAL_MODULE := ZgeBox2D
 
 MY_BOX2D_PATH := Box2D/Box2D
 LOCAL_C_INCLUDES := $(LOCAL_PATH)/$(MY_BOX2D_PATH)
@@ -15,7 +15,7 @@ LOCAL_LDLIBS := -L$(SYSROOT)/usr/lib -ldl -lm -lstdc++
 TARGET_PLATFORM := android-8
 
 LOCAL_SRC_FILES := \
-	src/ZGEBox2D.cpp\
+	src/ZgeBox2D.cpp\
 	$(MY_BOX2D_PATH)/Box2D/Common/b2BlockAllocator.cpp\
 	$(MY_BOX2D_PATH)/Box2D/Common/b2Draw.cpp\
 	$(MY_BOX2D_PATH)/Box2D/Common/b2Math.cpp\

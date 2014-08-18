@@ -1,5 +1,5 @@
 /*
-  Adapter to the ZGEBox2D Library, a wrapper for the Box2D Physics Engine.
+  Adapter to the ZgeBox2D Library, a wrapper for the Box2D Physics Engine.
   http://box2d.org/
 
   Download Windows DLL and Android shared library from

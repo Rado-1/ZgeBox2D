@@ -1,5 +1,5 @@
 /*
-ZGEBox2D Library
+ZgeBox2D Library
 Copyright (c) 2013-2014 Radovan Cervenka
 
 This software is provided 'as-is', without any express or implied
@@ -69,7 +69,7 @@ struct ContactPoint {
 // Callbacks
 
 // Raycast callback
-class ZGERayCastCallback : public b2RayCastCallback {
+class ZgeRayCastCallback : public b2RayCastCallback {
 public:
 
 	void Init() {
@@ -91,7 +91,7 @@ public:
 };
 
 // Collision callback
-class ZGEContactListener : public b2ContactListener {
+class ZgeContactListener : public b2ContactListener {
 public:
 
 	void Init() {
@@ -137,7 +137,7 @@ public:
 };
 
 // Query callback
-class ZGEQueryCallback : public b2QueryCallback {
+class ZgeQueryCallback : public b2QueryCallback {
 public:
 
 	void Init(const b2Vec2& point) {
@@ -167,9 +167,9 @@ public:
 // Globals
 
 b2World* g_World;
-ZGERayCastCallback g_RayCastCallback;
-ZGEContactListener g_ContactListener;
-ZGEQueryCallback g_QueryCallback;
+ZgeRayCastCallback g_RayCastCallback;
+ZgeContactListener g_ContactListener;
+ZgeQueryCallback g_QueryCallback;
 int32 g_CurrentContactPoint;
 b2Body* g_GhostBody;
 bool g_IsInitialized;
