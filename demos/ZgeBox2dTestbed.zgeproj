@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="iso-8859-1" ?>
 <ZApplication Name="App" Comment="ZgeBox2D Testbed, v0.91. Created by Radovan Cervenka" Caption="ZgeBox2D Testbed" ClearColor="0 0 0 1" ScreenMode="0" CameraPosition="0 0 22" LightPosition="5 -10 7.3" ViewportRatio="3" MouseVisible="255" NoSound="1" AndroidPackageName="com.rado1.ZgeBox2dTestbed" AndroidVersionName="0.91">
   <OnLoaded>
-    <ZExternalLibrary ModuleName="ZgeBox2D.dll" CallingConvention="1" BeforeInitExp="if(ANDROID) this.ModuleName = &quot;./libZGEBox2D.so&quot;;">
+    <ZExternalLibrary Comment="Box2D physics library" ModuleName="ZgeBox2D.dll" CallingConvention="1" BeforeInitExp="if(ANDROID) this.ModuleName = &quot;./libZGEBox2D.so&quot;;">
       <Source>
 <![CDATA[/*
   Adapter to the ZGEBox2D Library, a wrapper for the Box2D Physics Engine.
