@@ -1,4 +1,4 @@
-#summary ZGEBox2D version history
+#summary ZgeBox2D version history
 
 = v0.91 (2014-01-02) =
 
