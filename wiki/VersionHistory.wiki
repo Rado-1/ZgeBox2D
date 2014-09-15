@@ -1,5 +1,11 @@
 #summary ZgeBox2D version history
 
+= v0.92 (2014-09-15) =
+
+Changed:
+ * Updated to Box2D v2.3.1.
+ * Windows library distribution optimized for speed.
+
 = v0.91 (2014-01-02) =
 
 Added:
