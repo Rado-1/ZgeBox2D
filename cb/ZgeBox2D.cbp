@@ -14,7 +14,7 @@
 				<Option createDefFile="1" />
 				<Option createStaticLib="1" />
 				<Compiler>
-					<Add option="-Os" />
+					<Add option="-O3" />
 					<Add option="-DBUILD_DLL" />
 					<Add option="-DWIN32" />
 					<Add option="-DNDEBUG" />

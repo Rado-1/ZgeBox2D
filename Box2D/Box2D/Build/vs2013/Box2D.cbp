@@ -60,7 +60,7 @@
 			</Target>
 		</Build>
 		<Compiler>
-			<Add option="-ffunction-sections -fdata-sections -s -Os" />
+			<Add option="-ffunction-sections -fdata-sections -s -O3" />
 		</Compiler>
 		<Linker>
 			<Add option="-Wl -gc-sections" />
