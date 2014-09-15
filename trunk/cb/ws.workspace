@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8" standalone="yes" ?>
 <CodeBlocks_workspace_file>
 	<Workspace title="Box2D workspace">
-		<Project filename="../Box2D/Box2D/Build/vs2012/Box2D.cbp" />
+		<Project filename="../Box2D/Box2D/Build/vs2013/Box2D.cbp" />
 		<Project filename="ZgeBox2D.cbp" />
 	</Workspace>
 </CodeBlocks_workspace_file>
