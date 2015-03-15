@@ -9,4 +9,5 @@ Links:
 * For more information about usage ZgeBox2D library in ZGameEditor projects see [this page](../../wiki/How-to-Use).
 * For more information about how to build ZgeBox2D library see [this page](../../wiki/How-to-Build).
 * Latest changes are listed in [version history](../../wiki/Version-History).
+* Related [forum discussion](http://www.emix8.org/forum/viewtopic.php?t=586).
 * It is recommended to use the latest beta release of ZGameEditor downloaded from [here](http://www.zgameeditor.org/files/ZGameEditor_beta.zip).
