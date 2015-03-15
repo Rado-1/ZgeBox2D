@@ -7,5 +7,6 @@ ZgeBox2D is free for commercial use and open source under the [Zlib License](htt
 Links:
 * Download compiled versions of the library, testing ZGE projects, demos, and other related files from [here](http://googledrive.com/host/0BxwfQ8la88oueHUzRDlDTUhNU00/).
 * For more information about usage ZgeBox2D library in ZGameEditor projects see [this page](../../wiki/How-to-Use).
+* For more information about how to build ZgeBox2D library see [this page](../../wiki/How-to-Build).
 * Latest changes are listed in [version history](../../wiki/Version-History).
 * It is recommended to use the latest beta release of ZGameEditor downloaded from [here](http://www.zgameeditor.org/files/ZGameEditor_beta.zip).
