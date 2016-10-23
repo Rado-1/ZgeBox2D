@@ -6,12 +6,12 @@ ZZDC<?xml version="1.0" encoding="iso-8859-1" ?>
   http://box2d.org/
 
   Download Windows DLL and Android shared library from
-  http://googledrive.com/host/0BxwfQ8la88oueHUzRDlDTUhNU00/
+  https://github.com/Rado-1/ZgeBox2D/releases
 
   Project home
-  http://code.google.com/p/zgebox2d
+  https://github.com/Rado-1/ZgeBox2D
 
-  Copyright (c) 2013-2014 Radovan Cervenka
+  Copyright (c) 2013-2016 Radovan Cervenka
 */
 
 // Constants
@@ -35,7 +35,7 @@ void zb2InitWorld(float gravityX, float gravityY) {}
 // destroy
 void zb2DestroyWorld() {}
 
-// allow/suppress global colision detection
+// allow/suppress global collision detection
 void zb2AllowCollisionDetection(int allow) {}
 
 // advance simulation
@@ -182,10 +182,10 @@ void zb2UpdatePrismaticJoint(int joint,
 	int enableLimit, float lower, float upper,
 	int enableMotor, float maxMotorForce, float motorSpeed) {}
 
-// get curent translation of prismatic joint
+// get current translation of prismatic joint
 float zb2GetPrismaticTranslation(int joint) {}
 
-// get curent speed of prismatic joint
+// get current speed of prismatic joint
 float zb2GetPrismaticSpeed(int joint) {}
 
 // create and return revolute joint
@@ -247,10 +247,10 @@ int zb2CreatePulleyJointWorld(int bodyA, int bodyB,
 	float groundAx, float groundAy, float groundBx, float groundBy,
 	float ratio, int isCollided) {}
 
-// get lenght of rope at side A of pulley joint
+// get length of rope at side A of pulley joint
 float zb2GetPulleyLengthA(int joint) {}
 
-// get lenght of rope at side B of pulley joint
+// get length of rope at side B of pulley joint
 float zb2GetPulleyLengthB(int joint) {}
 
 // create and return gear joint

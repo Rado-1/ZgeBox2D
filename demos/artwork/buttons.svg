@@ -1,0 +1,414 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<!-- Created with Inkscape (http://www.inkscape.org/) -->
+
+<svg
+   xmlns:dc="http://purl.org/dc/elements/1.1/"
+   xmlns:cc="http://creativecommons.org/ns#"
+   xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#"
+   xmlns:svg="http://www.w3.org/2000/svg"
+   xmlns="http://www.w3.org/2000/svg"
+   xmlns:sodipodi="http://sodipodi.sourceforge.net/DTD/sodipodi-0.dtd"
+   xmlns:inkscape="http://www.inkscape.org/namespaces/inkscape"
+   width="744.09448819"
+   height="1052.3622047"
+   id="svg2"
+   version="1.1"
+   inkscape:version="0.48.4 r9939"
+   sodipodi:docname="buttons.svg">
+  <defs
+     id="defs4" />
+  <sodipodi:namedview
+     id="base"
+     pagecolor="#ffffff"
+     bordercolor="#666666"
+     borderopacity="1.0"
+     inkscape:pageopacity="0.0"
+     inkscape:pageshadow="2"
+     inkscape:zoom="7.9999999"
+     inkscape:cx="94.832804"
+     inkscape:cy="1014.2255"
+     inkscape:document-units="px"
+     inkscape:current-layer="layer1"
+     showgrid="true"
+     inkscape:snap-page="false"
+     inkscape:snap-bbox="true"
+     inkscape:window-width="1600"
+     inkscape:window-height="849"
+     inkscape:window-x="-4"
+     inkscape:window-y="-4"
+     inkscape:window-maximized="1">
+    <inkscape:grid
+       type="xygrid"
+       id="grid2985"
+       empspacing="5"
+       visible="true"
+       enabled="true"
+       snapvisiblegridlinesonly="true" />
+  </sodipodi:namedview>
+  <metadata
+     id="metadata7">
+    <rdf:RDF>
+      <cc:Work
+         rdf:about="">
+        <dc:format>image/svg+xml</dc:format>
+        <dc:type
+           rdf:resource="http://purl.org/dc/dcmitype/StillImage" />
+        <dc:title></dc:title>
+      </cc:Work>
+    </rdf:RDF>
+  </metadata>
+  <g
+     inkscape:label="Layer 1"
+     inkscape:groupmode="layer"
+     id="layer1">
+    <rect
+       style="fill:#000080;fill-opacity:1;stroke:none"
+       id="rect3092"
+       width="32"
+       height="64"
+       x="90"
+       y="12.362183"
+       ry="0" />
+    <rect
+       style="fill:none;stroke:none"
+       id="rect2987"
+       width="32"
+       height="32"
+       x="20"
+       y="12.362183"
+       ry="0" />
+    <rect
+       style="fill:#afdde9;fill-opacity:1;stroke:none"
+       id="rect3759"
+       width="30"
+       height="30"
+       x="21"
+       y="13.362183"
+       ry="3" />
+    <g
+       id="g3782"
+       transform="translate(1,-2.0000004)">
+      <g
+         style="fill:#000080"
+         id="g3769">
+        <path
+           style="fill:#000080;fill-opacity:1;stroke:none"
+           d="m 30,22.362183 5,-5 5,5 z"
+           id="path3763"
+           inkscape:connector-curvature="0" />
+        <rect
+           style="fill:#000080;fill-opacity:1;stroke:none"
+           id="rect3765"
+           width="2"
+           height="18"
+           x="34"
+           y="21.362183"
+           ry="0" />
+        <path
+           inkscape:connector-curvature="0"
+           id="path3767"
+           d="m 30,38.362183 5,5 5,-5 z"
+           style="fill:#000080;fill-opacity:1;stroke:none" />
+      </g>
+      <g
+         style="fill:#000080"
+         transform="matrix(0,1,-1,0,65.362183,-4.637817)"
+         id="g3774">
+        <path
+           inkscape:connector-curvature="0"
+           id="path3776"
+           d="m 30,22.362183 5,-5 5,5 z"
+           style="fill:#000080;fill-opacity:1;stroke:none" />
+        <rect
+           ry="0"
+           y="21.362183"
+           x="34"
+           height="18"
+           width="2"
+           id="rect3778"
+           style="fill:#000080;fill-opacity:1;stroke:none" />
+        <path
+           style="fill:#000080;fill-opacity:1;stroke:none"
+           d="m 30,38.362183 5,5 5,-5 z"
+           id="path3780"
+           inkscape:connector-curvature="0" />
+      </g>
+    </g>
+    <rect
+       ry="0"
+       y="12.362183"
+       x="52"
+       height="32"
+       width="32"
+       id="rect3792"
+       style="fill:none;stroke:none" />
+    <rect
+       ry="3"
+       y="13.362183"
+       x="53"
+       height="30"
+       width="30"
+       id="rect3794"
+       style="fill:#000080;fill-opacity:1;stroke:none" />
+    <g
+       transform="translate(33,-2.0000004)"
+       id="g3796"
+       style="fill:#afdde9;fill-opacity:1">
+      <g
+         id="g3798"
+         style="fill:#afdde9;fill-opacity:1">
+        <path
+           inkscape:connector-curvature="0"
+           id="path3800"
+           d="m 30,22.362183 5,-5 5,5 z"
+           style="fill:#afdde9;fill-opacity:1;stroke:none" />
+        <rect
+           ry="0"
+           y="21.362183"
+           x="34"
+           height="18"
+           width="2"
+           id="rect3802"
+           style="fill:#afdde9;fill-opacity:1;stroke:none" />
+        <path
+           style="fill:#afdde9;fill-opacity:1;stroke:none"
+           d="m 30,38.362183 5,5 5,-5 z"
+           id="path3804"
+           inkscape:connector-curvature="0" />
+      </g>
+      <g
+         id="g3806"
+         transform="matrix(0,1,-1,0,65.362183,-4.637817)"
+         style="fill:#afdde9;fill-opacity:1">
+        <path
+           style="fill:#afdde9;fill-opacity:1;stroke:none"
+           d="m 30,22.362183 5,-5 5,5 z"
+           id="path3808"
+           inkscape:connector-curvature="0" />
+        <rect
+           style="fill:#afdde9;fill-opacity:1;stroke:none"
+           id="rect3810"
+           width="2"
+           height="18"
+           x="34"
+           y="21.362183"
+           ry="0" />
+        <path
+           inkscape:connector-curvature="0"
+           id="path3812"
+           d="m 30,38.362183 5,5 5,-5 z"
+           style="fill:#afdde9;fill-opacity:1;stroke:none" />
+      </g>
+    </g>
+    <rect
+       ry="0"
+       y="44.362183"
+       x="20"
+       height="32"
+       width="32"
+       id="rect3814"
+       style="fill:none;stroke:none" />
+    <rect
+       ry="3"
+       y="45.362183"
+       x="21"
+       height="30"
+       width="30"
+       id="rect3816"
+       style="fill:#afdde9;fill-opacity:1;stroke:none" />
+    <rect
+       style="fill:none;stroke:none"
+       id="rect3836"
+       width="32"
+       height="32"
+       x="52"
+       y="44.362183"
+       ry="0" />
+    <rect
+       style="fill:#000080;fill-opacity:1;stroke:none"
+       id="rect3838"
+       width="30"
+       height="30"
+       x="53"
+       y="45.362183"
+       ry="3" />
+    <g
+       id="g3902"
+       transform="matrix(0.70710678,0.70710678,-0.70710678,0.70710678,53.933771,-7.0690633)">
+      <rect
+         style="fill:#000080;fill-opacity:1;stroke:none"
+         id="rect3874"
+         width="4"
+         height="22"
+         x="33"
+         y="49.362183"
+         ry="0" />
+      <rect
+         transform="matrix(0,1,-1,0,0,0)"
+         ry="0"
+         y="-46"
+         x="58.362183"
+         height="22"
+         width="4"
+         id="rect3900"
+         style="fill:#000080;fill-opacity:1;stroke:none" />
+    </g>
+    <g
+       transform="matrix(0.70710678,0.70710678,-0.70710678,0.70710678,85.933771,-7.0690633)"
+       id="g3906"
+       style="fill:#afdde9;fill-opacity:1">
+      <rect
+         ry="0"
+         y="49.362183"
+         x="33"
+         height="22"
+         width="4"
+         id="rect3908"
+         style="fill:#afdde9;fill-opacity:1;stroke:none" />
+      <rect
+         style="fill:#afdde9;fill-opacity:1;stroke:none"
+         id="rect3910"
+         width="4"
+         height="22"
+         x="58.362183"
+         y="-46"
+         ry="0"
+         transform="matrix(0,1,-1,0,0,0)" />
+    </g>
+    <rect
+       style="fill:none;stroke:none"
+       id="rect3912"
+       width="32"
+       height="32"
+       x="20"
+       y="76.362183"
+       ry="0" />
+    <rect
+       style="fill:#afdde9;fill-opacity:1;stroke:none"
+       id="rect3914"
+       width="30"
+       height="30"
+       x="21"
+       y="77.362183"
+       ry="3" />
+    <rect
+       ry="0"
+       y="76.362183"
+       x="52"
+       height="32"
+       width="32"
+       id="rect3916"
+       style="fill:none;stroke:none" />
+    <rect
+       ry="3"
+       y="77.362183"
+       x="53"
+       height="30"
+       width="30"
+       id="rect3789"
+       style="fill:#000080;fill-opacity:1;stroke:none" />
+    <rect
+       ry="0"
+       y="108.36218"
+       x="20"
+       height="32"
+       width="32"
+       id="rect3039"
+       style="fill:none;stroke:none" />
+    <rect
+       style="fill:none;stroke:none"
+       id="rect3041"
+       width="32"
+       height="32"
+       x="52"
+       y="108.36218"
+       ry="0" />
+    <g
+       id="g3914"
+       inkscape:export-filename="C:\Rado1\CPP\ZGEBox2D\demos\artwork\move.png"
+       inkscape:export-xdpi="59.060001"
+       inkscape:export-ydpi="59.060001">
+      <rect
+         style="fill:none;stroke:none"
+         id="rect3060"
+         width="32"
+         height="32"
+         x="90"
+         y="12.362183"
+         ry="0" />
+      <path
+         style="fill:#ffffff;fill-opacity:1;stroke:none"
+         d="m 100,18.362183 6,-5 6,5 z"
+         id="path3068"
+         inkscape:connector-curvature="0" />
+      <rect
+         style="fill:#ffffff;fill-opacity:1;stroke:none"
+         id="rect3070"
+         width="4"
+         height="22"
+         x="104"
+         y="17.362183"
+         ry="0" />
+      <path
+         inkscape:connector-curvature="0"
+         id="path3072"
+         d="m 100,38.362183 6,5 6,-5 z"
+         style="fill:#ffffff;fill-opacity:1;stroke:none" />
+      <path
+         inkscape:connector-curvature="0"
+         id="path3076"
+         d="m 116,22.362183 5,6 -5,6 z"
+         style="fill:#ffffff;fill-opacity:1;stroke:none" />
+      <rect
+         transform="matrix(0,1,-1,0,0,0)"
+         ry="0"
+         y="-117"
+         x="26.362183"
+         height="22"
+         width="4"
+         id="rect3078"
+         style="fill:#ffffff;fill-opacity:1;stroke:none" />
+      <path
+         style="fill:#ffffff;fill-opacity:1;stroke:none"
+         d="m 95.999997,22.362183 -5,6 5,6 z"
+         id="path3080"
+         inkscape:connector-curvature="0" />
+    </g>
+    <g
+       id="g3908"
+       inkscape:export-filename="C:\Rado1\CPP\ZGEBox2D\demos\artwork\delete.png"
+       inkscape:export-xdpi="59.060001"
+       inkscape:export-ydpi="59.060001">
+      <rect
+         ry="0"
+         y="44.362183"
+         x="90"
+         height="32"
+         width="32"
+         id="rect3082"
+         style="fill:none;stroke:none" />
+      <g
+         style="fill:#ffffff"
+         id="g3086"
+         transform="matrix(0.84615385,0.84615385,-0.84615385,0.84615385,127.46031,-20.328895)">
+        <rect
+           style="fill:#ffffff;fill-opacity:1;stroke:none"
+           id="rect3088"
+           width="4"
+           height="22"
+           x="33"
+           y="49.362183"
+           ry="0" />
+        <rect
+           transform="matrix(0,1,-1,0,0,0)"
+           ry="0"
+           y="-46"
+           x="58.362183"
+           height="22"
+           width="4"
+           id="rect3090"
+           style="fill:#ffffff;fill-opacity:1;stroke:none" />
+      </g>
+    </g>
+  </g>
+</svg>
