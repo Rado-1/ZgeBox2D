@@ -937,7 +937,7 @@ RaycastTransform.Translate.Y = RaycastPointY;]]>
         <RenderSetColor Color="1 1 0 1"/>
         <ZExpression Expression="drawLine(0, 0, RaycastPointX, RaycastPointY);"/>
         <RenderSetColor Color="1 0 0 1"/>
-        <RenderTransformGroup Name="RaycastTransform" Scale="0.1 0.1 0.25" Translate="-8.6989 1.5701 0" Rotate="0 0 0.125">
+        <RenderTransformGroup Name="RaycastTransform" Scale="0.1 0.1 0.25" Translate="-4.7486 -9 0" Rotate="0 0 0.125">
           <Children>
             <RenderMesh Mesh="BoxMesh"/>
           </Children>
@@ -1364,7 +1364,13 @@ if(zb2TestPoint(BodyId, PointerX, PointerY)){
   // set color
   BodyColor.Color.R = 0;
 } else
-  BodyColor.Color.R = (CurrentModel != DraggedModel);]]>
+  BodyColor.Color.R = 1;
+
+if(CurrentModel == DraggedModel) {
+  BodyColor.Color.R = 1;
+  BodyColor.Color.G = 0.5;
+} else
+  BodyColor.Color.G = 1;]]>
           </Expression>
         </ZExpression>
       </OnUpdate>
@@ -1533,7 +1539,7 @@ for(; zb2GetNextContact(UNUSET_PTR, UNUSET_PTR, x, y, UNUSED_F, UNUSED_F, s);)
             <RenderSprite/>
           </Children>
         </RenderTransformGroup>
-        <RenderTransformGroup Name="ContactTransform" Scale="0.1 0.1 0.4" Translate="-1.6285 5.9293 0" Rotate="0 0 0.125">
+        <RenderTransformGroup Name="ContactTransform" Scale="0.1 0.1 0.4" Translate="0.8765 8.0826 0" Rotate="0 0 0.125">
           <Children>
             <RenderMesh Mesh="BoxMesh"/>
           </Children>
