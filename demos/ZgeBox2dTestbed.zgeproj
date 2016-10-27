@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="iso-8859-1" ?>
-<ZApplication Name="App" Comment="ZgeBox2D Testbed, v0.92. Created by Radovan Cervenka" Caption="ZgeBox2D Testbed" ClearColor="0 0 0 1" ScreenMode="0" CameraPosition="0 0 22" LightPosition="5 -10 7.3" ViewportRatio="3" MouseVisible="255" FileVersion="2" AndroidPackageName="com.rado1.ZgeBox2dTestbed" AndroidVersionName="0.91">
+<ZApplication Name="App" Comment="ZgeBox2D Testbed, v1.0. Created by Radovan Cervenka" Caption="ZgeBox2D Testbed" ClearColor="0 0 0 1" ScreenMode="0" CameraPosition="0 0 22" LightPosition="5 -10 7.3" ViewportRatio="3" MouseVisible="255" FileVersion="2" AndroidPackageName="com.rado1.ZgeBox2dTestbed" AndroidVersionName="0.91">
   <OnLoaded>
     <ZExternalLibrary Comment="Box2D physics library" ModuleName="ZgeBox2D" CallingConvention="1" BeforeInitExp="if(ANDROID) this.ModuleName = &quot;./libZgeBox2D.so&quot;;">
       <Source>
@@ -419,7 +419,7 @@ const int ROPE_JOINT = 1;
 float ScreenAspectRatio;
 float PointerX, PointerY;
 int IsMoveMode;
-int IsTouched;
+int IsTouched, WasTouched, IsClicked;
 xptr PointerJoint;
 model DraggedModel;
 xptr[30] BodyJoints;
@@ -612,7 +612,6 @@ LineBodyVerticesDef[2][_X] = 1.5;
 LineBodyVerticesDef[2][_Y] = 4;
 LineBodyCount = 3;
 createModel(LineBodyModel);
-
 
 BodyShape = EDGE_SHAPE;
 LineBodyVerticesDef[0][_X] = -15;
@@ -989,8 +988,11 @@ IsTouched = FALSE;]]>
     </Condition>
     <ZExpression Comment="Touching post-processing">
       <Expression>
-<![CDATA[// touching of buttons
-if(IsTouched && PointerJoint == null){
+<![CDATA[IsClicked = IsTouched && !WasTouched;
+WasTouched = IsTouched;
+
+// touching of buttons
+if(IsClicked && PointerJoint == null){
   float x = App.MousePosition.X, y = App.MousePosition.Y;
 
   if(y >= 0.82 && y <= 0.96){
@@ -1056,9 +1058,9 @@ if(PointerJoint != null)
     <RenderText Text="\" X="-0.225" Y="0.895" Scale="0.8" Align="1"/>
     <RenderSetColor Name="DeleteColor" Color="0 0.25 0.5 1"/>
     <RenderText Text="\" X="-0.125" Y="0.895" Scale="0.8" Align="1"/>
-    <RenderSetColor Name="Scene1Color" Color="0 0.25 0.5 1"/>
+    <RenderSetColor Name="Scene1Color" Color="0.7 0 0 1"/>
     <RenderText Text="\" X="-0.025" Y="0.895" Scale="0.8" Align="1"/>
-    <RenderSetColor Name="Scene2Color" Color="0.7 0 0 1"/>
+    <RenderSetColor Name="Scene2Color" Color="0 0.25 0.5 1"/>
     <RenderText Text="\" X="0.075" Y="0.895" Scale="0.8" Align="1"/>
     <RenderSetColor Name="Scene3Color" Color="0 0.25 0.5 1"/>
     <RenderText Text="\" X="0.175" Y="0.895" Scale="0.8" Align="1"/>
@@ -1526,12 +1528,12 @@ for(; zb2GetNextContact(UNUSET_PTR, UNUSET_PTR, x, y, UNUSED_F, UNUSED_F, s);)
     <Variable Name="ContactPointCount"/>
     <Group Comment="Repeated model parts">
       <Children>
-        <RenderTransformGroup Name="LineTransform" Comment="Component for drawing lines" Scale="6 0.05 1" Translate="11.807 -1.3307 0" Rotate="0 0 -0.2595">
+        <RenderTransformGroup Name="LineTransform" Comment="Component for drawing lines" Scale="6.7082 0.05 1" Translate="12 -0.5 0" Rotate="0 0 0.0738">
           <Children>
             <RenderSprite/>
           </Children>
         </RenderTransformGroup>
-        <RenderTransformGroup Name="ContactTransform" Scale="0.1 0.1 0.4" Translate="9.9257 2.0316 0" Rotate="0 0 0.125">
+        <RenderTransformGroup Name="ContactTransform" Scale="0.1 0.1 0.4" Translate="-1.6285 5.9293 0" Rotate="0 0 0.125">
           <Children>
             <RenderMesh Mesh="BoxMesh"/>
           </Children>
