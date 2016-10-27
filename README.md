@@ -11,14 +11,3 @@ Links:
 * Latest changes are listed in [version history](../../wiki/Version-History).
 * Related [forum discussion](http://www.emix8.org/forum/viewtopic.php?t=586).
 * It is recommended to use the latest beta release of ZGameEditor downloaded from [here](http://www.zgameeditor.org/files/ZGameEditor_beta.zip).
-
-Credits:
-* Box2D Physics Engine</br>
-Copyright (c) 2006-2013 Erin Catto</br>
-http://www.gphysics.com
-* ZGameEditor</br>
-Created by Ville Krumlinde</br>
-http://www.zgameeditor.org
-* ZgeBox2D</br>
-Copyright (c) 2013-2014 Radovan Cervenka</br>
-https://github.com/Rado-1/ZgeBox2D

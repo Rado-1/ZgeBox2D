@@ -6,11 +6,14 @@ LOCAL_MODULE := ZgeBox2D
 
 MY_BOX2D_PATH := Box2D/Box2D
 LOCAL_C_INCLUDES := $(LOCAL_PATH)/$(MY_BOX2D_PATH)
-LOCAL_CPPFLAGS += -fexceptions -frtti
+LOCAL_CPPFLAGS += -fexceptions -frtti -std=c++11
 LOCAL_LDLIBS := -L$(SYSROOT)/usr/lib -ldl -lm -lstdc++
+LOCAL_CPP_FEATURES += exceptions
+
+APP_OPTIM := release
 
 # uncomment for ARMv7-A
-#LOCAL_CFLAGS := -march=armv7-a -mfloat-abi=softfp
+LOCAL_CFLAGS := -march=armv7-a -mfloat-abi=softfp
 
 TARGET_PLATFORM := android-8
 

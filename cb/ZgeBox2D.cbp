@@ -30,7 +30,8 @@
 		</Compiler>
 		<Linker>
 			<Add option="-s" />
-			<Add library="..\Box2D\Box2D\Build\vs2013\libBox2D.a" />
+			<Add library="libBox2D.a" />
+			<Add directory="../cb" />
 		</Linker>
 		<Unit filename="../android/jni/Android.mk" />
 		<Unit filename="../android/jni/Application.mk" />

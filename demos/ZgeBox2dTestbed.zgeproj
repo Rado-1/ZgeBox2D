@@ -7,29 +7,32 @@
   Adapter to the ZgeBox2D Library, a wrapper for the Box2D Physics Engine.
   http://box2d.org/
 
-  Version: 0.92 (2014-09-15)
-
   Download Windows DLL and Android shared library from
-  http://googledrive.com/host/0BxwfQ8la88oueHUzRDlDTUhNU00/
+  https://github.com/Rado-1/ZgeBox2D/releases
 
   Project home
-  http://code.google.com/p/zgebox2d
+  https://github.com/Rado-1/ZgeBox2D
 
-  Copyright (c) 2013-2014 Radovan Cervenka
-*/
+  Copyright (c) 2013-2016 Radovan Cervenka
+
+  Version: 1.0 (2016-10-27)
+
+  */
 
 // Constants
 
 // type of body
-const int ZB2_STATIC = 0;
-const int ZB2_KINEMATIC = 1;
-const int ZB2_DYNAMIC = 2;
+const int
+  ZB2_STATIC = 0,
+  ZB2_KINEMATIC = 1,
+  ZB2_DYNAMIC = 2;
 
 // state of contact point
-const int ZB2_NULL_STATE = 0;    // point does not exist
-const int ZB2_ADD_STATE = 1;     // point was added in the update
-const int ZB2_PERSIST_STATE = 2; // point persisted across the update
-const int ZB2_REMOVE_STATE = 3;  // point was removed in the update
+const int
+  ZB2_NULL_STATE = 0,    // point does not exist
+  ZB2_ADD_STATE = 1,     // point was added in the update
+  ZB2_PERSIST_STATE = 2, // point persisted across the update
+  ZB2_REMOVE_STATE = 3;  // point was removed in the update
 
 // World
 
@@ -65,109 +68,109 @@ void zb2DestroyAllBodies() {}
 // Bodies
 
 // create and return a static body without shape
-int zb2CreateEmptyBody(float x, float y, int type) {}
+xptr zb2CreateEmptyBody(float x, float y, int type) {}
 
 // create and return box
-int zb2CreateBox(float x, float y, float width, float height, float angle, int type) {}
+xptr zb2CreateBox(float x, float y, float width, float height, float angle, int type) {}
 
 // create and return circle
-int zb2CreateCircle(float x, float y, float radius, int type) {}
+xptr zb2CreateCircle(float x, float y, float radius, int type) {}
 
 // create and return polygon (up to 8 vertices)
 // vertices - 2D array of floats or 1D array of vec2
-int zb2CreatePolygon(float x, float y, xptr vertices, int count, float angle, int type) {}
+xptr zb2CreatePolygon(float x, float y, xptr vertices, int count, float angle, int type) {}
 
 // create and return static edge
-int zb2CreateEdge(float x1, float y1, float x2, float y2) {}
+xptr zb2CreateEdge(float x1, float y1, float x2, float y2) {}
 
 // create and return static chain
 // vertices - 2D array of floats or 1D array of vec2
-int zb2CreateChain(xptr vertices, int count, int isLoop) {}
+xptr zb2CreateChain(xptr vertices, int count, int isLoop) {}
 
 // compound bodies
 
 // add box to existing body
-void zb2AddBox(int body, float x, float y, float width, float height,
+void zb2AddBox(xptr body, float x, float y, float width, float height,
   float angle) {}
 
 // add circle to existing body
-void zb2AddCircle(int body, float x, float y, float radius) {}
+void zb2AddCircle(xptr body, float x, float y, float radius) {}
 
 // add polygon to existing body
 // vertices - 2D array of floats or 1D array of vec2
-void zb2AddPolygon(int body, xptr vertices, int count) {}
+void zb2AddPolygon(xptr body, xptr vertices, int count) {}
 
 // add edge to existing body
-void zb2AddEdge(int body, float x1, float y1, float x2, float y2) {}
+void zb2AddEdge(xptr body, float x1, float y1, float x2, float y2) {}
 
 // add chain to existing body
 // vertices - 2D array of floats or 1D array of vec2
-void zb2AddChain(int body, xptr vertices, int count, int isLoop) {}
+void zb2AddChain(xptr body, xptr vertices, int count, int isLoop) {}
 
 // destroy body
-void zb2DestroyBody(int body) {}
+void zb2DestroyBody(xptr body) {}
 
 // getters
-float zb2GetPositionX(int body) {}
-float zb2GetPositionY(int body) {}
-float zb2GetAngle(int body) {}
-void zb2GetTransform(int body, ref float x, ref float y, ref float angle) {}
-float zb2GetMass(int body) {}
-int zb2IsAwake(int body) {}
+float zb2GetPositionX(xptr body) {}
+float zb2GetPositionY(xptr body) {}
+float zb2GetAngle(xptr body) {}
+void zb2GetTransform(xptr body, ref float x, ref float y, ref float angle) {}
+float zb2GetMass(xptr body) {}
+int zb2IsAwake(xptr body) {}
 
 // setters
-void zb2SetPosition(int body, float x, float y) {}
-void zb2SetRotation(int body, float angle) {}
-void zb2SetTransform(int body, float x, float y, float angle) {}
-void zb2SetLinearVelocity(int body, float x, float y) {}
-void zb2SetAngularVelocity(int body, float omega) {}
-void zb2SetLinearDamping(int body, float linearDamping) {}
-void zb2SetAngularDamping(int body, float angularDamping) {}
-void zb2SetDensity(int body, float density) {}
-void zb2SetFriction(int body, float friction) {} // can be more than 1.0
-void zb2SetRestitution(int body, float restitution) {}
-void zb2SetGravityScale(int body, float gravityScale) {} // -1.0 - reverse gravity
-void zb2SetFixedRotation(int body, int hasFixedRotation) {}
-void zb2SetSleepingAllowed(int body, int isSleepingAllowed) {}
-void zb2SetBullet(int body, int isBullet) {}
-void zb2SetSensor(int body, int isSensor) {}
-void zb2SetActive(int body, int isActive) {}
-void zb2SetMass(int body, float mass) {}
-void zb2SetMassData(int body, float mass, float x, float y, float rotationalInertia) {}
-void zb2ResetMassData(int body) {}
+void zb2SetPosition(xptr body, float x, float y) {}
+void zb2SetRotation(xptr body, float angle) {}
+void zb2SetTransform(xptr body, float x, float y, float angle) {}
+void zb2SetLinearVelocity(xptr body, float x, float y) {}
+void zb2SetAngularVelocity(xptr body, float omega) {}
+void zb2SetLinearDamping(xptr body, float linearDamping) {}
+void zb2SetAngularDamping(xptr body, float angularDamping) {}
+void zb2SetDensity(xptr body, float density) {}
+void zb2SetFriction(xptr body, float friction) {} // can be more than 1.0
+void zb2SetRestitution(xptr body, float restitution) {}
+void zb2SetGravityScale(xptr body, float gravityScale) {} // -1.0 - reverse gravity
+void zb2SetFixedRotation(xptr body, int hasFixedRotation) {}
+void zb2SetSleepingAllowed(xptr body, int isSleepingAllowed) {}
+void zb2SetBullet(xptr body, int isBullet) {}
+void zb2SetSensor(xptr body, int isSensor) {}
+void zb2SetActive(xptr body, int isActive) {}
+void zb2SetMass(xptr body, float mass) {}
+void zb2SetMassData(xptr body, float mass, float x, float y, float rotationalInertia) {}
+void zb2ResetMassData(xptr body) {}
 
 // apply forces
-void zb2ApplyForce(int body, float forceX, float forceY, float pointX, float pointY, int wake) {}
-void zb2ApplyForceToCenter(int body, float forceX, float forceY, int wake) {}
-void zb2ApplyTorque(int body, float torque, int wake) {}
-void zb2ApplyLinearImpulse(int body, float impulseX, float impulseY, float pointX, float pointY, int wake) {}
-void zb2ApplyAngularImpulse(int body, float impulse, int wake) {}
+void zb2ApplyForce(xptr body, float forceX, float forceY, float pointX, float pointY, int wake) {}
+void zb2ApplyForceToCenter(xptr body, float forceX, float forceY, int wake) {}
+void zb2ApplyTorque(xptr body, float torque, int wake) {}
+void zb2ApplyLinearImpulse(xptr body, float impulseX, float impulseY, float pointX, float pointY, int wake) {}
+void zb2ApplyAngularImpulse(xptr body, float impulse, int wake) {}
 
 // changing shapes
-void zb2ChangeCircleRadius(int body, float radius) {}
-void zb2ChangeEdge(int body, float x1, float y1, float x2, float y2) {}
+void zb2ChangeCircleRadius(xptr body, float radius) {}
+void zb2ChangeEdge(xptr body, float x1, float y1, float x2, float y2) {}
 
 // Joints
 
 // create and return distance joint
 // local coordinates used
-int zb2CreateDistanceJoint(int bodyA, int bodyB,
+xptr zb2CreateDistanceJoint(xptr bodyA, xptr bodyB,
 	float anchorAx, float anchorAy, float anchorBx, float anchorBy, float length,
 	float frequency, float dampingRatio, int isCollided) {}
 
 // create and return distance joint
 // world coordinates used
-int zb2CreateDistanceJointWorld(int bodyA, int bodyB,
+xptr zb2CreateDistanceJointWorld(xptr bodyA, xptr bodyB,
 	float anchorAx, float anchorAy, float anchorBx, float anchorBy, float length,
 	float frequency, float dampingRatio, int isCollided) {}
 
 // update distance joint
-void zb2UpdateDistanceJoint(int joint, float length,
+void zb2UpdateDistanceJoint(xptr joint, float length,
 	float frequency, float dampingRatio) {}
 
 // create and return prismatic joint
 // local coordinates used
-int zb2CreatePrismaticJoint(int bodyA, int bodyB,
+xptr zb2CreatePrismaticJoint(xptr bodyA, xptr bodyB,
 	float anchorAx, float anchorAy, float anchorBx, float anchorBy,
 	float axisAx, float axisAy, float referenceAngle,
 	int enableLimit, float lower, float upper,
@@ -175,98 +178,97 @@ int zb2CreatePrismaticJoint(int bodyA, int bodyB,
 
 // create and return prismatic joint
 // world coordinates used
-int zb2CreatePrismaticJointWorld(int bodyA, int bodyB,
+xptr zb2CreatePrismaticJointWorld(xptr bodyA, xptr bodyB,
 	float anchorX, float anchorY, float axisX, float axisY,
 	int enableLimit, float lower, float upper,
 	int enableMotor, float maxMotorForce, float motorSpeed, int isCollided) {}
 
-
 // update prismatic joint
-void zb2UpdatePrismaticJoint(int joint,
+void zb2UpdatePrismaticJoint(xptr joint,
 	int enableLimit, float lower, float upper,
 	int enableMotor, float maxMotorForce, float motorSpeed) {}
 
 // get current translation of prismatic joint
-float zb2GetPrismaticTranslation(int joint) {}
+float zb2GetPrismaticTranslation(xptr joint) {}
 
 // get current speed of prismatic joint
-float zb2GetPrismaticSpeed(int joint) {}
+float zb2GetPrismaticSpeed(xptr joint) {}
 
 // create and return revolute joint
 // local coordinates used
-int zb2CreateRevoluteJoint(int bodyA, int bodyB,
+xptr zb2CreateRevoluteJoint(xptr bodyA, xptr bodyB,
 	float anchorAx, float anchorAy, float anchorBx, float anchorBy,
 	float referenceAngle, int enableLimit, float lowerAngle, float upperAngle,
 	int enableMotor, float motorSpeed, float maxMotorTorque, int isCollided) {}
 
 // create and return revolute joint
 // world coordinates used
-int zb2CreateRevoluteJointWorld(int bodyA, int bodyB,
+xptr zb2CreateRevoluteJointWorld(xptr bodyA, xptr bodyB,
 	float anchorX, float anchorY, int enableLimit, float lowerAngle, float upperAngle,
 	int enableMotor, float motorSpeed, float maxMotorTorque, int isCollided) {}
 
 // update revolute joint
-void zb2UpdateRevoluteJoint(int joint,
+void zb2UpdateRevoluteJoint(xptr joint,
 	int enableLimit, float lowerAngle, float upperAngle,
 	int enableMotor, float motorSpeed, float maxMotorTorque) {}
 
 // get current angle of revolute joint
-float zb2GetRevoluteAngle(int joint) {}
+float zb2GetRevoluteAngle(xptr joint) {}
 
 // create and return weld joint
 // local coordinates used
-int zb2CreateWeldJoint(int bodyA, int bodyB,
+xptr zb2CreateWeldJoint(xptr bodyA, xptr bodyB,
 	float anchorAx, float anchorAy, float anchorBx, float anchorBy,
 	float referenceAngle, float frequency, float dampingRatio, int isCollided) {}
 
 // create and return weld joint
 // world coordinates used
-int zb2CreateWeldJointWorld(int bodyA, int bodyB,
+xptr zb2CreateWeldJointWorld(xptr bodyA, xptr bodyB,
 	float anchorX, float anchorY, float frequency, float dampingRatio,
 	int isCollided) {}
 
 // update weld joint
-void zb2UpdateWeldJoint(int joint, float frequency, float dampingRatio) {}
+void zb2UpdateWeldJoint(xptr joint, float frequency, float dampingRatio) {}
 
 // create and return rope joint
 // local coordinates used
-int zb2CreateRopeJoint(int bodyA, int bodyB,
+xptr zb2CreateRopeJoint(xptr bodyA, xptr bodyB,
 	float anchorAx, float anchorAy, float anchorBx, float anchorBy,
 	float maxLength, int isCollided) {}
 
 // update rope joint
-void zb2UpdateRopeJoint(int joint, float maxLength) {}
+void zb2UpdateRopeJoint(xptr joint, float maxLength) {}
 
 // create and return pulley joint
 // local coordinates used
-int zb2CreatePulleyJoint(int bodyA, int bodyB,
+xptr zb2CreatePulleyJoint(xptr bodyA, xptr bodyB,
 	float anchorAx, float anchorAy, float anchorBx, float anchorBy,
 	float groundAx, float groundAy, float groundBx, float groundBy,
 	float lengthA, float lengthB, float ratio, int isCollided) {}
 
 // create and return pulley joint
 // world coordinates used
-int zb2CreatePulleyJointWorld(int bodyA, int bodyB,
+xptr zb2CreatePulleyJointWorld(xptr bodyA, xptr bodyB,
 	float anchorAx, float anchorAy, float anchorBx, float anchorBy,
 	float groundAx, float groundAy, float groundBx, float groundBy,
 	float ratio, int isCollided) {}
 
 // get length of rope at side A of pulley joint
-float zb2GetPulleyLengthA(int joint) {}
+float zb2GetPulleyLengthA(xptr joint) {}
 
 // get length of rope at side B of pulley joint
-float zb2GetPulleyLengthB(int joint) {}
+float zb2GetPulleyLengthB(xptr joint) {}
 
 // create and return gear joint
 // only revolute and/or prismatic joints can be connected
-int zb2CreateGearJoint(int joint1, int joint2, float ratio, int isCollided) {}
+xptr zb2CreateGearJoint(xptr joint1, xptr joint2, float ratio, int isCollided) {}
 
 // update gear joint
-void zb2UpdateGearJoint(int joint, float ratio) {}
+void zb2UpdateGearJoint(xptr joint, float ratio) {}
 
 // create and return wheel joint
 // local coordinates used
-int zb2CreateWheelJoint(int bodyA, int bodyB,
+xptr zb2CreateWheelJoint(xptr bodyA, xptr bodyB,
 	float anchorAx, float anchorAy, float anchorBx, float anchorBy,
 	float axisAx, float axisAy,
 	int enableMotor, float motorSpeed, float maxMotorTorque,
@@ -274,75 +276,80 @@ int zb2CreateWheelJoint(int bodyA, int bodyB,
 
 // create and return wheel joint
 // world coordinates used
-int zb2CreateWheelJointWorld(int bodyA, int bodyB,
+xptr zb2CreateWheelJointWorld(xptr bodyA, xptr bodyB,
 	float anchorX, float anchorY,float axisX, float axisY,
 	int enableMotor, float motorSpeed, float maxMotorTorque,
 	float frequency, float dampingRatio, int isCollided) {}
 
-
 // update wheel joint
-void zb2UpdateWheelJoint(int joint,
-	int enableMotor, float motorSpeed, float maxMotorTorque,
+void zb2UpdateWheelJoint(xptr joint, int enableMotor,
+	float motorSpeed, float maxMotorTorque,
 	float frequency, float dampingRatio) {}
 
 // get wheel joint's spring translation
-float zb2GetWheelTranslation(int joint) {}
+float zb2GetWheelTranslation(xptr joint) {}
+
+// get wheel's angle
+float zb2GetWheelAngle(xptr joint) {}
 
 // get wheel joint's spring translation speed
-float zb2GetWheelTranslationSpeed(int joint) {}
+float zb2GetWheelLinearSpeed(xptr joint) {}
+
+// get wheel's angular speed
+float zb2GetWheelAngularSpeed(xptr joint) {}
 
 // create and return motor joint
 // local coordinates used
-int zb2CreateMotorJoint(int bodyA, int bodyB,
+xptr zb2CreateMotorJoint(xptr bodyA, xptr bodyB,
 	float linearOffsetX, float linearOffsetY, float angularOffset,
 	float maxForce, float maxTorque, float correctionFactor, int isCollided) {}
 
 // create and return motor joint
 // world coordinates used
-int zb2CreateMotorJointWorld(int bodyA, int bodyB,
+xptr zb2CreateMotorJointWorld(xptr bodyA, xptr bodyB,
 	float maxForce, float maxTorque, float correctionFactor, int isCollided) {}
 
 // update motor joint
-void zb2UpdateMotorJoint(int joint,
+void zb2UpdateMotorJoint(xptr joint,
 	float linearOffsetX, float linearOffsetY, float angularOffset,
 	float maxForce, float maxTorque, float correctionFactor) {}
 
 // create and return mouse joint
 // world coordinates used
-int zb2CreateMouseJoint(int body, float targetX, float targetY,
+xptr zb2CreateMouseJoint(xptr body, float targetX, float targetY,
 	float maxForce,	float frequency, float dampingRatio) {}
 
 // update target of mouse joint
-void zb2UpdateMouseJoint(int joint, float targetX, float targetY) {}
+void zb2UpdateMouseJoint(xptr joint, float targetX, float targetY) {}
 
 // destroy joint
-void zb2DestroyJoint(int joint) {}
+void zb2DestroyJoint(xptr joint) {}
 
 // get all joints of a body
 // jointList - array of integers (1D) having sufficient size
-void zb2GetJoints(int body, xptr jointList, ref int count) {}
+void zb2GetJoints(xptr body, xptr jointList, ref int count) {}
 
 // Custom user data
 
 // set ZGE models
-void zb2SetUserModelToBody(int body, model userModel) {}
-void zb2SetUserModelToJoint(int joint, model userModel) {}
+void zb2SetUserModelToBody(xptr body, model userModel) {}
+void zb2SetUserModelToJoint(xptr joint, model userModel) {}
 
 // get ZGE models
-model zb2GetUserModelFromBody(int body) {}
-model zb2GetUserModelFromJoint(int joint) {}
+model zb2GetUserModelFromBody(xptr body) {}
+model zb2GetUserModelFromJoint(xptr joint) {}
 
 // Queries
 
 // test containment of point in body
-int zb2TestPoint(int body, float x, float y) {}
+int zb2TestPoint(xptr body, float x, float y) {}
 
 // get body at point or 0 if no body is there
-int zb2GetBodyAtPoint(float x, float y, ref int body) {}
+int zb2GetBodyAtPoint(float x, float y, ref xptr body) {}
 
 // raycast
-// returns id of found body or 0 if no body found
-int zb2RayCast(float x1, float y1, float x2, float y2,
+// returns found body or null if no body found
+xptr zb2RayCast(float x1, float y1, float x2, float y2,
 	ref float x, ref float y, ref float normalX, ref float normalY) {}
 
 // Collisions
@@ -354,7 +361,7 @@ void zb2ResetContacts() {}
 // returns:
 //    1 - next collision point was returned
 //    0 - no other collision point is available
-int zb2GetNextContact(ref int bodyA, ref int bodyB,
+int zb2GetNextContact(ref xptr bodyA, ref xptr bodyB,
   ref float posX, ref float posY,
 	ref float normX, ref float normY,
   ref int state) {}
@@ -363,13 +370,13 @@ int zb2GetNextContact(ref int bodyA, ref int bodyB,
 int zb2GetContactCount() {}
 
 // is body collided?
-int zb2IsCollided(int body) {}
+int zb2IsCollided(xptr body) {}
 
 // number of collisions of given body
-int zb2GetBodyContactCount(int body) {}
+int zb2GetBodyContactCount(xptr body) {}
 
 // set collision filtering flags to body
-void zb2SetBodyFilteringFlags(int body, int categoryBits, int maskBits, int groupIndex) {}]]>
+void zb2SetBodyFilteringFlags(xptr body, int categoryBits, int maskBits, int groupIndex) {}]]>
       </Source>
     </ZExternalLibrary>
     <ZLibrary Comment="Globals">
@@ -413,9 +420,9 @@ float ScreenAspectRatio;
 float PointerX, PointerY;
 int IsMoveMode;
 int IsTouched;
-int PointerJoint;
+xptr PointerJoint;
 model DraggedModel;
-int[30] BodyJoints;
+xptr[30] BodyJoints;
 vec2[30] LineBodyVerticesDef;
 
 // body construction setters
@@ -437,7 +444,7 @@ int JointIsCollided;
 
 // auxiliary variables for unused reference parameters of function calls
 float UNUSED_F;
-int UNUSET_I;
+xptr UNUSET_PTR;
 
 // FUNCTIONS
 
@@ -548,7 +555,7 @@ enableScene1Button(TRUE);
 enableScene2Button(FALSE);
 enableScene3Button(FALSE);
 enableScene4Button(FALSE);
-PointerJoint = NONE;
+PointerJoint = null;
 DraggedModel = null;
 
 // init simulation world
@@ -637,7 +644,7 @@ BodyScaleZ = 0.2;]]>
           <OnTimer>
             <ZExpression>
               <Expression>
-<![CDATA[int id;
+<![CDATA[xptr id;
 BodyShape = floor(rnd()*4);
 id = createModel(BodyModel).BodyId;
 
@@ -839,7 +846,7 @@ ParticleSpawnTimer.Interval = 0.1;]]>
           <OnTimer>
             <ZExpression>
               <Expression>
-<![CDATA[int id = createModel(BodyModel).BodyId;
+<![CDATA[xptr id = createModel(BodyModel).BodyId;
 zb2SetMass(id, 0.01);
 zb2SetFriction(id, 0.01);
 zb2SetLinearDamping(id, 0.01);
@@ -895,7 +902,7 @@ BodyScaleX = 0.5;
 BodyScaleY = 0.5;
 BodyScaleZ = 0.2;
 
-int id;
+xptr id;
 for(int i = 0; i < 30; ++i){
   BodyPositionX = random(0, 14);
   BodyPositionY = random(0, 7);
@@ -931,7 +938,7 @@ RaycastTransform.Translate.Y = RaycastPointY;]]>
         <RenderSetColor Color="1 1 0 1"/>
         <ZExpression Expression="drawLine(0, 0, RaycastPointX, RaycastPointY);"/>
         <RenderSetColor Color="1 0 0 1"/>
-        <RenderTransformGroup Name="RaycastTransform" Scale="0.1 0.1 0.25" Translate="0.6914 1.0176 0" Rotate="0 0 0.125">
+        <RenderTransformGroup Name="RaycastTransform" Scale="0.1 0.1 0.25" Translate="-8.6989 1.5701 0" Rotate="0 0 0.125">
           <Children>
             <RenderMesh Mesh="BoxMesh"/>
           </Children>
@@ -952,7 +959,7 @@ zb2AllowCollisionDetection(TRUE);]]>
     <ZExpression Comment="Step simulation">
       <Expression>
 <![CDATA[// step simulation
-float s = App.FpsCounter/3;
+float s = clamp(App.FpsCounter/3, 3, 10);
 zb2Step(App.DeltaTime, s, s);
 //zb2Step(App.DeltaTime, 3, 8); // Box2D default; can cause shaking of joints
 
@@ -983,7 +990,7 @@ IsTouched = FALSE;]]>
     <ZExpression Comment="Touching post-processing">
       <Expression>
 <![CDATA[// touching of buttons
-if(IsTouched && !PointerJoint){
+if(IsTouched && PointerJoint == null){
   float x = App.MousePosition.X, y = App.MousePosition.Y;
 
   if(y >= 0.82 && y <= 0.96){
@@ -1024,14 +1031,14 @@ if(IsTouched && !PointerJoint){
 }
 
 // handle pointer joint for moving objects
-if(PointerJoint)
+if(PointerJoint != null)
   if(IsTouched && IsMoveMode)
     // body is dragged by mouse
     zb2UpdateMouseJoint(PointerJoint, PointerX, PointerY);
   else {
     // release dragging
     zb2DestroyJoint(PointerJoint);
-    PointerJoint = NONE;
+    PointerJoint = null;
     DraggedModel = null;
   }]]>
       </Expression>
@@ -1049,9 +1056,9 @@ if(PointerJoint)
     <RenderText Text="\" X="-0.225" Y="0.895" Scale="0.8" Align="1"/>
     <RenderSetColor Name="DeleteColor" Color="0 0.25 0.5 1"/>
     <RenderText Text="\" X="-0.125" Y="0.895" Scale="0.8" Align="1"/>
-    <RenderSetColor Name="Scene1Color" Color="0.7 0 0 1"/>
+    <RenderSetColor Name="Scene1Color" Color="0 0.25 0.5 1"/>
     <RenderText Text="\" X="-0.025" Y="0.895" Scale="0.8" Align="1"/>
-    <RenderSetColor Name="Scene2Color" Color="0 0.25 0.5 1"/>
+    <RenderSetColor Name="Scene2Color" Color="0.7 0 0 1"/>
     <RenderText Text="\" X="0.075" Y="0.895" Scale="0.8" Align="1"/>
     <RenderSetColor Name="Scene3Color" Color="0 0.25 0.5 1"/>
     <RenderText Text="\" X="0.175" Y="0.895" Scale="0.8" Align="1"/>
@@ -1231,7 +1238,7 @@ c.B = (v.Y)/5 + 0.5;]]>
     </Group>
     <Model Name="EmptyBodyModel" Category="1">
       <Definitions>
-        <Variable Name="EmptyBodyId" Type="1"/>
+        <Variable Name="EmptyBodyId" Type="9"/>
       </Definitions>
       <OnSpawn>
         <ZExpression Comment="Create body" Expression="EmptyBodyId = zb2CreateEmptyBody(BodyPositionX, BodyPositionY, ZB2_STATIC);"/>
@@ -1242,7 +1249,7 @@ c.B = (v.Y)/5 + 0.5;]]>
     </Model>
     <Model Name="BodyModel" Category="1">
       <Definitions>
-        <Variable Name="BodyId" Type="1"/>
+        <Variable Name="BodyId" Type="9"/>
         <Variable Name="BodyType" Type="1"/>
       </Definitions>
       <States>
@@ -1343,7 +1350,7 @@ if(BodyType == ZB2_STATIC){
 if(zb2TestPoint(BodyId, PointerX, PointerY)){
 
   // set mouse joint for the current body if dragged
-  if(IsMoveMode && IsTouched && !PointerJoint){
+  if(IsMoveMode && IsTouched && PointerJoint == null){
     PointerJoint = zb2CreateMouseJoint(BodyId, PointerX, PointerY,
                     1000.0 * zb2GetMass(BodyId), 5.0, 0.7);
     DraggedModel = CurrentModel;
@@ -1370,7 +1377,7 @@ if(zb2TestPoint(BodyId, PointerX, PointerY)){
     </Model>
     <Model Name="LineBodyModel" Comment="Static body based on lines" Category="1">
       <Definitions>
-        <Variable Name="LineBodyId" Type="1"/>
+        <Variable Name="LineBodyId" Type="9"/>
         <Array Name="LineBodyVertices" Type="6" SizeDim1="10"/>
         <Variable Name="LineBodyCount" Type="1"/>
         <Variable Name="LineBodyIsLoop" Type="1"/>
@@ -1423,7 +1430,7 @@ if(LineBodyIsLoop)
     </Model>
     <Model Name="JointModel" Category="1">
       <Definitions>
-        <Variable Name="JointId" Type="1"/>
+        <Variable Name="JointId" Type="9"/>
         <Variable Name="JointModelA" Type="3"/>
         <Variable Name="JointModelB" Type="3"/>
         <Variable Name="JointAnchorAx"/>
@@ -1435,7 +1442,7 @@ if(LineBodyIsLoop)
       <OnSpawn>
         <ZExpression>
           <Expression>
-<![CDATA[int j;
+<![CDATA[xptr j;
 
 switch(JointType){
 
@@ -1505,7 +1512,7 @@ float x, y;
 
 zb2ResetContacts();
 
-for(; zb2GetNextContact(UNUSET_I, UNUSET_I, x, y, UNUSED_F, UNUSED_F, s);)
+for(; zb2GetNextContact(UNUSET_PTR, UNUSET_PTR, x, y, UNUSED_F, UNUSED_F, s);)
   if(s == ZB2_ADD_STATE || s == ZB2_PERSIST_STATE){
     ContactTransform.Translate.X = x;
     ContactTransform.Translate.Y = y;
@@ -1519,12 +1526,12 @@ for(; zb2GetNextContact(UNUSET_I, UNUSET_I, x, y, UNUSED_F, UNUSED_F, s);)
     <Variable Name="ContactPointCount"/>
     <Group Comment="Repeated model parts">
       <Children>
-        <RenderTransformGroup Name="LineTransform" Comment="Component for drawing lines" Scale="6.7082 0.05 1" Translate="12 -0.5 0" Rotate="0 0 0.0738">
+        <RenderTransformGroup Name="LineTransform" Comment="Component for drawing lines" Scale="6 0.05 1" Translate="11.807 -1.3307 0" Rotate="0 0 -0.2595">
           <Children>
             <RenderSprite/>
           </Children>
         </RenderTransformGroup>
-        <RenderTransformGroup Name="ContactTransform" Scale="0.1 0.1 0.4" Translate="-1.9496 -8.6024 0" Rotate="0 0 0.125">
+        <RenderTransformGroup Name="ContactTransform" Scale="0.1 0.1 0.4" Translate="9.9257 2.0316 0" Rotate="0 0 0.125">
           <Children>
             <RenderMesh Mesh="BoxMesh"/>
           </Children>
