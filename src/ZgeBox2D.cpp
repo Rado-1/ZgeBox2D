@@ -38,16 +38,14 @@ misrepresented as being the original software.
 #define EXPORT extern "C"
 #endif
 
-
-#define PI2 6.28318530718f
-
 #define FALSE 0
 #define TRUE 1
+
+#define PI2 6.28318530718f
 
 // utils
 #define angleToRadians(angle) angle * PI2
 #define angleFromRadians(angle) angle / PI2
-#define intToBool(int_value) int_value!=0
 
 // Types
 
@@ -71,7 +69,7 @@ class ZgeRayCastCallback : public b2RayCastCallback {
 public:
 
 	void Init() {
-		m_body = NULL;
+		m_body = nullptr;
 	}
 
 	// finds closest fixture
@@ -140,7 +138,7 @@ public:
 
 	void Init(const b2Vec2& point) {
 		m_point = point;
-		m_body = NULL;
+		m_body = nullptr;
 	}
 
 	bool ReportFixture(b2Fixture* fixture) {
@@ -170,12 +168,13 @@ ZgeContactListener g_ContactListener;
 ZgeQueryCallback g_QueryCallback;
 int32 g_CurrentContactPoint;
 b2Body* g_GhostBody;
+b2ContactEdge* g_CurrentContactEdge;
 
 // World
 
 EXPORT void zb2InitWorld(float gravityX, float gravityY) {
 	g_World = new b2World(b2Vec2(gravityX, gravityY));
-	g_GhostBody = NULL;
+	g_GhostBody = nullptr;
 }
 
 EXPORT void zb2DestroyWorld() {
@@ -184,7 +183,7 @@ EXPORT void zb2DestroyWorld() {
 
 EXPORT void zb2AllowCollisionDetection(bool allow) {
 	if(allow) g_ContactListener.Init();
-	g_World->SetContactListener(allow ? &g_ContactListener : NULL);
+	g_World->SetContactListener(allow ? &g_ContactListener : nullptr);
 }
 
 EXPORT void zb2Step(float timeStep, int velocityIterations, int positionIterations) {
@@ -220,7 +219,7 @@ EXPORT void zb2DestroyAllBodies() {
 		g_World->DestroyBody(body);
 		body = tmp;
 	}
-	g_GhostBody = NULL;
+	g_GhostBody = nullptr;
 }
 
 // Bodies
@@ -369,6 +368,16 @@ EXPORT void zb2GetTransform(b2Body* body, float &x, float &y, float &angle) {
 	angle = angleFromRadians(body->GetAngle());
 }
 
+EXPORT void zb2GetLinearVelocity(b2Body* body, float &x, float &y) {
+	b2Vec2 v = body->GetLinearVelocity();
+	x = v.x;
+	y = v.y;
+}
+
+EXPORT float zb2GetAngularVelocity(b2Body* body) {
+	return body->GetAngularVelocity();
+}
+
 EXPORT float zb2GetMass(b2Body* body) {
 	return body->GetMass();
 }
@@ -439,11 +448,16 @@ EXPORT void zb2SetBullet(b2Body* body, bool isBullet) {
 	body->SetBullet(isBullet);
 }
 
-EXPORT void zb2SetSensor(b2Body* body, bool isSensor) {
+EXPORT void zb2SetCollisionSensor(b2Body* body, bool isSensor) {
 	// do not use SetSensor(), because then the collisions points
 	// would not be returned; user data is used instead
 	b2Fixture* fixture = body->GetFixtureList();
 	for(; fixture; fixture->SetUserData(&isSensor), fixture = fixture->GetNext());
+}
+
+EXPORT void zb2SetSensor(b2Body* body, bool isSensor) {
+	b2Fixture* fixture = body->GetFixtureList();
+	for(; fixture; fixture->SetSensor(isSensor), fixture = fixture->GetNext());
 }
 
 EXPORT void zb2SetActive(b2Body* body, bool isActive) {
@@ -1042,6 +1056,22 @@ EXPORT int zb2GetBodyContactCount(b2Body* body) {
 		if(c->contact->IsTouching()) ++i;
 
 	return i;
+}
+
+EXPORT int zb2GetNextCollidedBody(b2Body* body, b2Body* &other, int &getFirst) {
+
+	if(getFirst)
+		g_CurrentContactEdge = body->GetContactList();
+	else
+		g_CurrentContactEdge = g_CurrentContactEdge->next;
+
+	for(; g_CurrentContactEdge; g_CurrentContactEdge = g_CurrentContactEdge->next)
+		if(g_CurrentContactEdge->contact->IsTouching()) break;
+
+	getFirst = FALSE;
+	other = g_CurrentContactEdge ? g_CurrentContactEdge->other : nullptr;
+
+	return g_CurrentContactEdge != nullptr ? TRUE : FALSE;
 }
 
 EXPORT void zb2SetBodyFilteringFlags(b2Body* body, int categoryBits,

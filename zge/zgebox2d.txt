@@ -13,7 +13,7 @@ ZZDC<?xml version="1.0" encoding="iso-8859-1" ?>
 
   Copyright (c) 2013-2016 Radovan Cervenka
 
-  Version: 1.0 (2016-10-27)
+  Version: 1.1 (2016-??-??)
 
   */
 
@@ -113,6 +113,8 @@ float zb2GetPositionX(xptr body) {}
 float zb2GetPositionY(xptr body) {}
 float zb2GetAngle(xptr body) {}
 void zb2GetTransform(xptr body, ref float x, ref float y, ref float angle) {}
+void zb2GetLinearVelocity(xptr body, ref float x, ref float y) {}
+float zb2GetAngularVelocity(xptr body) {}
 float zb2GetMass(xptr body) {}
 int zb2IsAwake(xptr body) {}
 
@@ -131,7 +133,8 @@ void zb2SetGravityScale(xptr body, float gravityScale) {} // -1.0 - reverse grav
 void zb2SetFixedRotation(xptr body, int hasFixedRotation) {}
 void zb2SetSleepingAllowed(xptr body, int isSleepingAllowed) {}
 void zb2SetBullet(xptr body, int isBullet) {}
-void zb2SetSensor(xptr body, int isSensor) {}
+void zb2SetCollisionSensor(xptr body, int isSensor) {} // use if collision detection is allowed
+void zb2SetSensor(xptr body, int isSensor) {} // use if collision detection is not allowed
 void zb2SetActive(xptr body, int isActive) {}
 void zb2SetMass(xptr body, float mass) {}
 void zb2SetMassData(xptr body, float mass, float x, float y, float rotationalInertia) {}
@@ -372,6 +375,9 @@ int zb2IsCollided(xptr body) {}
 
 // number of collisions of given body
 int zb2GetBodyContactCount(xptr body) {}
+
+// get next collided body or the 1st if getFirst is set to 1; sets getFirst to 0
+xptr zb2GetNextCollidedBody(xptr body, ref int getFirst) {}
 
 // set collision filtering flags to body
 void zb2SetBodyFilteringFlags(xptr body, int categoryBits, int maskBits, int groupIndex) {}]]>

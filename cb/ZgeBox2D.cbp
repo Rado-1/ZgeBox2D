@@ -15,6 +15,7 @@
 				<Option createStaticLib="1" />
 				<Compiler>
 					<Add option="-O3" />
+					<Add option="-std=c++11" />
 					<Add option="-DBUILD_DLL" />
 					<Add option="-DWIN32" />
 					<Add option="-DNDEBUG" />

@@ -4,6 +4,9 @@ Microsoft Visual Studio Solution File, Format Version 12.00
 VisualStudioVersion = 14.0.25420.1
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "ZgeBox2D", "ZgeBox2D.vcxproj", "{0ACE98C4-3350-45B4-8A49-199EBC80F3A2}"
+	ProjectSection(ProjectDependencies) = postProject
+		{A434E80C-1049-10BE-D9CA-B31D459E0CEF} = {A434E80C-1049-10BE-D9CA-B31D459E0CEF}
+	EndProjectSection
 EndProject
 Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "Box2D", "..\Box2D\Box2D\Build\vs2015\Box2D.vcxproj", "{A434E80C-1049-10BE-D9CA-B31D459E0CEF}"
 EndProject
